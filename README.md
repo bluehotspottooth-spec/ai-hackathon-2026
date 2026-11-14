@@ -15,7 +15,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 | Folder | Owner | What goes in it |
 |---|---|---|
 | `backend/` | **Ahmed** | Python server: audio conversion, Gemini translation, speech, sessions, API |
-| `frontend/` | **UI teammate** | The web app people see. `frontend/mockup/` holds the original Gemini Canvas mockup |
+| `frontend/` | **Benet** | The web app people see: `index.html` (start with `frontend/README.md`). `frontend/mockup/` holds the original Gemini Canvas mockup |
 | `tests/` and `data/` | **Testing teammate** | Glossary building, FLEURS + medical evaluations, results CSVs, charts |
 | `docs/` | **Everyone** | Briefs and the write-up. Say in the team chat before editing a shared doc |
 | Top level (`CLAUDE.md`, `requirements.txt`, `.gitignore`, `.env.example`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
@@ -35,7 +35,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 
 ```
 backend/        Ahmed: FastAPI + Gemini + ElevenLabs
-frontend/       UI teammate: the app's screens
+frontend/       Benet: the app's screens (index.html + README.md)
   mockup/       original Gemini Canvas design (credited)
 tests/          Testing teammate: evaluation scripts
   clips/        test audio (not uploaded: too big / personal)

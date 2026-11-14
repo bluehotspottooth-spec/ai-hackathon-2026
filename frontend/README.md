@@ -1,4 +1,6 @@
-# VoiceBridge frontend: start here
+# 👋 For Benet: VoiceBridge frontend, start here
+
+**Owner of this folder: Benet** (frontend). Backend questions: ask Ahmed.
 
 `frontend/index.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
 
