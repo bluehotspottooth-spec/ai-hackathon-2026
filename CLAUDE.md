@@ -69,15 +69,20 @@ Hosted on Hugging Face Spaces (Docker, port 7860): FastAPI app with the Gradio U
 mounted on it (gr.mount_gradio_app), so one public link serves both.
 ```
 
-**Decision (Sat 14 Nov):** the frontend is built in **Gradio** (Python), not HTML/CSS/JS. The teammate's brief is `UI_BRIEF_GRADIO.md`. The `service.py` functions return the same fields as the `/api` endpoints in section 6.
+**Decision (Sat 14 Nov, under review):** the frontend was switched to **Gradio** (brief: `docs/UI_BRIEF_GRADIO.md`). A teammate has since made an HTML/CSS/JS mockup in Gemini Canvas (`frontend/mockup/`), so going back to HTML (brief: `docs/UI_BRIEF.md`) is being considered. The backend supports both: the `service.py` functions return the same fields as the `/api` endpoints in section 6.
+
+**Who owns which folder** (see README): `backend/` + top-level setup files = Ahmed; `frontend/` = UI teammate; `tests/` + `data/` = testing teammate; `docs/` = shared. Only edit your own folder.
 
 ## 5. Folder structure
 
 ```
 voicebridge/
   CLAUDE.md
-  UI_BRIEF_GRADIO.md
-  README.md
+  README.md         (includes "who works where")
+  docs/
+    UI_BRIEF.md                    (HTML frontend brief)
+    UI_BRIEF_GRADIO.md             (Gradio frontend brief)
+    Submission for Hackathon.docx  (write-up)
   requirements.txt
   Dockerfile
   .env              (never committed)
@@ -93,6 +98,7 @@ voicebridge/
     sessions.py
     glossary.json
   frontend/
+    mockup/           (original Gemini Canvas HTML mockup, credited)
     app.py            (Gradio UI, exposes `demo`)
     mock_service.py   (fake service functions for building the UI)
   data/
@@ -155,7 +161,7 @@ Build in this order. Each phase ends with a milestone that must work before movi
 - In-memory dict: `session_id → {doctor_lang, patient_lang, voices, turns[], turn_count, created_at}`. Access code check. 20-turn limit. Sessions are lost on restart (fine for a prototype).
 
 **A6. `service.py` + `main.py` (FastAPI)**
-- `service.py`: the 4 functions from `UI_BRIEF_GRADIO.md` section 4 (`create_session`, `run_turn`, `get_summary`, `end_session`) plus `ServiceError`, calling A2 to A5.
+- `service.py`: the 4 functions from `docs/UI_BRIEF_GRADIO.md` section 4 (`create_session`, `run_turn`, `get_summary`, `end_session`) plus `ServiceError`, calling A2 to A5.
 - `main.py`: implement the contract in section 6 by calling `service.py`.
 - Mount the Gradio `demo` from `frontend/app.py` at `/` with `gr.mount_gradio_app`.
 - Run with `uvicorn backend.main:app --reload`.
@@ -173,7 +179,7 @@ Build in this order. Each phase ends with a milestone that must work before movi
 
 ### PART B: Frontend / UI (teammate, in Gradio)
 
-**The full frontend brief is `UI_BRIEF_GRADIO.md`.** Summary:
+**The full frontend brief is `docs/UI_BRIEF_GRADIO.md`** (or `docs/UI_BRIEF.md` if we switch back to HTML). Summary:
 - Gradio `gr.Blocks` app in `frontend/app.py`, exposed as `demo`, with 4 screens: access, language setup, appointment (doctor mic, patient mic, shared transcript, urgent flags, turns left), summary.
 - Calls the 4 `service.py` functions. `USE_MOCK = True` uses `frontend/mock_service.py` until the backend is ready.
 - Footer line: "This project is a prototype and is not medical advice."
