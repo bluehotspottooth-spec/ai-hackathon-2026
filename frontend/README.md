@@ -1,11 +1,17 @@
-# 👋 For Benet: VoiceBridge frontend, start here
+# 👋 For Benet: VoiceBridge frontend, start here (NEW MOCK v2)
 
 **Owner of this folder: Benet** (frontend). Backend questions: ask Ahmed.
+
+| File | What it is |
+|---|---|
+| **`index.html`** | ✅ **NEW MOCK (v2)**: the current design. Work on this one |
+| **`README.md`** | ✅ **NEW MOCK (v2)**: this guide |
+| `old_mockup/` | ❌ The OLD first mockup from Gemini Canvas. Reference only, don't edit |
 
 `frontend/index.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
 
 > Live demo of the same design (Ahmed can share it): a private claude.ai link from the team.
-> First draft of this design was AI-generated (Claude Code, based on the earlier Gemini Canvas mockup in `mockup/`). Credit both in the write-up.
+> First draft of this design was AI-generated (Claude Code, based on the earlier Gemini Canvas mockup in `old_mockup/`). Credit both in the write-up.
 
 ---
 

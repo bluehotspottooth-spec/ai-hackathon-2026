@@ -69,7 +69,7 @@ Hosted on Hugging Face Spaces (Docker, port 7860): FastAPI app with the Gradio U
 mounted on it (gr.mount_gradio_app), so one public link serves both.
 ```
 
-**Decision (Sat 14 Nov, under review):** the frontend was switched to **Gradio** (brief: `docs/UI_BRIEF_GRADIO.md`). A teammate has since made an HTML/CSS/JS mockup in Gemini Canvas (`frontend/mockup/`), so going back to HTML (brief: `docs/UI_BRIEF.md`) is being considered. The backend supports both: the `service.py` functions return the same fields as the `/api` endpoints in section 6.
+**Decision (Sat 14 Nov, final): the frontend is HTML/CSS/JS**, built by Benet on top of the **NEW MOCK (v2)** in `frontend/index.html` (guide: `frontend/README.md`). It talks to the `/api` endpoints in section 6 and is served by `main.py`. History: we briefly planned Gradio (`docs/UI_BRIEF_GRADIO.md`, now unused), then a first Gemini Canvas mockup (`frontend/old_mockup/`, reference only).
 
 **Who owns which folder** (see README): `backend/` + top-level setup files = Ahmed; `frontend/` = UI teammate; `tests/` + `data/` = testing teammate; `docs/` = shared. Only edit your own folder.
 
@@ -98,7 +98,9 @@ voicebridge/
     sessions.py
     glossary.json
   frontend/
-    mockup/           (original Gemini Canvas HTML mockup, credited)
+    index.html        (NEW MOCK v2: the frontend, built by Benet on the Claude Code prototype)
+    README.md         (handoff guide for Benet)
+    old_mockup/       (OLD first Gemini Canvas mockup, credited, reference only)
     app.py            (Gradio UI, exposes `demo`)
     mock_service.py   (fake service functions for building the UI)
   data/

@@ -15,7 +15,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 | Folder | Owner | What goes in it |
 |---|---|---|
 | `backend/` | **Ahmed** | Python server: audio conversion, Gemini translation, speech, sessions, API |
-| `frontend/` | **Benet** | The web app people see: `index.html` (start with `frontend/README.md`). `frontend/mockup/` holds the original Gemini Canvas mockup |
+| `frontend/` | **Benet** | The web app people see: `index.html` (start with `frontend/README.md`). `frontend/old_mockup/` holds the OLD first Gemini Canvas mockup (reference only) |
 | `tests/` and `data/` | **Testing teammate** | Glossary building, FLEURS + medical evaluations, results CSVs, charts |
 | `docs/` | **Everyone** | Briefs and the write-up. Say in the team chat before editing a shared doc |
 | Top level (`CLAUDE.md`, `requirements.txt`, `.gitignore`, `.env.example`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
@@ -36,7 +36,8 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 ```
 backend/        Ahmed: FastAPI + Gemini + ElevenLabs
 frontend/       Benet: the app's screens (index.html + README.md)
-  mockup/       original Gemini Canvas design (credited)
+  index.html    NEW MOCK (v2): the current design
+  old_mockup/   OLD first Gemini Canvas design (credited, reference only)
 tests/          Testing teammate: evaluation scripts
   clips/        test audio (not uploaded: too big / personal)
   results/      result CSVs and charts
@@ -101,7 +102,7 @@ Translate one file from the terminal, without the server:
 | **pydub** + **ffmpeg** | Audio conversion and noise check | https://github.com/jiaaro/pydub · https://ffmpeg.org | MIT · LGPL/GPL |
 | **python-dotenv**, **google-genai**, **elevenlabs** (Python SDKs) | Loading keys, calling the APIs | PyPI | BSD / Apache 2.0 / MIT |
 | **Gradio** | (Optional frontend) | https://gradio.app | Apache 2.0 |
-| **Google Gemini Canvas** | First draft of the UI mockup (`frontend/mockup/`) | https://gemini.google.com | — |
+| **Google Gemini Canvas** | First draft of the UI mockup (`frontend/old_mockup/`) | https://gemini.google.com | — |
 | **Claude Code** (Anthropic) | AI coding assistant used to write and test the backend with Ahmed | https://claude.com/claude-code | — |
 
 *Every result in this repo comes from data not used to build the system, except where clearly marked as development data (FLEURS Urdu clips 1806 and 1930).*
