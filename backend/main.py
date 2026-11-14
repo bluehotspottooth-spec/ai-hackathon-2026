@@ -22,7 +22,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from backend import service
+from backend import ratelimit, service
 from backend.errors import ServiceError
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10 MB: a 60-second recording is far smaller
@@ -62,13 +62,19 @@ class SessionIdRequest(BaseModel):
 # ---- endpoints
 # These are plain "def" (not "async def"): FastAPI runs them on a worker thread,
 # so one slow Gemini call doesn't freeze the server for other users.
+def _visitor(request: Request) -> str:
+    return ratelimit.visitor_id(request.headers, request.client.host if request.client else None)
+
+
 @app.post("/api/session")
-def create_session(body: SessionRequest):
+def create_session(body: SessionRequest, request: Request):
+    ratelimit.check("session", _visitor(request))  # spam protection (see ratelimit.py)
     return service.create_session(body.access_code, body.doctor_lang, body.patient_lang)
 
 
 @app.post("/api/turn")
-def turn(session_id: str = Form(...), speaker: str = Form(...), audio: UploadFile = File(...)):
+def turn(request: Request, session_id: str = Form(...), speaker: str = Form(...), audio: UploadFile = File(...)):
+    ratelimit.check("turn", _visitor(request))  # spam protection (see ratelimit.py)
     data = audio.file.read(MAX_UPLOAD_BYTES + 1)
     if len(data) > MAX_UPLOAD_BYTES:
         raise ServiceError("That recording is too large. Please keep each turn under a minute.", 400)

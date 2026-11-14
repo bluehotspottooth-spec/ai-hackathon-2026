@@ -110,9 +110,15 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Milestone 3 ✅:** a full appointment over HTTP. Wrong code 401; Urdu patient turn **4.2 s**; English doctor turn **5.5 s** (with urgent flags); noisy turn refused (400); summary in both languages; end; using it after ending → 404.
 - **Glossary connected:** checked translations are given as rules, AI-drafted ones as suggestions; glossary urgent terms join the urgent list.
 
+### ~16:30 · Spam protection, Dockerfile prepared, README + credits
+- **`backend/ratelimit.py`:** per visitor (IP address), max **10 new appointments per hour** and **30 turns per 5 minutes**, otherwise 429 "Too many requests, please wait". **Why:** once the app is public, one person could burn our ~400 monthly spoken turns of ElevenLabs credits. A real appointment never gets near these limits. **Tested** with FastAPI's test client (no AI calls): the 11th appointment and the 31st turn were refused, and everything else kept working.
+- **`Dockerfile` + `.dockerignore` prepared, NOT deployed.** **Decision (Ahmed): don't publish the backend on its own.** Without the frontend there's nothing useful for users to see, so we deploy once the frontend is ready. The Dockerfile installs Python 3.12 + ffmpeg, runs as a normal user, listens on port 7860 (Hugging Face's standard), and takes keys from Space Secrets, never from a file. **Not build-tested** (Docker isn't installed locally), but a simulation with only the files Docker copies (`backend/` + `frontend/`, keys as environment variables) started, created a session and loaded all 106 glossary terms.
+- **README:** how one turn works, how to run and test locally (`/docs`), and the **full credits table** (APIs, datasets, libraries, AI tools, with links and licences).
+
 ---
 
 ## Next
-- Frontend connection (HTML from the mockup, or Gradio).
-- A8: Dockerfile + Hugging Face deployment.
+- Frontend connection (HTML from the mockup, or Gradio): waiting on the team's decision and the friend's progress.
+- Deploy to Hugging Face once the frontend is ready (Ahmed: make an HF account and Space; add 3 secrets).
+- Evaluation scripts (C2 FLEURS, C3 medical baseline vs VoiceBridge).
 - Fetch the FLEURS English references once Hugging Face's service is back.

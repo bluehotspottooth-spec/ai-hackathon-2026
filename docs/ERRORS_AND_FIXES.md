@@ -39,6 +39,8 @@ Times are London time, Sat 14 Nov 2026 unless stated.
 | K17 | **Translation sometimes exaggerates**: "tight chest pain" → Urdu "severe pressure pain" | 🟠 Medium | Rule 3 already forbids it; measure how often in C3; native speakers check | #30 |
 | K18 | **Glossary translations are AI-drafted**: none checked by a native speaker yet; SNOMED IDs not looked up yet | 🟠 Medium | Used only as *suggestions* until verified; automatic check passed (#32); testing teammate checks them | #31, #32 |
 | K19 | **Summary assumes the patient reports symptoms**, so it may attribute the doctor's words to the patient | 🟡 Low | Seen in an artificial test (the doctor read out symptoms). Check with real conversations in C4 | #30 |
+| K20 | **Dockerfile not build-tested** (Docker not installed locally) | 🟡 Low | Simulated the container's files (works); first real build happens on Hugging Face at deploy | #34 |
+| K21 | **Spam limits are per IP address** and reset on restart; people sharing one Wi-Fi share a limit | 🟡 Low | Limits are generous (30 turns / 5 min); fine for a prototype | #34 |
 
 ---
 
@@ -269,6 +271,10 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 ### 33. ✅ Small setup slips
 - The server launch file was first put in the wrong folder (`voicebridge/.claude/`); the app looks for it in `hackathon/.claude/`. Moved.
 - The medicine list said "antibiotics" while the data said "antibiotic", which would have created a duplicate term. Fixed before building.
+
+### 34. ⚠️ Deployment preparation: two things we couldn't fully test
+- **Docker isn't installed on our laptop**, so the `Dockerfile` hasn't been built yet. Instead we copied only what Docker copies (`backend/`, `frontend/`) to an empty folder, gave it the keys as environment variables (like Hugging Face Secrets) and started it: health OK, appointment created, all 106 glossary terms loaded. Remaining risk: installing ffmpeg on Hugging Face, which we'll see in the Space's build log.
+- **Spam limits** (`ratelimit.py`) identify visitors by IP address. On Hugging Face we read the real address from the `X-Forwarded-For` header, which can be faked by a determined attacker. It's still fine as a credit-saver for a prototype.
 
 ---
 
