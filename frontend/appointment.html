@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceBridge - Live Appointment</title>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <span>Live GP Appointment</span> | 
+      <span>Turns left: 17</span>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Doctor Panel -->
+    <section id="doctor-panel">
+      <h2>Doctor (English)</h2>
+      <button type="button" aria-label="Doctor record button">🎤 Hold to Speak (Doctor)</button>
+      <p>Status: Idle</p>
+    </section>
+
+    <!-- Central Transcript & Chat Feed -->
+    <section id="shared-transcript">
+      <h2>Appointment Transcript</h2>
+      
+      <!-- Example Transcript Line with Dual Translation -->
+      <div class="transcript-card">
+        <p><strong>Doctor:</strong> Do you have any pain in your chest?</p>
+        <p><strong>Patient Language Translation:</strong> کیا آپ کے سینے میں کوئی درد ہے؟</p>
+        <small>Detected: English · 1.2s</small>
+      </div>
+
+      <div class="transcript-card">
+        <p><strong>Patient (Urdu):</strong> مجھے سینے میں درد ہے</p>
+        <p><strong>English Translation:</strong> I have chest pain.</p>
+        <small>Detected: Urdu · 2.1s</small>
+        <!-- Urgent Flag Feature -->
+        <div class="urgent-flag" style="color: red; font-weight: bold;">
+          ⚠ Urgent: chest pain
+        </div>
+      </div>
+    </section>
+
+    <!-- Patient Panel -->
+    <section id="patient-panel">
+      <h2>Patient (Urdu)</h2>
+      <button type="button" aria-label="Patient record button">🎤 Hold to Speak (Patient)</button>
+      <p>Status: Idle</p>
+    </section>
+
+    <!-- Navigation out of appointment -->
+    <section id="appointment-controls">
+      <br>
+      <form action="summary.html" method="GET">
+        <button type="submit">End Appointment & View Summary</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>This project is a prototype and is not medical advice.</p>
+  </footer>
+
+</body>
+</html>

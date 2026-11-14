@@ -1,0 +1,147 @@
+/* ==========================
+   1. DESIGN TOKENS & VARIABLES
+   ========================== */
+:root {
+  /* Colours */
+  --bg: #F4F8FA;            /* Page background */
+  --surface: #FFFFFF;       /* Cards, headers, panels */
+  --text: #0F2530;          /* Main text */
+  --text-muted: #4A6572;    /* Secondary text / footers */
+  --primary: #0B6E8C;       /* Main buttons / teal-blue */
+  --primary-hover: #095A73; 
+  --doctor: #1D4E89;        /* Doctor accent blue */
+  --patient: #0E7C66;       /* Patient accent teal-green */
+  --urgent: #C62828;        /* Urgent flags / red */
+  --urgent-bg: #FDECEA;
+  --border: #D5E1E7;
+
+  /* Typography & Spacing */
+  --font: system-ui, -apple-system, sans-serif;
+  --radius: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+}
+
+/* ==========================
+   2. GLOBAL RESET & BASE STYLES
+   ========================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Common Layout Elements */
+header, main, footer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+header {
+  background: var(--surface);
+  padding: var(--space-4) var(--space-6);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-6);
+  box-shadow: 0 2px 8px rgba(15, 37, 48, 0.05);
+}
+
+main {
+  flex: 1;
+  background: var(--surface);
+  padding: var(--space-6);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(15, 37, 48, 0.08);
+  margin-bottom: var(--space-6);
+}
+
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  padding: var(--space-4) 0;
+}
+
+/* ==========================
+   3. SHARED FORM & BUTTON STYLES
+   ========================== */
+button {
+  display: inline-block;
+  background-color: var(--primary);
+  color: #FFFFFF;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* ==========================
+   4. PAGE-SPECIFIC COMPONENTS
+   ========================== */
+/* Setup page radio options */
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+fieldset div {
+  margin-bottom: 10px;
+}
+
+/* Appointment transcript cards */
+.transcript-card {
+  background-color: var(--bg);
+  border-left: 4px solid var(--primary);
+  padding: var(--space-4);
+  border-radius: 6px;
+  margin-bottom: var(--space-4);
+}
+
+.urgent-flag {
+  background-color: var(--urgent-bg);
+  color: var(--urgent);
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+/* Summary boxes */
+.summary-box {
+  background-color: var(--bg);
+  padding: var(--space-4);
+  border-radius: 8px;
+  margin-bottom: var(--space-6);
+}

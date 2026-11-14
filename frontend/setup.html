@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>VoiceBridge - Language Setup</title>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <a href="index.html">← Back</a> | <span>VoiceBridge Setup</span>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section id="setup-section">
+      <h1>Select Patient Language</h1>
+      <p>Doctor language is fixed to <strong>English (en)</strong>.</p>
+      
+      <form action="appointment.html" method="GET">
+        <fieldset>
+          <legend>Which language does the patient speak?</legend>
+          
+          <div>
+            <input type="radio" id="pl" name="patient_lang" value="pl" required>
+            <label for="pl">Polski · Polish</label>
+          </div>
+          <div>
+            <input type="radio" id="ro" name="patient_lang" value="ro">
+            <label for="ro">Română · Romanian</label>
+          </div>
+          <div>
+            <input type="radio" id="pa" name="patient_lang" value="pa">
+            <label for="pa">ਪੰਜਾਬੀ · Panjabi</label>
+          </div>
+          <div>
+            <input type="radio" id="ur" name="patient_lang" value="ur">
+            <label for="ur">اردو · Urdu</label>
+          </div>
+          <div>
+            <input type="radio" id="pt" name="patient_lang" value="pt">
+            <label for="pt">Português · Portuguese</label>
+          </div>
+          <div>
+            <input type="radio" id="es" name="patient_lang" value="es">
+            <label for="es">Español · Spanish</label>
+          </div>
+          <div>
+            <input type="radio" id="ar" name="patient_lang" value="ar">
+            <label for="ar">العربية · Arabic</label>
+          </div>
+          <div>
+            <input type="radio" id="bn" name="patient_lang" value="bn">
+            <label for="bn">বাংলা · Bengali</label>
+          </div>
+          <div>
+            <input type="radio" id="gu" name="patient_lang" value="gu">
+            <label for="gu">ગુજરાતી · Gujarati</label>
+          </div>
+          <div>
+            <input type="radio" id="it" name="patient_lang" value="it">
+            <label for="it">Italiano · Italian</label>
+          </div>
+          <div>
+            <input type="radio" id="fa" name="patient_lang" value="fa">
+            <label for="fa">فارسی · Persian</label>
+          </div>
+        </fieldset>
+
+        <br>
+        <button type="submit">Begin Appointment</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>This project is a prototype and is not medical advice.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>VoiceBridge - Appointment Summary</title>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <span>Appointment Summary</span>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section id="summary-section">
+      <h1>Consultation Summary</h1>
+      <p>Review the final breakdown of the appointment below.</p>
+
+      <!-- English Summary Box -->
+      <div class="summary-box">
+        <h2>English Summary</h2>
+        <p>Patient presented with chest pain starting earlier today. Recommended immediate follow-up diagnostics.</p>
+        <button type="button">Copy English Text</button>
+        <button type="button">Download (.txt)</button>
+      </div>
+
+      <hr>
+
+      <!-- Patient Language Summary Box -->
+      <div class="summary-box">
+        <h2>Summary (Urdu)</h2>
+        <p dir="auto">مریض کو آج کے شروع میں سینے میں درد کی شکایت تھی۔ فوری فالو اپ تشخیص کی سفارش کی جاتی ہے۔</p>
+        <button type="button">Copy Patient Language Text</button>
+        <button type="button">Download (.txt)</button>
+      </div>
+
+      <br>
+      <!-- Restart Action -->
+      <form action="index.html" method="GET">
+        <button type="submit">Start New Appointment</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>This project is a prototype and is not medical advice.</p>
+  </footer>
+
+</body>
+</html>
