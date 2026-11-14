@@ -1,0 +1,124 @@
+"""
+prompts.py: the instructions we give Gemini.
+
+There are TWO versions, so we can measure what our medical layer adds:
+
+1. BASELINE: a plain "transcribe, detect the language, translate" request.
+   This is what anyone would get by using Gemini directly.
+
+2. VOICEBRIDGE (medical layer): our GP-specific rules + urgent-symptom
+   flagging + glossary terms. This is OUR work on top of the AI, and the
+   tests compare it against the baseline.
+"""
+
+import json
+from pathlib import Path
+
+# Our 11 patient languages + English. Code -> English name.
+# Codes are ISO 639-1 (the standard 2-letter language codes).
+LANGUAGES = {
+    "en": "English",
+    "pl": "Polish",
+    "ro": "Romanian",
+    "pa": "Panjabi",
+    "ur": "Urdu",
+    "pt": "Portuguese",
+    "es": "Spanish",
+    "ar": "Arabic",
+    "bn": "Bengali",
+    "gu": "Gujarati",
+    "it": "Italian",
+    "fa": "Persian",
+}
+
+# Symptoms a GP must never miss. Used to tell Gemini what counts as "urgent".
+# Based on common NHS "call 999 / urgent" warning signs. To be checked and
+# extended by the team in the glossary step (C1).
+URGENT_SYMPTOMS = [
+    "chest pain or tightness",
+    "difficulty breathing / shortness of breath",
+    "signs of stroke (face drooping, arm weakness, slurred speech)",
+    "fainting or loss of consciousness",
+    "seizure / fit",
+    "severe bleeding, or coughing / vomiting blood",
+    "severe allergic reaction (swollen lips, tongue or throat)",
+    "sudden severe headache ('worst ever')",
+    "thoughts of suicide or self-harm",
+    "high fever with stiff neck, rash that doesn't fade, or confusion",
+    "severe abdominal pain",
+    "pregnancy with bleeding or severe pain",
+    "a baby or child who is floppy, unresponsive or not feeding",
+]
+
+GLOSSARY_PATH = Path(__file__).parent / "glossary.json"
+
+
+# ---------------------------------------------------------------- baseline
+def baseline_prompt(source_hint: str, target_lang: str) -> str:
+    """The simple version: no medical rules, no glossary, no urgent flags."""
+    return (
+        f"Transcribe the speech in this audio. The speaker is expected to speak "
+        f"{LANGUAGES.get(source_hint, source_hint)}. Detect the language actually spoken, "
+        f"then translate the transcript into {LANGUAGES[target_lang]}."
+    )
+
+
+# ---------------------------------------------------------------- medical layer
+def medical_system_instruction() -> str:
+    """Rules for interpreting in a UK GP appointment. Same for every turn."""
+    urgent_list = "\n".join(f"- {s}" for s in URGENT_SYMPTOMS)
+    return f"""You are a professional medical interpreter in a UK GP (family doctor) appointment.
+A patient with limited English and an English-speaking GP are talking through you.
+Lives may depend on accuracy. Follow these rules exactly:
+
+1. Transcribe exactly what was said, in the original language and script (e.g. Urdu in Urdu script).
+2. Translate faithfully, as a professional interpreter would. Keep the first person:
+   "I have pain" stays "I have pain", never "The patient says they have pain".
+3. Never soften, exaggerate or leave out symptoms. "Very bad pain" must stay "very bad pain".
+4. Keep negations exact: "no chest pain" must never become "chest pain".
+5. Keep numbers, durations, doses, medicine names and body parts exact
+   (e.g. "since 3 days", "500 mg twice a day", "left side").
+6. Use standard medical terms the GP will recognise in English (e.g. "shortness of breath"),
+   and plain everyday words when translating for the patient.
+7. Do not add advice, explanations, diagnoses or answers. Only interpret what was said.
+8. If part of the speech is unclear, write [unclear] at that point rather than guessing.
+9. Report the language actually spoken as an ISO 639-1 code (e.g. "ur", "pl", "en"),
+   even if it is not the expected language.
+
+Urgent symptoms: if the speaker describes any of the following (or something clearly as serious),
+list each one, in short plain English, in urgent_terms. Only list what was actually said,
+not something that was denied (e.g. "no chest pain" is NOT urgent). Otherwise return an empty list.
+{urgent_list}"""
+
+
+def _glossary_lines(target_lang: str) -> list[str]:
+    """
+    Glossary terms for this target language, as "English term = translation" lines.
+    The glossary is built in step C1. Until then, it simply returns nothing.
+    """
+    if not GLOSSARY_PATH.exists():
+        return []
+    entries = json.loads(GLOSSARY_PATH.read_text(encoding="utf-8"))
+    lines = []
+    for e in entries:
+        translation = e.get("translations", {}).get(target_lang)
+        if target_lang == "en":
+            lines.append(f"- {e['term']}")
+        elif translation:
+            lines.append(f"- {e['term']} = {translation}")
+    return lines
+
+
+def medical_prompt(source_hint: str, target_lang: str) -> str:
+    """The per-turn request, with glossary terms added when we have them."""
+    prompt = (
+        f"The speaker is expected to speak {LANGUAGES.get(source_hint, source_hint)}. "
+        f"Transcribe the audio, detect the language actually spoken, and translate it into "
+        f"{LANGUAGES[target_lang]} following your interpreter rules."
+    )
+    glossary = _glossary_lines(target_lang)
+    if glossary:
+        prompt += (
+            "\n\nUse these checked GP terms whenever they fit what was said:\n" + "\n".join(glossary)
+        )
+    return prompt
