@@ -136,10 +136,17 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Tested with real clicks and typing** in the browser: menu pages, code entry, language choice, tap-to-talk, the full automatic demo, End → summary, and phone layout (no sideways scrolling). Bugs found and fixed: the end box showed on load (`hidden` was overridden), menu links didn't switch pages in the preview (page switching now runs through JavaScript), the demo bar layout, and the button dock floating mid-screen.
 - **Published as a private claude.ai artifact** for the team to click through (shared from its Share menu). The file in `docs/design/` is the same page and still works locally or as `frontend/index.html` with `USE_MOCK = false`.
 
+### ~19:40 · Frontend handed over + connection tested
+- **`frontend/index.html`:** the prototype is now the frontend's starting point (demo mode on). The UI teammate builds on top of it.
+- **`frontend/README.md`:** a handoff guide: what's safe to change (colours, fonts, wording, layout of the info pages), what must stay (API calls and field names, element ids, safety displays, disclaimer), how to connect (`USE_MOCK = false`, open `http://localhost:8000`), a checklist and time estimates.
+- **Connection tested end to end** (temporary copy with `USE_MOCK = false`, served by the backend): real session, Urdu → English turn **5.1 s** and English → Urdu turn **5.5 s** with spoken audio, urgent banner, summary in both languages, and the appointment deleted afterwards (turn after ending → 404). **No code changes were needed to connect.** Not tested: a real microphone (the test browser blocks it) and phones.
+- Two backend prompt fixes verified or added along the way: questions no longer raise urgent alerts, and the summary no longer adds "severe" (ERRORS_AND_FIXES #35, #36).
+
 ---
 
 ## Next
-- Frontend connection (HTML from the mockup, or Gradio): waiting on the team's decision and the friend's progress.
+- UI teammate: design tweaks to `frontend/index.html`, then test with a real microphone in Chrome.
+- Deploy to Hugging Face, then test on phones.
 - Deploy to Hugging Face once the frontend is ready (Ahmed: make an HF account and Space; add 3 secrets).
 - Evaluation scripts (C2 FLEURS, C3 medical baseline vs VoiceBridge).
 - Fetch the FLEURS English references once Hugging Face's service is back.

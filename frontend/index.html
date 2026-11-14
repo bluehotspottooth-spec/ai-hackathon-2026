@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>VoiceBridge Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&display=swap">
+<!--
+  VoiceBridge interactive prototype (multi-page). Demo mode by default.
+  USE_MOCK = false + serve as frontend/index.html from the backend = real API, mic and voices.
+  Pages (hash links): #home #how #languages #safety #about, app flow: #start #choose #consult #summary
+-->
+<style>
+/* Layout concept: a calm clinical product site; the appointment screen is a chat thread with a two-button dock. */
+:root{
+  --bg:#f2f5f4; --surface:#ffffff; --surface-2:#f7f9f8; --line:#dfe6e3; --line-2:#c9d4d0;
+  --ink:#0c1a24; --ink-2:#384853; --ink-3:#62717b;
+  --brand:#0f6b6a; --brand-2:#0a5453; --brand-soft:#dcefeb; --on-brand:#ffffff;
+  --doc:#2b4fbf; --doc-soft:#e9efff; --doc-line:#c9d6fb; --on-doc:#ffffff;
+  --pat:#0b7a5c; --pat-soft:#e2f3ec; --pat-line:#b9e0d0; --on-pat:#ffffff;
+  --urgent:#b42330; --urgent-soft:#fdecee; --urgent-line:#f1c0c5;
+  --warn:#865700; --warn-soft:#fff4d6; --warn-line:#efd9a0;
+  --rec:#d13c3c; --rec-soft:rgba(209,60,60,.14);
+  --hero:#0c1a24; --hero-ink:#ffffff; --hero-muted:#b6c4cd; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.08);
+  --shadow:0 1px 2px rgba(12,26,36,.05),0 8px 24px rgba(12,26,36,.07);
+  --overlay:rgba(12,26,36,.45);
+  --focus:#e09b00;
+  --font:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --display:"Plus Jakarta Sans","Atkinson Hyperlegible",system-ui,sans-serif;
+  --rtl:"Noto Nastaliq Urdu","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0b1418; --surface:#121e23; --surface-2:#17262c; --line:#24353c; --line-2:#31464e;
+  --ink:#e7eef0; --ink-2:#b4c3c9; --ink-3:#8698a1;
+  --brand:#41b6a9; --brand-2:#5ccabd; --brand-soft:#10302d; --on-brand:#06221f;
+  --doc:#8ea9ff; --doc-soft:#162140; --doc-line:#2b3c68; --on-doc:#0b1430;
+  --pat:#5fd0a9; --pat-soft:#0f2a22; --pat-line:#1f4a3b; --on-pat:#062019;
+  --urgent:#ff8b93; --urgent-soft:#3a1418; --urgent-line:#6b2a31;
+  --warn:#f2c25a; --warn-soft:#33270d; --warn-line:#5c4718;
+  --rec:#ff6b6b; --rec-soft:rgba(255,107,107,.16);
+  --hero:#0f2127; --hero-ink:#ffffff; --hero-muted:#a8bac2; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.07);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); --overlay:rgba(0,0,0,.6); --focus:#ffc24d;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0b1418; --surface:#121e23; --surface-2:#17262c; --line:#24353c; --line-2:#31464e;
+  --ink:#e7eef0; --ink-2:#b4c3c9; --ink-3:#8698a1;
+  --brand:#41b6a9; --brand-2:#5ccabd; --brand-soft:#10302d; --on-brand:#06221f;
+  --doc:#8ea9ff; --doc-soft:#162140; --doc-line:#2b3c68; --on-doc:#0b1430;
+  --pat:#5fd0a9; --pat-soft:#0f2a22; --pat-line:#1f4a3b; --on-pat:#062019;
+  --urgent:#ff8b93; --urgent-soft:#3a1418; --urgent-line:#6b2a31;
+  --warn:#f2c25a; --warn-soft:#33270d; --warn-line:#5c4718;
+  --rec:#ff6b6b; --rec-soft:rgba(255,107,107,.16);
+  --hero:#0f2127; --hero-ink:#ffffff; --hero-muted:#a8bac2; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.07);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); --overlay:rgba(0,0,0,.6); --focus:#ffc24d;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;text-wrap:balance;margin:0;color:var(--ink)}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
+.rtl,[dir="rtl"]{font-family:var(--rtl);line-height:2}
+.icon{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.view{display:none}
+.view.active{display:block}
+.muted{color:var(--ink-3)}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.site-head .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center}
+.logo-mark .icon{width:19px;height:19px;stroke-width:2.2}
+.nav{display:flex;gap:4px;margin-left:12px}
+.nav a{padding:8px 12px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-weight:700;font-size:15px}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a[aria-current="page"]{color:var(--brand);background:var(--brand-soft)}
+.head-actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+.menu-btn{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line-2);place-items:center}
+.mobile-nav{display:none;border-top:1px solid var(--line);background:var(--surface)}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:14px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:700}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;transition:background .15s,transform .05s,border-color .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--brand);color:var(--on-brand)}
+.btn-primary:hover{background:var(--brand-2)}
+.btn-primary[disabled]{opacity:.6;cursor:wait}
+.btn-ghost{background:var(--surface);border:1px solid var(--line-2);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink-3)}
+.btn-danger{background:var(--surface);border:1px solid var(--urgent-line);color:var(--urgent)}
+.btn-danger:hover{background:var(--urgent-soft)}
+.btn-sm{min-height:40px;padding:0 14px;font-size:14.5px;border-radius:10px}
+.btn-on-dark{background:var(--hero-chip);color:var(--hero-ink);border:1px solid rgba(255,255,255,.18)}
+.btn-on-dark:hover{background:rgba(255,255,255,.14)}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:700;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
+
+/* home */
+.hero{background:var(--hero);color:var(--hero-ink)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:64px 72px}
+.hero h1{color:var(--hero-ink);font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.035em;font-weight:800}
+.hero h1 em{font-style:normal;color:var(--hero-accent)}
+.hero-sub{margin-top:18px;font-size:18.5px;color:var(--hero-muted);max-width:30em}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero-facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px;color:var(--hero-muted);font-size:14.5px}
+.hero-facts strong{display:block;color:var(--hero-ink);font-family:var(--display);font-size:24px;letter-spacing:-.02em}
+.preview{background:var(--surface);color:var(--ink);border-radius:22px;padding:18px;box-shadow:0 30px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px}
+.preview-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-3);font-weight:700}
+.section{padding-block:72px}
+.section-head{max-width:640px;margin-bottom:32px;display:grid;gap:10px}
+.section-head h2{font-size:clamp(26px,3.4vw,36px)}
+.section-head p{color:var(--ink-2);font-size:17.5px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:grid;gap:10px;align-content:start}
+.tile h3{font-size:19px}
+.tile p{color:var(--ink-2)}
+.tile-icon{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand)}
+.tile-icon.red{background:var(--urgent-soft);color:var(--urgent)}
+.tile-icon.amber{background:var(--warn-soft);color:var(--warn)}
+.tile-icon.blue{background:var(--doc-soft);color:var(--doc)}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;counter-reset:step}
+.flow-step{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;display:grid;gap:8px;align-content:start;position:relative}
+.flow-step .n{font-family:var(--display);font-weight:800;font-size:13px;color:var(--brand)}
+.flow-step h3{font-size:17px}
+.flow-step p{color:var(--ink-2);font-size:15px}
+.flow-step .t{font-size:13px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.lang-strip{display:flex;flex-wrap:wrap;gap:8px}
+.lang-pill{padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:700}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.callout{display:flex;gap:16px;align-items:flex-start;padding:22px;border-radius:18px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent)}
+.callout p{color:var(--ink-2)}
+.footer{padding-block:32px 40px;color:var(--ink-3);font-size:14px;border-top:1px solid var(--line)}
+.footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* inner pages */
+.page-hero{padding-block:56px 24px}
+.page-hero h1{font-size:clamp(30px,4.4vw,44px);margin-top:8px}
+.page-hero p{margin-top:12px;color:var(--ink-2);font-size:18px;max-width:38em}
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.stat small{display:block;color:var(--ink-3);font-size:13.5px}
+.stat strong{font-family:var(--display);font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.compare div{border-radius:12px;padding:12px 14px;font-size:14.5px}
+.compare .before{background:var(--urgent-soft);color:var(--urgent);border:1px solid var(--urgent-line)}
+.compare .after{background:var(--pat-soft);color:var(--pat);border:1px solid var(--pat-line)}
+.lang-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.lang-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:8px;align-content:start}
+.lang-card .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lang-card .native{font-size:24px;font-weight:700}
+.lang-card .rank{font-size:12.5px;color:var(--ink-3);font-weight:700;font-variant-numeric:tabular-nums}
+.lang-card .meta{font-size:13.5px;color:var(--ink-3)}
+.phrase{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:17px;min-height:52px}
+.lang-card .btn{justify-self:start}
+.limits{display:grid;gap:10px}
+.limit{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.limit .icon{color:var(--warn);margin-top:3px}
+.limit p{color:var(--ink-2)}
+.credits{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.credit{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14.5px;color:var(--ink-2)}
+.credit b{display:block;color:var(--ink);font-size:15.5px}
+
+/* app flow */
+.app-page{padding-block:40px 64px}
+.form-card{max-width:440px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:32px;box-shadow:var(--shadow);display:grid;gap:6px}
+.form-card h1{font-size:26px}
+.label{font-weight:700;font-size:14px;margin-top:18px}
+.input-wrap{position:relative;margin-top:6px}
+.input-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-3)}
+.input{width:100%;height:52px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--surface-2);color:var(--ink);padding:0 14px 0 44px;font:inherit;font-size:17px;letter-spacing:.06em}
+.input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.hint-box{margin-top:12px;font-size:13.5px;color:var(--ink-3);background:var(--surface-2);border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px}
+.field-error{margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent);font-size:14.5px}
+.form-card .btn{margin-top:16px;width:100%}
+.choose-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.choose-head h1{font-size:clamp(26px,3.6vw,34px);margin-top:6px}
+.search{position:relative;width:280px;max-width:100%}
+.search .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:18px;height:18px}
+.search input{width:100%;height:44px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--surface);color:var(--ink);padding:0 12px 0 38px;font:inherit}
+.search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+.lang-opt{position:relative;text-align:left;padding:16px 18px;border-radius:16px;background:var(--surface);border:1.5px solid var(--line);min-height:92px;display:flex;flex-direction:column;justify-content:space-between;gap:4px}
+.lang-opt:hover{border-color:var(--line-2)}
+.lang-opt .native{font-size:23px;font-weight:700;line-height:1.35}
+.lang-opt .english{font-size:14px;color:var(--ink-3)}
+.lang-opt .tick{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;background:var(--brand);color:var(--on-brand);display:none;place-items:center}
+.lang-opt .tick .icon{width:14px;height:14px;stroke-width:3}
+.lang-opt[aria-checked="true"]{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.lang-opt[aria-checked="true"] .tick{display:grid}
+.choose-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.pair{display:flex;align-items:center;gap:10px;font-weight:700;flex-wrap:wrap}
+.pair .side{padding:8px 14px;border-radius:12px;background:var(--surface);border:1px solid var(--line)}
+.pair .doc{color:var(--doc)} .pair .pat{color:var(--pat)}
+
+/* consult: fills the screen so the button dock always sits at the bottom */
+#v-consult.active{display:flex;flex-direction:column;min-height:calc(100dvh - 64px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+#v-consult > .wrap{flex:1;width:100%}
+#v-consult .bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+#v-consult .bar .wrap{display:flex;align-items:center;gap:10px;min-height:56px;flex-wrap:wrap;padding-block:8px}
+.live{width:8px;height:8px;border-radius:50%;background:var(--pat);box-shadow:0 0 0 4px var(--pat-soft)}
+.bar-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.turns.low{color:var(--warn);border-color:var(--warn-line);background:var(--warn-soft)}
+.urgent-banner{display:flex;align-items:flex-start;gap:12px;margin-top:12px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent);padding:12px 14px;border-radius:14px}
+.urgent-banner b{display:block}
+.urgent-banner .x{margin-left:auto;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--urgent)}
+.thread{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px;padding-block:20px 24px;min-height:42vh}
+.empty{margin:auto;text-align:center;max-width:460px;padding:28px 8px;color:var(--ink-2);display:grid;gap:10px;justify-items:center}
+.empty-art{width:80px;height:80px;border-radius:24px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.empty-art .icon{width:38px;height:38px;stroke-width:1.6}
+.empty h2{font-size:22px}
+.how-list{display:grid;gap:8px;margin-top:6px;text-align:left;width:100%}
+.how-list div{display:flex;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px}
+.num{width:22px;height:22px;flex:none;border-radius:50%;background:var(--ink);color:var(--surface);font-size:12px;font-weight:700;display:grid;place-items:center}
+.msg{display:flex;flex-direction:column;max-width:min(640px,90%);animation:rise .25s ease-out}
+.msg.doctor{align-self:flex-start}
+.msg.patient{align-self:flex-end;align-items:flex-end}
+@keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+.msg-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-3);margin:0 6px 6px;font-variant-numeric:tabular-nums}
+.who{font-weight:700}
+.doctor .who{color:var(--doc)} .patient .who{color:var(--pat)}
+.bubble{padding:14px 16px 12px;border-radius:18px;border:1px solid;width:100%}
+.doctor .bubble{background:var(--surface);border-color:var(--doc-line);border-top-left-radius:6px}
+.patient .bubble{background:var(--pat-soft);border-color:var(--pat-line);border-top-right-radius:6px}
+.translation{font-size:19px;line-height:1.5;font-weight:700}
+.translation[dir="rtl"]{font-size:21px;line-height:2.1;font-weight:600}
+.original{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line-2);font-size:14.5px;color:var(--ink-2)}
+.original-label{display:block;font-size:12px;font-weight:700;color:var(--ink-3);font-family:var(--font);line-height:1.5}
+mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline dotted var(--warn) 2px;text-underline-offset:4px;border-radius:4px;padding:0 2px}
+.flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.flag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid}
+.flag .icon{width:14px;height:14px;stroke-width:2.2}
+.flag.urgent{background:var(--urgent-soft);border-color:var(--urgent-line);color:var(--urgent)}
+.flag.warn{background:var(--warn-soft);border-color:var(--warn-line);color:var(--warn)}
+.msg-actions{display:flex;gap:4px;margin:6px 2px 0;flex-wrap:wrap}
+.link-btn{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border-radius:8px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.link-btn:hover{background:var(--surface)}
+.link-btn .icon{width:16px;height:16px}
+.typing{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:18px;background:var(--surface);border:1px solid var(--line);font-size:14px;color:var(--ink-3)}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:bounce 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.note{align-self:center;font-size:13.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:8px 14px;border-radius:999px;display:flex;gap:8px;align-items:center;text-align:center;max-width:100%}
+.note.error{color:var(--urgent);border-color:var(--urgent-line);background:var(--urgent-soft)}
+.dock{position:sticky;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.dock-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-block:12px;max-width:892px}
+.speak{position:relative;display:flex;align-items:center;gap:14px;padding:12px 16px 12px 12px;border-radius:20px;border:1.5px solid;text-align:left;min-height:84px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:background .15s,border-color .15s,opacity .15s}
+.speak.doctor{background:var(--doc-soft);border-color:var(--doc-line)}
+.speak.patient{background:var(--pat-soft);border-color:var(--pat-line);flex-direction:row-reverse;text-align:right;padding:12px 12px 12px 16px}
+.speak[disabled]{opacity:.45;cursor:not-allowed}
+.mic{position:relative;width:60px;height:60px;flex:none;border-radius:50%;display:grid;place-items:center;transition:transform .15s,background .15s}
+.doctor .mic{background:var(--doc);color:var(--on-doc)}
+.patient .mic{background:var(--pat);color:var(--on-pat)}
+.mic .icon{width:26px;height:26px;stroke-width:2}
+.speak-text{min-width:0;flex:1;display:flex;flex-direction:column}
+.patient .speak-text{align-items:flex-end}
+.speak-who{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.3;display:block}
+.speak-who .tag{font-family:var(--font);font-weight:400;color:var(--ink-3);font-size:14px}
+.speak-hint{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.speak-hint[dir="rtl"]{font-size:14px;line-height:1.9}
+.meter{display:none;align-items:center;gap:3px;height:22px;margin-top:4px}
+.meter i{width:4px;height:4px;border-radius:2px;background:var(--rec);transition:height .08s}
+.speak.recording{background:var(--surface);border-color:var(--rec);box-shadow:0 0 0 5px var(--rec-soft)}
+.speak.recording .mic{background:var(--rec);color:#fff;transform:scale(1.05)}
+.speak.recording .mic::before,.speak.recording .mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rec);animation:ring 1.5s ease-out infinite}
+.speak.recording .mic::after{animation-delay:.75s}
+.speak.recording .meter{display:flex}
+.speak.recording .speak-hint{color:var(--rec);font-weight:700}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+.demo-bar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-3);padding-bottom:10px}
+
+/* summary */
+.sum-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
+.sum-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;display:grid;gap:14px;align-content:start}
+.sum-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sum-card h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+.for-doc{background:var(--doc-soft);color:var(--doc)} .for-pat{background:var(--pat-soft);color:var(--pat)}
+.sum-body{white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:16px;line-height:1.7;min-height:170px}
+.sum-body[dir="rtl"]{line-height:2.2}
+.privacy{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 16px;border-radius:12px;background:var(--brand-soft);color:var(--brand-2);font-size:14.5px}
+.skeleton{background:var(--line);border-radius:6px;height:14px;margin:8px 0;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.5}}
+
+/* modal (the viewer blocks confirm(), so confirmation is built into the page) */
+.modal{position:fixed;inset:0;z-index:50;background:var(--overlay);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-left,0px))}
+.modal-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;max-width:420px;width:100%;padding:24px;display:grid;gap:10px;box-shadow:var(--shadow)}
+.modal-card h2{font-size:21px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700}
+
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;padding-block:40px 48px}
+  .grid-3{grid-template-columns:1fr}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sum-grid,.grid-2,.compare{grid-template-columns:1fr}
+  .nav{display:none}
+  .menu-btn{display:grid}
+  .head-actions .btn-primary{display:none}
+}
+@media (max-width:560px){
+  .flow{grid-template-columns:1fr}
+  .section{padding-block:48px}
+  .dock-buttons{gap:8px}
+  .speak,.speak.patient{flex-direction:column;align-items:center;text-align:center;padding:12px 8px;gap:8px;min-height:auto}
+  .patient .speak-text,.speak-text{align-items:center}
+  .meter{justify-content:center}
+  .translation{font-size:17px}
+  .msg{max-width:94%}
+  .pair-full,.tl{display:none}
+  .form-card{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="3"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><path d="M6 3v6a5 5 0 0 0 10 0V3"/><path d="M11 14v2a5 5 0 0 0 10 0v-1"/><circle cx="21" cy="13" r="1.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-noise" viewBox="0 0 24 24"><path d="M2 12h2"/><path d="M6 8v8"/><path d="M10 5v14"/><path d="M14 9v6"/><path d="M18 7v10"/><path d="M22 12h-2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/><path d="M12 8v4l3 2"/></symbol>
+</svg>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#home"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span>VoiceBridge</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#how" data-nav="how">How it works</a>
+      <a href="#languages" data-nav="languages">Languages</a>
+      <a href="#safety" data-nav="safety">Safety</a>
+      <a href="#about" data-nav="about">About</a>
+    </nav>
+    <div class="head-actions">
+      <a class="btn btn-primary btn-sm" href="#start">Start appointment</a>
+      <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><svg class="icon"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Main (mobile)">
+    <a href="#home">Home</a><a href="#how">How it works</a><a href="#languages">Languages</a><a href="#safety">Safety</a><a href="#about">About</a><a href="#start">Start appointment</a>
+  </nav>
+</header>
+
+<main>
+<!-- ============ HOME ============ -->
+<section class="view" id="v-home" aria-labelledby="home-title">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" style="color:var(--hero-accent)">GP appointment translator</p>
+        <h1 id="home-title" style="margin-top:12px">Say it in your language. <em>Your GP hears it in theirs.</em></h1>
+        <p class="hero-sub">Hold a button and speak. VoiceBridge translates between patient and doctor in about four seconds, out loud and on screen, and flags urgent symptoms to the GP.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#start">Start an appointment <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <button class="btn btn-on-dark" id="hero-demo"><svg class="icon"><use href="#i-play"/></svg>Watch a demo consultation</button>
+        </div>
+        <div class="hero-facts">
+          <div><strong>11</strong>patient languages</div>
+          <div><strong>~4 s</strong>per spoken turn</div>
+          <div><strong>0</strong>conversations kept</div>
+        </div>
+      </div>
+      <div class="preview" aria-label="Example of a translated exchange">
+        <div class="preview-top"><span>Live · English ⇄ Urdu</span><span>Turn 2 of 20</span></div>
+        <div class="msg doctor" style="max-width:100%">
+          <div class="msg-meta"><span class="who">Doctor</span><span>10:42</span></div>
+          <div class="bubble"><div class="translation" dir="rtl">آج آپ کس وجہ سے آئے ہیں؟</div><div class="original"><span class="original-label">Said in English</span>What brings you in today?</div></div>
+        </div>
+        <div class="msg patient" style="max-width:100%">
+          <div class="msg-meta"><span class="who">Patient · Urdu</span><span>10:43</span></div>
+          <div class="bubble"><div class="translation">I've had chest pain for three days.</div><div class="original" dir="rtl"><span class="original-label" dir="ltr">Said in Urdu</span>مجھے تین دن سے سینے میں درد ہے۔</div>
+            <div class="flags"><span class="flag urgent"><svg class="icon"><use href="#i-alert"/></svg>chest pain</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">Built for a 10-minute appointment</p><h2>Everything the GP and patient need, nothing they don't</h2></div>
+    <div class="grid-3">
+      <div class="tile"><span class="tile-icon"><svg class="icon"><use href="#i-mic"/></svg></span><h3>Two buttons, one each</h3><p>The doctor and the patient each have their own button. Hold or tap to speak; the other person hears the translation straight away.</p></div>
+      <div class="tile"><span class="tile-icon red"><svg class="icon"><use href="#i-bell"/></svg></span><h3>Urgent symptoms flagged</h3><p>Chest pain, breathing problems, stroke signs and other red flags appear in a pinned alert for the GP. Questions and denials don't trigger it.</p></div>
+      <div class="tile"><span class="tile-icon amber"><svg class="icon"><use href="#i-eye"/></svg></span><h3>See what was heard</h3><p>Every message shows the speaker's own words. Doubtful words are underlined, and a noisy room is flagged, so mistakes get caught.</p></div>
+    </div>
+  </div></div>
+
+  <div class="band"><div class="section"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">One turn, start to finish</p><h2>From speech to translated speech in about four seconds</h2></div>
+    <div class="flow">
+      <div class="flow-step"><span class="n">Step 1</span><h3>Record</h3><p>Hold your button and speak in your own language.</p><span class="t">You</span></div>
+      <div class="flow-step"><span class="n">Step 2</span><h3>Check the audio</h3><p>Too quiet, too short or too noisy is caught before any AI runs.</p><span class="t">~0.1 s</span></div>
+      <div class="flow-step"><span class="n">Step 3</span><h3>Understand and translate</h3><p>Gemini writes down what was said and translates it with our GP rules.</p><span class="t">~3 s</span></div>
+      <div class="flow-step"><span class="n">Step 4</span><h3>Speak it</h3><p>A natural voice reads the translation aloud to the other person.</p><span class="t">~1 s</span></div>
+    </div>
+    <p style="margin-top:20px"><a href="#how">Read how it works <span aria-hidden="true">→</span></a></p>
+  </div></div></div>
+
+  <div class="section"><div class="wrap">
+    <div class="section-head"><p class="eyebrow">Languages</p><h2>The ten most common main languages in England and Wales after English, plus Persian</h2></div>
+    <div class="lang-strip" id="home-langs"></div>
+    <p style="margin-top:20px"><a href="#languages">Hear each language <span aria-hidden="true">→</span></a></p>
+  </div></div>
+
+  <div class="section" style="padding-top:0"><div class="wrap">
+    <div class="callout"><svg class="icon" style="width:26px;height:26px"><use href="#i-alert"/></svg><div style="display:grid;gap:4px"><b>A support tool, not a replacement for a professional interpreter</b><p>VoiceBridge is a student prototype. It can mishear words, so both people should check what was understood. In an emergency, call 999. This project is a prototype and is not medical advice.</p></div></div>
+  </div></div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="view" id="v-how" aria-labelledby="how-title">
+  <div class="wrap page-hero"><p class="eyebrow">How it works</p><h1 id="how-title">What happens when you press the button</h1><p>VoiceBridge uses large AI models for listening, translating and speaking. Most of our work is the layer around them that makes them safe for a GP appointment.</p></div>
+  <div class="wrap" style="display:grid;gap:16px;padding-bottom:64px">
+    <div class="stat-row">
+      <div class="stat"><small>Typical turn, end to end</small><strong>4–5 s</strong></div>
+      <div class="stat"><small>Translation step</small><strong>~3 s</strong></div>
+      <div class="stat"><small>Speaking step</small><strong>~1 s</strong></div>
+      <div class="stat"><small>GP terms in our glossary</small><strong>106</strong></div>
+    </div>
+    <div class="grid-2">
+      <div class="tile"><span class="tile-icon"><svg class="icon"><use href="#i-noise"/></svg></span><h3>1. Audio check</h3><p>Any recording (laptop, iPhone, Android) is converted to one clean format. Empty, too short, too long, silent or very noisy recordings are refused with a clear message before any AI is used.</p></div>
+      <div class="tile"><span class="tile-icon blue"><svg class="icon"><use href="#i-globe"/></svg></span><h3>2. Listen and translate</h3><p>One Gemini call writes down what was said, detects the language, translates it, and lists urgent symptoms and doubtful words. It fills a fixed form, so the app always gets the same fields back.</p></div>
+      <div class="tile"><span class="tile-icon"><svg class="icon"><use href="#i-volume"/></svg></span><h3>3. Speak</h3><p>ElevenLabs reads the translation aloud in a different voice for each direction. If it fails, a backup voice takes over; after 15 seconds the app shows the text only rather than freezing.</p></div>
+      <div class="tile"><span class="tile-icon amber"><svg class="icon"><use href="#i-history"/></svg></span><h3>4. Remember the conversation</h3><p>The last six turns go with each new one, so "it started two days ago" is understood. In Urdu this fixed verb gender in 3 of 3 tests (cough is feminine).</p></div>
+    </div>
+    <div class="tile">
+      <span class="tile-icon"><svg class="icon"><use href="#i-book"/></svg></span>
+      <h3>What we add on top of the AI</h3>
+      <p><b>GP interpreter rules:</b> keep negations ("no chest pain" never becomes "chest pain"), keep doses and durations exact, never soften or exaggerate, never add advice. <b>Medical glossary:</b> 106 terms from 40 mock UK GP consultations (PriMock57), each to be checked against the NHS SNOMED CT browser. <b>Fair testing:</b> 17 consultations were kept aside and never used to build anything, and every result is compared with plain Gemini.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LANGUAGES ============ -->
+<section class="view" id="v-languages" aria-labelledby="langs-title">
+  <div class="wrap page-hero"><p class="eyebrow">Languages</p><h1 id="langs-title">Eleven patient languages, each in its own script</h1><p>Ranked by ONS Census 2021 main language in England and Wales, plus Persian. Tap a phrase to hear it, if your browser has a voice for that language.</p></div>
+  <div class="wrap" style="padding-bottom:64px;display:grid;gap:16px">
+    <div class="lang-cards" id="lang-cards"></div>
+    <p class="muted" style="font-size:14px">Sample phrases are AI-drafted and still to be checked by native speakers. Browser voices on this page are only a preview; the real app uses ElevenLabs voices for all 11 languages.</p>
+  </div>
+</section>
+
+<!-- ============ SAFETY ============ -->
+<section class="view" id="v-safety" aria-labelledby="safety-title">
+  <div class="wrap page-hero"><p class="eyebrow">Safety and privacy</p><h1 id="safety-title">Built to fail safely</h1><p>Health conversations leave no room for confident guesses. These protections come from problems we found while testing.</p></div>
+  <div class="wrap" style="display:grid;gap:16px;padding-bottom:64px">
+    <div class="tile">
+      <span class="tile-icon red"><svg class="icon"><use href="#i-noise"/></svg></span>
+      <h3>The AI invented symptoms in a noisy room, so we stopped it</h3>
+      <p>With heavy background noise, the AI wrote "I have very sharp chest pain" for a recording about pollution. We added a noise check that measures speech against background before any AI runs, and a rule to answer "inaudible" instead of guessing.</p>
+      <div class="compare"><div class="before"><b>Before</b><br>Invented chest pain in 2 of 2 noisy tests</div><div class="after"><b>After</b><br>"Inaudible", no invented symptoms, 4 of 4</div></div>
+    </div>
+    <div class="grid-2">
+      <div class="tile"><span class="tile-icon red"><svg class="icon"><use href="#i-bell"/></svg></span><h3>Urgent alerts that stay visible</h3><p>Red flags stay pinned for the GP until dismissed. A doctor asking "do you have chest pain?" or a patient saying "no fever" doesn't raise an alert.</p></div>
+      <div class="tile"><span class="tile-icon amber"><svg class="icon"><use href="#i-eye"/></svg></span><h3>See the original words</h3><p>Each message shows what was heard in the speaker's own language, with doubtful words underlined and a "Not what I said" button to repeat it.</p></div>
+      <div class="tile"><span class="tile-icon"><svg class="icon"><use href="#i-shield"/></svg></span><h3>Nothing is kept</h3><p>Appointments live only in the server's memory and are deleted when they end, or after two hours. No accounts, no recordings saved.</p></div>
+      <div class="tile"><span class="tile-icon blue"><svg class="icon"><use href="#i-lock"/></svg></span><h3>Access code and limits</h3><p>A clinic access code, 20 turns per appointment and a rate limit stop strangers using up the service.</p></div>
+    </div>
+    <div style="display:grid;gap:10px">
+      <h2 style="font-size:24px;margin-top:12px">Known limits</h2>
+      <div class="limits">
+        <div class="limit"><svg class="icon"><use href="#i-alert"/></svg><p><b>It can mishear similar words.</b> In one Urdu test, "released" was heard as "burnt to death", with full confidence. This is why the original words are always shown.</p></div>
+        <div class="limit"><svg class="icon"><use href="#i-alert"/></svg><p><b>Translations are checked by AI, not yet by native speakers.</b> Native-speaker checks are part of our testing plan.</p></div>
+        <div class="limit"><svg class="icon"><use href="#i-alert"/></svg><p><b>Audio is sent to Google and ElevenLabs.</b> Fine for a prototype with test data; real patient data would need an NHS-approved data agreement.</p></div>
+        <div class="limit"><svg class="icon"><use href="#i-alert"/></svg><p><b>It supports a conversation; it doesn't replace a professional interpreter.</b> This project is a prototype and is not medical advice.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="view" id="v-about" aria-labelledby="about-title">
+  <div class="wrap page-hero"><p class="eyebrow">About</p><h1 id="about-title">A Year 12 project for the Veritas AI Hackathon 2026</h1><p>Three students built VoiceBridge in 48 hours for the AI and Languages track: helping people understand each other in languages technology serves poorly.</p></div>
+  <div class="wrap" style="display:grid;gap:16px;padding-bottom:64px">
+    <div class="grid-3">
+      <div class="tile"><span class="tile-icon blue"><svg class="icon"><use href="#i-globe"/></svg></span><h3>Backend</h3><p>Audio checks, Gemini translation, voices, sessions and safety layers.</p></div>
+      <div class="tile"><span class="tile-icon"><svg class="icon"><use href="#i-chat"/></svg></span><h3>Frontend</h3><p>The screens, the hold-to-speak buttons and the summary.</p></div>
+      <div class="tile"><span class="tile-icon amber"><svg class="icon"><use href="#i-book"/></svg></span><h3>Testing and data</h3><p>The medical glossary, the 11-language tests and the baseline comparison.</p></div>
+    </div>
+    <h2 style="font-size:24px;margin-top:8px">Credits</h2>
+    <div class="credits">
+      <div class="credit"><b>Google Gemini</b>Listening, translation, urgent symptoms, summaries</div>
+      <div class="credit"><b>ElevenLabs</b>Spoken translations (eleven_v4_turbo)</div>
+      <div class="credit"><b>PriMock57, Babylon Health</b>Mock UK GP consultations, CC BY 4.0</div>
+      <div class="credit"><b>FLEURS, Google</b>Speech in 11 languages for testing, CC BY 4.0</div>
+      <div class="credit"><b>NHS SNOMED CT browser</b>Official names of medical terms</div>
+      <div class="credit"><b>ONS Census 2021</b>Most-spoken languages in England and Wales</div>
+      <div class="credit"><b>FastAPI, pydub, ffmpeg</b>Server and audio processing</div>
+      <div class="credit"><b>Claude Code, Gemini Canvas</b>AI coding and design assistants</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ START (access code) ============ -->
+<section class="view" id="v-start" aria-labelledby="start-title">
+  <div class="wrap app-page">
+    <form class="form-card" id="access-form" novalidate>
+      <p class="eyebrow">Step 1 of 2</p>
+      <h1 id="start-title">Start an appointment</h1>
+      <p class="muted">Enter the access code from your clinic.</p>
+      <label class="label" for="access-code">Access code</label>
+      <div class="input-wrap"><svg class="icon"><use href="#i-lock"/></svg><input class="input" id="access-code" type="password" autocomplete="off" placeholder="Enter code"></div>
+      <div class="field-error" id="access-error" role="alert" hidden></div>
+      <p class="hint-box" id="demo-code-hint">Demo: any code works. Type <b>wrong</b> to see the error message.</p>
+      <button class="btn btn-primary" type="submit">Continue <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ CHOOSE (language) ============ -->
+<section class="view" id="v-choose" aria-labelledby="choose-title">
+  <div class="wrap app-page">
+    <div class="choose-head">
+      <div><p class="eyebrow">Step 2 of 2</p><h1 id="choose-title">Which language does the patient speak?</h1><p class="muted" style="margin-top:6px">The doctor speaks English.</p></div>
+      <label class="search"><span class="sr-only">Search languages</span><svg class="icon"><use href="#i-search"/></svg><input id="lang-search" type="search" placeholder="Search languages"></label>
+    </div>
+    <div class="lang-grid" id="lang-grid" role="radiogroup" aria-label="Patient language"></div>
+    <div class="choose-foot">
+      <div class="pair" aria-live="polite"><span class="side doc">English</span><svg class="icon"><use href="#i-arrow"/></svg><span class="side pat" id="pair-pat"></span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn btn-ghost" href="#start"><svg class="icon"><use href="#i-back"/></svg>Back</a>
+        <button class="btn btn-primary" id="begin-btn">Begin appointment <svg class="icon"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="field-error" id="setup-error" role="alert" hidden></div>
+  </div>
+</section>
+
+<!-- ============ CONSULT ============ -->
+<section class="view" id="v-consult" aria-label="Appointment">
+  <div class="bar"><div class="wrap">
+    <span class="chip"><span class="live" aria-hidden="true"></span><span class="pair-full" id="mode-label">Live · </span>English ⇄ <span id="top-lang">Urdu</span></span>
+    <div class="bar-right">
+      <span class="chip turns" id="turns" aria-live="polite"></span>
+      <button class="btn btn-danger btn-sm" id="end-btn"><svg class="icon"><use href="#i-stop"/></svg>End</button>
+    </div>
+    <div class="urgent-banner" id="urgent-banner" role="alert" hidden style="flex-basis:100%">
+      <svg class="icon"><use href="#i-alert"/></svg>
+      <div><b>Urgent symptoms reported</b><span id="urgent-list"></span></div>
+      <button class="x" id="urgent-x" aria-label="Dismiss urgent alert"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+  </div></div>
+  <div class="wrap"><div class="thread" id="thread" aria-live="polite"></div></div>
+  <div class="dock">
+    <div class="wrap dock-buttons">
+      <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold or tap to speak English">
+        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span></span><span class="speak-hint" id="hint-doctor">Hold or tap to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
+      </button>
+      <button class="speak patient" id="btn-patient" aria-label="Patient: hold or tap to speak">
+        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="speak-text"><span class="speak-who"><span id="pat-word">Patient</span> <span class="tag" id="pat-tag">Urdu</span></span><span class="speak-hint" id="hint-patient"></span><span class="meter" id="meter-patient" aria-hidden="true"></span></span>
+      </button>
+    </div>
+    <div class="demo-bar wrap" id="demo-bar">
+      <span>Demo mode: replies are scripted.</span>
+      <button class="btn btn-ghost btn-sm" id="autoplay-btn"><svg class="icon"><use href="#i-play"/></svg>Play the whole demo</button>
+      <label style="display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="speak-toggle" checked> Read translations aloud</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUMMARY ============ -->
+<section class="view" id="v-summary" aria-labelledby="sum-title">
+  <div class="wrap app-page">
+    <div class="choose-head">
+      <div><p class="eyebrow">Appointment ended</p><h1 id="sum-title">Summary</h1></div>
+      <a class="btn btn-primary" href="#start"><svg class="icon"><use href="#i-plus"/></svg>New appointment</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><small>Languages</small><strong id="st-lang" style="font-size:20px">English ⇄ Urdu</strong></div>
+      <div class="stat"><small>Turns</small><strong id="st-turns">0</strong></div>
+      <div class="stat"><small>Duration</small><strong id="st-time">1 min</strong></div>
+      <div class="stat"><small>Urgent symptoms</small><strong id="st-urgent" style="font-size:16px;line-height:1.4;color:var(--urgent)">None</strong></div>
+    </div>
+    <div class="sum-grid">
+      <article class="sum-card"><div class="sum-card-head"><h2><svg class="icon"><use href="#i-steth"/></svg>For the GP</h2><span class="badge for-doc">English</span></div><div class="sum-body" id="sum-en"></div><div><button class="btn btn-ghost btn-sm" data-copy="sum-en"><svg class="icon"><use href="#i-copy"/></svg>Copy</button></div></article>
+      <article class="sum-card"><div class="sum-card-head"><h2><svg class="icon"><use href="#i-chat"/></svg>For the patient</h2><span class="badge for-pat" id="sum-pat-badge">Urdu</span></div><div class="sum-body" id="sum-pat"></div><div><button class="btn btn-ghost btn-sm" data-copy="sum-pat"><svg class="icon"><use href="#i-copy"/></svg>Copy</button></div></article>
+    </div>
+    <div class="privacy"><svg class="icon"><use href="#i-shield"/></svg>This appointment has been deleted from the server. Copy the summaries now if you need them.</div>
+  </div>
+</section>
+</main>
+
+<footer class="footer"><div class="wrap"><span>VoiceBridge · student prototype · Veritas AI Hackathon 2026</span><span>This project is a prototype and is not medical advice.</span></div></footer>
+
+<div class="modal" id="end-modal" hidden role="dialog" aria-modal="true" aria-labelledby="end-title">
+  <div class="modal-card">
+    <h2 id="end-title">End this appointment?</h2>
+    <p class="muted">You'll see a summary in both languages. Then the conversation is deleted.</p>
+    <div class="modal-actions"><button class="btn btn-ghost btn-sm" id="end-cancel">Keep talking</button><button class="btn btn-primary btn-sm" id="end-confirm">End and summarise</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ===================== SETTINGS ===================== */
+const USE_MOCK = true;           // false = real backend (serve as frontend/index.html)
+const MAX_SECONDS = 60, MIN_SECONDS = 0.5, HOLD_MS = 350;
+
+const LANGS = [
+  {code:"pl",native:"Polski",english:"Polish",script:"Latin",word:"Pacjent",hint:"Przytrzymaj lub dotknij, aby mówić",phrase:"Gdzie Pana boli?",voice:"pl"},
+  {code:"ro",native:"Română",english:"Romanian",script:"Latin",word:"Pacient",hint:"Ține apăsat sau atinge ca să vorbești",phrase:"Unde vă doare?",voice:"ro"},
+  {code:"pa",native:"ਪੰਜਾਬੀ",english:"Panjabi",script:"Gurmukhi",word:"ਮਰੀਜ਼",hint:"ਬੋਲਣ ਲਈ ਦਬਾ ਕੇ ਰੱਖੋ",phrase:"ਤੁਹਾਨੂੰ ਕਿੱਥੇ ਦਰਦ ਹੁੰਦਾ ਹੈ?",voice:"pa"},
+  {code:"ur",native:"اردو",english:"Urdu",script:"Perso-Arabic (Nastaliq)",word:"مریض",hint:"بولنے کے لیے دبائے رکھیں",phrase:"آپ کو کہاں درد ہے؟",voice:"ur",rtl:true},
+  {code:"pt",native:"Português",english:"Portuguese",script:"Latin",word:"Paciente",hint:"Mantenha premido ou toque para falar",phrase:"Onde é que lhe dói?",voice:"pt"},
+  {code:"es",native:"Español",english:"Spanish",script:"Latin",word:"Paciente",hint:"Mantén pulsado o toca para hablar",phrase:"¿Dónde le duele?",voice:"es"},
+  {code:"ar",native:"العربية",english:"Arabic",script:"Arabic",word:"المريض",hint:"اضغط مع الاستمرار للتحدث",phrase:"أين تشعر بالألم؟",voice:"ar",rtl:true},
+  {code:"bn",native:"বাংলা",english:"Bengali",script:"Bengali",word:"রোগী",hint:"কথা বলতে চেপে ধরে রাখুন",phrase:"আপনার কোথায় ব্যথা হচ্ছে?",voice:"bn"},
+  {code:"gu",native:"ગુજરાતી",english:"Gujarati",script:"Gujarati",word:"દર્દી",hint:"બોલવા માટે દબાવી રાખો",phrase:"તમને ક્યાં દુખાવો થાય છે?",voice:"gu"},
+  {code:"it",native:"Italiano",english:"Italian",script:"Latin",word:"Paziente",hint:"Tieni premuto o tocca per parlare",phrase:"Dove le fa male?",voice:"it"},
+  {code:"fa",native:"فارسی",english:"Persian",script:"Perso-Arabic",word:"بیمار",hint:"برای صحبت کردن نگه دارید",phrase:"کجای شما درد می‌کند؟",voice:"fa",rtl:true},
+];
+const LANG_NAME = Object.fromEntries([["en","English"],["hi","Hindi"],...LANGS.map(l=>[l.code,l.english])]);
+const RTL = new Set(["ur","ar","fa"]);
+
+/* ===================== API (same contract as the backend) ===================== */
+class ApiError extends Error{constructor(m,s){super(m);this.status=s;}}
+async function call(path,opts){
+  let res; try{ res=await fetch(path,opts); }catch(e){ throw new ApiError("Can't reach VoiceBridge. Check your connection and try again.",0); }
+  let data={}; try{ data=await res.json(); }catch(e){}
+  if(!res.ok) throw new ApiError(data.error||(data.detail&&data.detail[0]&&data.detail[0].msg)||`Something went wrong (${res.status}).`,res.status);
+  return data;
+}
+const json=(b)=>({method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)});
+const realApi={
+  createSession:(code,lang)=>call("/api/session",json({access_code:code,doctor_lang:"en",patient_lang:lang})),
+  sendTurn:(sid,speaker,blob,name)=>{const f=new FormData();f.append("session_id",sid);f.append("speaker",speaker);f.append("audio",blob,name);return call("/api/turn",{method:"POST",body:f});},
+  getSummary:(sid)=>call("/api/summary",json({session_id:sid})),
+  endSession:(sid)=>call("/api/end",json({session_id:sid})),
+};
+const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
+const SCRIPT=[
+  {role:"doctor",o:"Hello, what brings you in today?",t:"السلام علیکم، آج آپ کس وجہ سے آئے ہیں؟"},
+  {role:"patient",o:"ڈاکٹر صاحب، مجھے تین دن سے سینے میں درد ہے اور سیڑھیاں چڑھتے وقت سانس پھول جاتی ہے۔",t:"Doctor, I've had chest pain for three days, and I get short of breath when I climb the stairs.",urgent:["chest pain","shortness of breath"]},
+  {role:"doctor",o:"Do you have a fever, and are you taking any medicines?",t:"کیا آپ کو بخار ہے، اور کیا آپ کوئی دوائی لے رہے ہیں؟"},
+  {role:"patient",o:"نہیں، بخار نہیں ہے۔ میں دن میں دو بار پانچ سو ملی گرام میٹفارمن لیتا ہوں۔",t:"No, I don't have a fever. I take 500 milligrams of metformin twice a day.",unclear:["میٹفارمن"]},
+  {role:"doctor",o:"Thank you. I'd like to check your heart with an ECG today, just to be safe.",t:"شکریہ۔ احتیاط کے طور پر میں آج ای سی جی سے آپ کا دل چیک کرنا چاہوں گا۔"},
+  {role:"patient",o:"ٹھیک ہے، شکریہ ڈاکٹر صاحب۔",t:"Okay, thank you doctor.",noisy:true},
+];
+const demo={turns:20,next:{doctor:0,patient:0}};
+const mockApi={
+  async createSession(code){ await wait(500); if(code.trim().toLowerCase()==="wrong") throw new ApiError("That code didn't work. Check with the clinic staff.",401); demo.turns=20; demo.next={doctor:0,patient:0}; return {session_id:"demo",turns_left:20}; },
+  async sendTurn(sid,speaker){
+    await wait(1500);
+    if(demo.turns<=0) throw new ApiError("This appointment has reached its 20-turn limit. End it and start a new one.",429);
+    const lines=SCRIPT.filter(s=>s.role===speaker); const line=lines[demo.next[speaker]++ % lines.length];
+    demo.turns--;
+    return {original_text:line.o,detected_language:speaker==="doctor"?"en":"ur",target_language:speaker==="doctor"?state.lang.code:"en",translation:line.t,
+      urgent_terms:line.urgent||[],unclear_words:line.unclear||[],speech_clarity:line.unclear?"partly_unclear":"clear",noisy:!!line.noisy,audio_base64:"",
+      timings:{convert:.07,translate:3.1,speak:.9,total:4.1},turns_left:demo.turns};
+  },
+  async getSummary(){ await wait(1200); return {
+    summary_en:"• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).\n• No fever.\n• Takes metformin 500 mg twice a day.\n• The GP plans an ECG today as a precaution.",
+    summary_patient_lang:"• تین دن سے سینے میں درد، سیڑھیاں چڑھتے وقت سانس پھولنا۔\n• بخار نہیں ہے۔\n• دن میں دو بار میٹفارمن 500 ملی گرام۔\n• ڈاکٹر احتیاطاً آج ای سی جی کریں گے۔"}; },
+  async endSession(){ await wait(150); return {ended:true}; },
+};
+const api=USE_MOCK?mockApi:realApi;
+
+/* ===================== STATE + HELPERS ===================== */
+const state={code:"",lang:LANGS[3],sid:null,turnsLeft:20,busy:false,rec:null,startedAt:0,pressAt:0,urgent:new Set(),turnCount:0,started:0,autoplay:false};
+const $=(id)=>document.getElementById(id);
+const player=new Audio();
+const icon=(n)=>`<svg class="icon" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
+function setDir(node,lang){node.dir=RTL.has(lang)?"rtl":"ltr";}
+function toast(msg){const t=$("toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,2200);}
+
+/* Browser voice (demo preview only; the real app plays ElevenLabs audio) */
+function voiceFor(lang){ try{ return speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang)); }catch(e){ return null; } }
+function sayDemo(text,lang){
+  if(!("speechSynthesis" in window)) return false;
+  const v=voiceFor(lang==="en"?"en":lang); if(!v) return false;
+  speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.voice=v; u.lang=v.lang; u.rate=.98; speechSynthesis.speak(u); return true;
+}
+try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){}
+
+/* ===================== ROUTER ===================== */
+const VIEWS=["home","how","languages","safety","about","start","choose","consult","summary"];
+const NEEDS_SESSION=new Set(["consult"]);
+let currentView="home";
+/* go(name): switch page. Updates the address (#name) when the browser allows it,
+   and switches the page directly either way, so links never "do nothing". */
+function go(name){
+  try{ if(location.hash!=="#"+name) history.pushState(null,"","#"+name); }catch(e){}
+  route(name);
+}
+document.addEventListener("click",(e)=>{
+  const a=e.target.closest('a[href^="#"]'); if(!a) return;
+  e.preventDefault(); go(a.getAttribute("href").slice(1));
+});
+window.addEventListener("popstate",()=>route());
+function route(forced){
+  let name=forced||(location.hash||"#home").slice(1);
+  if(!VIEWS.includes(name)) name="home";
+  if(NEEDS_SESSION.has(name)&&!state.sid) name=state.code?"choose":"start";
+  if(name==="choose"&&!state.code) name="start";
+  currentView=name;
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===`v-${name}`));
+  document.querySelectorAll("[data-nav]").forEach(a=>{ if(a.dataset.nav===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  $("mobile-nav").classList.remove("open"); $("menu-btn").setAttribute("aria-expanded","false");
+  document.querySelector(".footer").hidden = name==="consult";
+  if(name==="start") setTimeout(()=>$("access-code").focus(),50);
+  if(name==="consult") scrollThread();
+  else window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",()=>route());
+$("menu-btn").onclick=()=>{const o=$("mobile-nav").classList.toggle("open");$("menu-btn").setAttribute("aria-expanded",o);};
+
+/* ===================== HOME / LANGUAGES PAGES ===================== */
+LANGS.forEach(l=>{ const p=el("span","lang-pill"+(l.rtl?" rtl":""),l.native); p.title=l.english; $("home-langs").append(p); });
+const RANK={pl:1,ro:2,pa:3,ur:4,pt:5,es:6,ar:7,bn:8,gu:9,it:10,fa:"+"};
+LANGS.forEach(l=>{
+  const c=el("article","lang-card");
+  const top=el("div","top"); const n=el("span","native",l.native); if(l.rtl) n.dir="rtl"; top.append(n, el("span","rank",RANK[l.code]==="+"?"Team pick":`#${RANK[l.code]} in census`)); c.append(top);
+  c.append(el("span","meta",`${l.english} · ${l.script} script${l.rtl?" · right to left":""}`));
+  const ph=el("div","phrase",l.phrase); if(l.rtl) ph.dir="rtl"; c.append(el("span","meta","“Where does it hurt?”"), ph);
+  const b=el("button","btn btn-ghost btn-sm"); b.innerHTML=`${icon("volume")}Hear it`;
+  b.onclick=()=>{ if(!sayDemo(l.phrase,l.voice)) toast(`No ${l.english} voice in this browser. The real app uses ElevenLabs.`); };
+  c.append(b); $("lang-cards").append(c);
+});
+$("hero-demo").onclick=()=>{ state.code="demo"; startSession(true); };
+
+/* ===================== START + CHOOSE ===================== */
+$("demo-code-hint").hidden=!USE_MOCK;
+$("access-form").addEventListener("submit",(e)=>{
+  e.preventDefault(); const code=$("access-code").value.trim(), err=$("access-error");
+  if(!code){ err.textContent="Enter the access code to continue."; err.hidden=false; return; }
+  state.code=code; err.hidden=true; go("choose");
+});
+function renderLangGrid(filter=""){
+  const g=$("lang-grid"); g.innerHTML=""; const f=filter.trim().toLowerCase();
+  const list=LANGS.filter(l=>!f||l.english.toLowerCase().includes(f)||l.native.toLowerCase().includes(f));
+  if(!list.length){ g.append(el("p","muted","No language matches that search.")); return; }
+  list.forEach(l=>{
+    const b=el("button","lang-opt"); b.setAttribute("role","radio"); b.setAttribute("aria-checked",String(l.code===state.lang.code));
+    b.innerHTML=`<span class="tick">${icon("check")}</span>`; const n=el("span","native",l.native); if(l.rtl) n.dir="rtl"; b.append(n, el("span","english",l.english));
+    b.onclick=()=>{ state.lang=l; renderLangGrid($("lang-search").value); updatePair(); };
+    g.append(b);
+  });
+}
+function updatePair(){ $("pair-pat").textContent=`${state.lang.native} · ${state.lang.english}`; }
+$("lang-search").addEventListener("input",(e)=>renderLangGrid(e.target.value));
+$("begin-btn").onclick=()=>startSession(false);
+
+async function startSession(autoplay){
+  const btn=$("begin-btn"), err=$("setup-error");
+  btn.disabled=true; btn.textContent="Starting…"; err.hidden=true;
+  try{
+    const s=await api.createSession(state.code||"demo",state.lang.code);
+    Object.assign(state,{sid:s.session_id,turnsLeft:s.turns_left,urgent:new Set(),turnCount:0,started:Date.now()});
+    $("top-lang").textContent=state.lang.english; $("pat-word").textContent=state.lang.word; $("pat-tag").textContent=state.lang.english;
+    $("btn-patient").setAttribute("aria-label",`Patient: hold or tap to speak ${state.lang.english}`);
+    $("urgent-banner").hidden=true; resetHints(); showEmpty(); updateTurns(); setBusy(false);
+    go("consult");
+    if(autoplay) setTimeout(playDemo,700);
+  }catch(e){
+    if(e.status===401){ $("access-error").textContent=e.message; $("access-error").hidden=false; go("start"); }
+    else { err.textContent=e.message; err.hidden=false; }
+  }finally{ btn.disabled=false; btn.innerHTML=`Begin appointment ${icon("arrow")}`; }
+}
+
+/* ===================== CONSULT: THREAD ===================== */
+function scrollThread(){ requestAnimationFrame(()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"})); }
+function showEmpty(){
+  const t=$("thread"); t.innerHTML="";
+  const e=el("div","empty"); e.id="empty";
+  e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h2>Ready when you are</h2><p>Hold your button while you speak, or tap it once to start and again to send.</p>
+  <div class="how-list"><div><span class="num">1</span>Doctor and patient each use their own button</div><div><span class="num">2</span>Speak normally, one person at a time</div><div><span class="num">3</span>Listen to the translation and read it below</div></div>`;
+  t.append(e);
+}
+function updateTurns(){ const c=$("turns"); c.innerHTML=`${Number(state.turnsLeft)} <span class="tl">turn${state.turnsLeft===1?"":"s"} </span>left`; c.classList.toggle("low",state.turnsLeft<=5); }
+function note(text,isError){ $("empty")?.remove(); const n=el("div","note"+(isError?" error":"")); n.innerHTML=icon(isError?"alert":"chat"); n.append(document.createTextNode(text)); $("thread").append(n); scrollThread(); }
+function typing(role){ $("empty")?.remove(); const m=el("div",`msg ${role}`); m.id="typing"; m.innerHTML=`<div class="typing"><span class="dots"><i></i><i></i><i></i></span>Translating</div>`; $("thread").append(m); scrollThread(); }
+function highlight(box,text,words){
+  if(!words.length){ box.append(document.createTextNode(text)); return; }
+  const esc=words.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  text.split(new RegExp(`(${esc.join("|")})`,"g")).forEach(p=>{ if(words.includes(p)) box.append(el("mark","unclear",p)); else if(p) box.append(document.createTextNode(p)); });
+}
+function flag(cls,ic,text){ const f=el("span","flag "+cls); f.innerHTML=icon(ic); f.append(document.createTextNode(text)); return f; }
+function addMessage(role,d){
+  $("typing")?.remove(); $("empty")?.remove();
+  const expected=role==="doctor"?"en":state.lang.code;
+  const m=el("article",`msg ${role}`); const meta=el("div","msg-meta");
+  meta.append(el("span","who",role==="doctor"?"Doctor":`Patient · ${state.lang.english}`), el("span","",new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})), el("span","",`${d.timings.total.toFixed(1)} s`));
+  m.append(meta);
+  const b=el("div","bubble"); const tr=el("div","translation",d.translation); setDir(tr,d.target_language); b.append(tr);
+  const o=el("div","original"); setDir(o,d.detected_language); const lab=el("span","original-label",`Said in ${LANG_NAME[d.detected_language]||d.detected_language}`); lab.dir="ltr"; o.append(lab); highlight(o,d.original_text,d.unclear_words||[]); b.append(o);
+  const fl=el("div","flags");
+  (d.urgent_terms||[]).forEach(u=>fl.append(flag("urgent","alert",u)));
+  if(d.detected_language!==expected) fl.append(flag("warn","globe",`Heard ${LANG_NAME[d.detected_language]||d.detected_language}, not ${LANG_NAME[expected]}`));
+  if((d.unclear_words||[]).length||d.speech_clarity==="partly_unclear") fl.append(flag("warn","alert","Some words may be misheard"));
+  if(d.noisy) fl.append(flag("warn","noise","Background noise"));
+  if(fl.childElementCount) b.append(fl);
+  m.append(b);
+  const acts=el("div","msg-actions");
+  const replay=el("button","link-btn"); replay.innerHTML=`${icon("play")}Replay`; replay.onclick=()=>speakOut(d); acts.append(replay);
+  const redo=el("button","link-btn"); redo.innerHTML=`${icon("redo")}Not what I said`; redo.onclick=()=>{ note(`${role==="doctor"?"Doctor":"Patient"}: please say it again.`); $(`btn-${role}`).focus(); }; acts.append(redo);
+  m.append(acts); $("thread").append(m); scrollThread();
+  if((d.urgent_terms||[]).length){ d.urgent_terms.forEach(u=>state.urgent.add(u)); $("urgent-list").textContent=" "+[...state.urgent].join(" · "); $("urgent-banner").hidden=false; }
+}
+$("urgent-x").onclick=()=>$("urgent-banner").hidden=true;
+function speakOut(d){
+  if(d.audio_base64){ player.src="data:audio/mpeg;base64,"+d.audio_base64; player.play().catch(()=>toast("Tap Replay to hear the translation.")); return; }
+  if(USE_MOCK&&$("speak-toggle").checked&&!sayDemo(d.translation,d.target_language)) toast(`No ${LANG_NAME[d.target_language]} voice in this browser. The real app uses ElevenLabs.`);
+}
+
+/* ===================== CONSULT: RECORDING ===================== */
+const rec={stream:null,mr:null,chunks:[],analyser:null};
+["doctor","patient"].forEach(r=>{ const m=$(`meter-${r}`); for(let i=0;i<14;i++) m.append(el("i")); });
+let meterTimer=null;
+function resetHints(){ $("hint-doctor").textContent="Hold or tap to speak"; $("hint-doctor").dir="ltr"; const h=$("hint-patient"); h.textContent=state.lang.hint; setDir(h,state.lang.code); }
+function setBusy(b){ state.busy=b; const off=b||state.turnsLeft<=0; $("btn-doctor").disabled=off; $("btn-patient").disabled=off; $("autoplay-btn").disabled=b; }
+async function startRec(role){
+  if(state.busy||state.rec||state.turnsLeft<=0) return;
+  try{ speechSynthesis.cancel(); }catch(e){} player.pause();
+  state.rec=role; const other=role==="doctor"?"patient":"doctor"; $(`btn-${other}`).disabled=true;
+  if(!USE_MOCK){
+    try{
+      if(!rec.stream){
+        rec.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+        const ctx=new (window.AudioContext||window.webkitAudioContext)(); rec.analyser=ctx.createAnalyser(); rec.analyser.fftSize=256; ctx.createMediaStreamSource(rec.stream).connect(rec.analyser);
+      }
+      const type=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
+      rec.mr=new MediaRecorder(rec.stream,type?{mimeType:type}:undefined); rec.chunks=[]; rec.mr.ondataavailable=(e)=>{ if(e.data.size) rec.chunks.push(e.data); }; rec.mr.start();
+    }catch(e){ state.rec=null; $(`btn-${other}`).disabled=false; note(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected and try again.",true); return; }
+  }
+  state.startedAt=performance.now(); $(`btn-${role}`).classList.add("recording");
+  const bars=[...$(`meter-${role}`).children]; const data=rec.analyser?new Uint8Array(rec.analyser.frequencyBinCount):null;
+  meterTimer=setInterval(()=>{
+    let level=.5; if(rec.analyser){ rec.analyser.getByteFrequencyData(data); level=Math.min(1,data.slice(2,40).reduce((a,b)=>a+b,0)/38/255*2.2); }
+    bars.forEach(b=>b.style.height=`${4+Math.min(1,(rec.analyser?level:.3+Math.random()*.7)*(0.6+Math.random()*.8))*18}px`);
+    const s=Math.floor((performance.now()-state.startedAt)/1000); const h=$(`hint-${role}`); h.dir="ltr"; h.textContent=`0:${String(s).padStart(2,"0")} · Listening, release or tap to send`;
+    if(s>=MAX_SECONDS) stopRec(role);
+  },90);
+}
+async function stopRec(role){
+  if(state.rec!==role) return;
+  state.rec=null; clearInterval(meterTimer); $(`btn-${role}`).classList.remove("recording"); resetHints();
+  const secs=(performance.now()-state.startedAt)/1000; let blob=new Blob(["demo"]), name="turn.webm";
+  if(!USE_MOCK&&rec.mr){ blob=await new Promise(r=>{ rec.mr.onstop=()=>r(new Blob(rec.chunks,{type:rec.mr.mimeType||"audio/webm"})); rec.mr.stop(); }); name=blob.type.includes("mp4")?"turn.m4a":blob.type.includes("ogg")?"turn.ogg":"turn.webm"; }
+  if(secs<MIN_SECONDS){ setBusy(false); note("That was very short. Speak for at least a second."); return; }
+  await sendTurn(role,blob,name);
+}
+async function sendTurn(role,blob,name){
+  setBusy(true); typing(role);
+  try{
+    const d=await api.sendTurn(state.sid,role,blob,name);
+    state.turnsLeft=d.turns_left; updateTurns();
+    if(d.speech_clarity==="inaudible"||!d.translation){ $("typing")?.remove(); note("We couldn't hear that clearly. Please say it again."); return; }
+    state.turnCount++; addMessage(role,d); speakOut(d);
+  }catch(e){ $("typing")?.remove(); note(e.message,true); if(e.status===429&&/limit/i.test(e.message)){ state.turnsLeft=0; updateTurns(); } }
+  finally{ setBusy(false); }
+}
+/* Hold to talk OR tap to start and tap again to send. Keyboard: Space or Enter. */
+function wire(role){
+  const b=$(`btn-${role}`);
+  b.addEventListener("pointerdown",(e)=>{
+    e.preventDefault(); if(b.disabled) return;
+    if(state.rec===role){ stopRec(role); return; }   // second tap sends
+    state.pressAt=performance.now(); b.setPointerCapture?.(e.pointerId); startRec(role);
+  });
+  b.addEventListener("pointerup",()=>{ if(state.rec===role&&performance.now()-state.pressAt>HOLD_MS) stopRec(role); }); // long press = hold mode
+  b.addEventListener("pointercancel",()=>stopRec(role));
+  b.addEventListener("contextmenu",(e)=>e.preventDefault());
+  b.addEventListener("keydown",(e)=>{ if((e.key===" "||e.key==="Enter")&&!e.repeat){ e.preventDefault(); state.rec===role?stopRec(role):startRec(role); } });
+}
+wire("doctor"); wire("patient");
+
+/* Play the whole scripted demo, with the buttons animating as if pressed */
+async function playDemo(){
+  if(state.autoplay) return; state.autoplay=true;
+  for(const line of SCRIPT){
+    if(currentView!=="consult"||!state.sid||state.turnsLeft<=0) break;
+    await startRec(line.role); await wait(1300); await stopRec(line.role);
+    await wait($("speak-toggle").checked?2600:900);
+  }
+  state.autoplay=false;
+}
+$("autoplay-btn").onclick=playDemo;
+$("demo-bar").hidden=!USE_MOCK;
+$("mode-label").textContent=USE_MOCK?"Demo · ":"Live · ";
+
+/* ===================== END + SUMMARY ===================== */
+$("end-btn").onclick=()=>{ $("end-modal").hidden=false; $("end-confirm").focus(); };
+$("end-cancel").onclick=()=>$("end-modal").hidden=true;
+$("end-modal").addEventListener("keydown",(e)=>{ if(e.key==="Escape") $("end-modal").hidden=true; });
+$("end-confirm").onclick=async()=>{
+  $("end-modal").hidden=true; try{ speechSynthesis.cancel(); }catch(e){} player.pause();
+  $("st-lang").textContent=`English ⇄ ${state.lang.english}`; $("st-turns").textContent=state.turnCount;
+  $("st-time").textContent=`${Math.max(1,Math.round((Date.now()-state.started)/60000))} min`;
+  $("st-urgent").textContent=state.urgent.size?[...state.urgent].join(", "):"None"; $("sum-pat-badge").textContent=state.lang.english;
+  const sk='<div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:72%"></div><div class="skeleton" style="width:84%"></div>';
+  $("sum-en").innerHTML=sk; $("sum-pat").innerHTML=sk; setDir($("sum-pat"),state.lang.code);
+  const sid=state.sid; state.sid=null; go("summary");
+  try{ const s=await api.getSummary(sid); $("sum-en").textContent=s.summary_en; $("sum-pat").textContent=s.summary_patient_lang; }
+  catch(e){ $("sum-en").textContent=e.message; $("sum-pat").textContent=""; }
+  try{ await api.endSession(sid); }catch(e){}
+};
+document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",()=>{
+  const box=$(btn.dataset.copy);
+  navigator.clipboard.writeText(box.innerText).then(()=>toast("Copied")).catch(()=>{ const r=document.createRange(); r.selectNodeContents(box); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Text selected. Press Ctrl+C to copy."); });
+}));
+
+/* ===================== START-UP ===================== */
+renderLangGrid(); updatePair(); resetHints(); updateTurns(); route();
+</script>
+</body>
+</html>

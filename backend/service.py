@@ -138,7 +138,8 @@ def get_summary(session_id: str) -> dict:
         f"{lang}. Write 3-6 short bullet points covering: the patient's main problems and how long they've had "
         "them, important answers (e.g. allergies, medicines), and what the doctor advised or will do next.\n"
         "Rules: only use what was actually said; do NOT add a diagnosis, advice or anything else; keep numbers, "
-        "doses and medicine names exact. "
+        "doses and medicine names exact. Keep the speaker's own descriptive words in BOTH languages: never add "
+        "intensity words that weren't said (a 'tight pain' is NOT a 'severe pain'). "
         + (f"Mention clearly that these urgent symptoms were reported: {', '.join(urgent)}. " if urgent else "")
         + f"Give summary_en in English and summary_patient_lang as the same summary in simple {lang}.\n\n"
         f"Conversation (in English):\n{transcript}"

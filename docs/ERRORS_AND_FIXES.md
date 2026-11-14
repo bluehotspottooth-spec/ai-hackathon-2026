@@ -276,6 +276,18 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Docker isn't installed on our laptop**, so the `Dockerfile` hasn't been built yet. Instead we copied only what Docker copies (`backend/`, `frontend/`) to an empty folder, gave it the keys as environment variables (like Hugging Face Secrets) and started it: health OK, appointment created, all 106 glossary terms loaded. Remaining risk: installing ffmpeg on Hugging Face, which we'll see in the Space's build log.
 - **Spam limits** (`ratelimit.py`) identify visitors by IP address. On Hugging Face we read the real address from the `X-Forwarded-For` header, which can be faked by a determined attacker. It's still fine as a credit-saver for a prototype.
 
+## Frontend connected to the real backend
+
+### 35. ✅ Doctor's questions raised false urgent alerts; "tight pain" became "severe pain"
+- **Found when** the test page ran real turns: *"Do you have difficulty breathing?"* (a question) was flagged ⚠️ urgent, and *"tight pain"* was translated into Urdu as شدید درد (**severe** pain) again (K17).
+- **Fix (`prompts.py`):** urgent terms only when someone REPORTS having a symptom, not when it's denied, **asked about in a question**, or mentioned as advice ("call 999 if…"). Rule 3 now says "do not add intensity words: *tight pain* is NOT *severe pain*".
+- **Verified** through the real frontend + backend: the question *"Do you have any shortness of breath?"* → **no** urgent alert, and *"tight pain"* → جکڑن والا درد (tightness), no "severe".
+
+### 36. ⚠️ The Urdu summary exaggerated too
+- **Found:** the English summary said "tight pain", but the Urdu summary said شدید درد (**severe** pain): the summary instructions lacked the no-exaggeration rule.
+- **Fix (`service.py`):** the summary prompt now says to keep the speaker's descriptive words in **both** languages and never add intensity words.
+- **Re-test (3 runs):** no شدید in any. The Urdu now says **سخت درد**, which can still read as "harsh/strong pain", so it's improved but needs a native Urdu speaker's check (K17).
+
 ---
 
 ## ⚠️ Important note for testing (C2)
