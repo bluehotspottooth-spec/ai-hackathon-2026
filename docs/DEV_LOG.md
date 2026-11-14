@@ -80,10 +80,17 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Backup voice (Gemini TTS):** used automatically if ElevenLabs fails. **Why:** the free ElevenLabs credits could run out before the demo. Works in all 11 languages, including Urdu.
 - **API contract updated** (approved by Ahmed): `/api/turn` now also returns `unclear_words`, `speech_clarity` and `noisy`. Both UI briefs explain how to show them ("Is that what you said?").
 
+### ~15:00 · Backup-voice hard stop + dataset checking plan
+- **Backup voice hard stop:** if Google's voice hasn't answered in 15 s, the turn returns text only (details: ERRORS_AND_FIXES #28).
+- **`docs/DATASET_CHECKING_PLAN.md`:** how the testing teammate builds the glossary and tests fairly.
+  - **Decision: ~80–100 glossary terms, chosen by category** (frequent PriMock57 words, NHS red-flag symptoms, common UK GP medicines, words the baseline gets wrong) rather than just "the 40 most frequent". **Why:** more safety coverage, but still few enough to translate into 11 languages and check.
+  - **Decision: every English term checked against SNOMED CT** (the NHS's official vocabulary), recording its ID.
+  - **Decision: PriMock57 split 40 build / 17 test with a fixed random seed**, saved in `data/split.json`. **Why:** results must come from data not used to build the system.
+  - Licences checked: PriMock57 CC BY 4.0, FLEURS CC BY 4.0, FLORES+ CC BY-SA 4.0.
+
 ---
 
 ## Next
-- Decide how to fix the backup voice hang (ERRORS_AND_FIXES #28).
 - A5: `sessions.py` (access code, 20-turn limit, stores each turn and passes the last 6 to `translate_audio(history=...)`).
 - A6: `service.py` + `main.py`, the `/api` endpoints.
 - Fetch the FLEURS English references once Hugging Face's service is back.
