@@ -1,0 +1,10 @@
+# Exact versions we installed on Sat 14 Nov 2026.
+# Pinning them means the Hugging Face server installs the same versions we tested with.
+fastapi==0.162.7            # web framework: our /api endpoints
+uvicorn[standard]==0.54.0   # the server that runs FastAPI
+python-multipart==0.0.33    # lets FastAPI receive uploaded audio files
+google-genai==3.3.0         # Google's official SDK for Gemini
+elevenlabs==2.78.0          # ElevenLabs SDK for text-to-speech
+python-dotenv==1.2.4        # reads our secret keys from the .env file
+pydub==0.25.1               # audio conversion (uses ffmpeg underneath)
+gradio==6.32.0              # the frontend UI (built by our teammate)

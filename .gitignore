@@ -1,0 +1,24 @@
+# --- Secrets: NEVER commit these ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+
+# --- Large or downloaded data (we credit the source instead of uploading it) ---
+data/primock57/*
+!data/primock57/.gitkeep
+tests/clips/*
+!tests/clips/.gitkeep
+
+# --- Gradio's local cache folders ---
+.gradio/
+flagged/
+
+# --- Editor / OS clutter ---
+.vscode/
+.DS_Store
+Thumbs.db
