@@ -78,6 +78,7 @@ def translate_audio(
     target_lang: str,
     use_medical_layer: bool | None = None,
     model: str | None = None,
+    history: list[dict] | None = None,
 ) -> dict:
     """
     Transcribe + detect language + translate one recording with Gemini.
@@ -88,6 +89,9 @@ def translate_audio(
     use_medical_layer:  True = VoiceBridge (GP rules + urgent flags + glossary),
                         False = plain baseline, None = use the USE_MEDICAL_LAYER flag
     model:              optional override, for comparing models in tests
+    history:            earlier turns of this appointment (sessions.py keeps them),
+                        e.g. [{"speaker": "doctor", "original_text": ..., "translation": ...}].
+                        Only used with the medical layer; the baseline has no memory.
     """
     if use_medical_layer is None:
         use_medical_layer = USE_MEDICAL_LAYER
@@ -96,7 +100,7 @@ def translate_audio(
     # 1. Choose the instructions: our medical layer, or the plain baseline.
     if use_medical_layer:
         system_instruction = prompts.medical_system_instruction()
-        request_text = prompts.medical_prompt(source_hint, target_lang)
+        request_text = prompts.medical_prompt(source_hint, target_lang, history)
     else:
         system_instruction = None
         request_text = prompts.baseline_prompt(source_hint, target_lang)

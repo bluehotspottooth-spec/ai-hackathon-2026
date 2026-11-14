@@ -45,8 +45,26 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **What we learned:** the medical layer is built for GP conversations, so general news sentences aren't a fair test of it. We still need the medical test (C3). Short clips and Urdu/Hindi confusion are real weaknesses.
 - **Rule we're following:** these 2 clips are now "development data" and will be **left out** of the FLEURS evaluation.
 
+### ~12:30 · Script fix + conversation history (`prompts.py`, `pipeline.py`)
+- **Script fix:** a `SCRIPTS` table tells Gemini exactly which writing system to use for each language (e.g. Urdu = Perso-Arabic, never Hindi script). Result on the 2 dev clips (3 runs each): Urdu script **6/6** (before: Hindi/Roman), and "pollution" now correct 3/3. The "burnt to death" mis-hearing remains (see ERRORS_AND_FIXES #14).
+- **New feature: conversation history (context).** Each turn can now include the **last 6 turns** of the appointment as context, so Gemini knows what "it" or "the left side" refers to.
+  - **Decision: history lives in the backend**, not the frontend: the session (A5) keeps the turns and passes them in. The frontend doesn't change, and the history is deleted when the appointment ends.
+  - **Decision: send text, not old audio.** The previous transcripts and translations are enough context, and resending old audio would make every turn slower.
+  - **Decision: 6 turns** (about 3 question-and-answer pairs): enough to know the topic, small enough to stay fast.
+  - **Safety rule in the prompt:** history is *for understanding only*. Don't re-translate it, and don't add anything the speaker didn't say.
+  - **Decision: the baseline gets no history**, so tests can measure what our layer adds.
+- **Tested:** patient says *"I have a very bad cough"*, doctor asks *"When did the cough start?"*, then the English clip *"It started two days ago…"* is translated to Urdu. In Urdu the verb must agree with the noun's gender; *cough* (کھانسی) is feminine.
+
+  | | Verb form | Correct? |
+  |---|---|---|
+  | No history (3 runs) | شروع ہوا (masculine) | ❌ 0/3 |
+  | **With history** (3 runs) | **شروع ہوئی** (feminine, agrees with "cough") | ✅ 3/3 |
+
+  Same speed (2.4–3.3 s), and it still said "it", without adding the word "cough".
+
 ---
 
 ## Next
-- A3 follow-up: tell Gemini the exact script for each language (fix for the Hindi-script problem), then re-test on a **different** clip.
 - A4: `voice.py`, text-to-speech with ElevenLabs.
+- A5: `sessions.py` stores each turn and passes the last 6 to `translate_audio(history=...)`.
+- Fetch the FLEURS English references once Hugging Face's service is back.

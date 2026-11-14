@@ -104,6 +104,7 @@ FLEURS Urdu clip **1930** (6 s). The correct Urdu means: *"Six hostages, includi
 - **Why it matters:** the baseline turned "released" into "burnt to death", the opposite meaning. In a GP appointment, a mistake like that could be dangerous.
 - **Likely causes:** spoken Urdu and Hindi sound almost identical, so the model drifted into Hindi script; a short 6 s clip with names gives little context; similar-sounding words (*rihaa* / *jalaa*).
 - **Fix to try:** tell the model the exact **script** for each language (Urdu = Perso-Arabic script, etc.). See the important note below.
+- **Update (after the fix, see #16):** the script problem is ✅ fixed: Urdu script in 3/3 runs. The **hearing** mistake is 📊 still there: *"were burnt to death"* in 3/3 runs. A prompt can't fix a sound being mis-heard, so this stays as a known failure.
 
 ### 15. 📊 Milestone 1: medical layer made one general sentence *worse*
 FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
@@ -111,6 +112,21 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **VoiceBridge:** *"mild **flooding** was not as much of an issue…"* ❌
 - **Cause:** VoiceBridge's transcript misspelt تلوث (pollution) as تلویس, so the translation guessed "flooding".
 - **Takeaway:** our medical layer is designed for **GP conversations**, not general news sentences like FLEURS. We must measure it on **medical** sentences (test C3) before claiming it helps.
+- **Update (after the fix, see #16):** ✅ now says "pollution" in 3/3 runs. Writing the transcript in proper Urdu script fixed the misspelling that caused "flooding".
+
+### 16. ✅ Fix: exact script rules per language
+- **What we changed:** `prompts.py` now has a `SCRIPTS` table (e.g. Urdu = *"Urdu script (Perso-Arabic). Never Hindi/Devanagari, never Roman letters"*, Panjabi = Gurmukhi, Persian = Persian script) and tells Gemini which script to use for the transcript **and** the translation. It also explains that spoken Urdu and Hindi sound alike.
+- **Re-test** (both dev clips, 3 runs each, so we're not fooled by one lucky answer):
+
+  | | Before fix | After fix |
+  |---|---|---|
+  | Transcript script | Hindi or Roman letters | **Urdu script, 6/6** ✅ |
+  | Clip 1806 "pollution" | "flooding" ❌ | **"pollution", 3/3** ✅ |
+  | Clip 1930 "released" | "Afghan martyrs" ❌ | "burnt to death", 3/3 ❌ (mis-heard sound, see #14) |
+  | Speed | 3–4 s | 2.5–3.7 s |
+
+- **Caution:** we tested the fix on the same 2 clips we used to find the problem, so this proves the fix works on *these* clips only. The real measure is the FLEURS evaluation (C2) on **other** clips.
+- **Open question for a native speaker:** Panjabi in the UK is written in **Gurmukhi** (mostly Indian-heritage speakers) *or* **Shahmukhi** (Perso-Arabic; mostly Pakistani-heritage speakers). We chose Gurmukhi for now (it matches FLEURS). Worth asking a Panjabi speaker.
 
 ---
 

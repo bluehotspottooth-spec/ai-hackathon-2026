@@ -31,6 +31,30 @@ LANGUAGES = {
     "fa": "Persian",
 }
 
+# The writing system to use for each language.
+# Why: in Milestone 1, Gemini wrote Urdu speech in Hindi (Devanagari) script,
+# because spoken Urdu and Hindi sound almost the same. Naming the script
+# explicitly tells the model exactly what we expect.
+SCRIPTS = {
+    "en": "Latin alphabet",
+    "pl": "Latin alphabet with Polish letters (ą, ę, ł, ż...)",
+    "ro": "Latin alphabet with Romanian letters (ă, â, î, ș, ț)",
+    "pa": "Gurmukhi script (ਪੰਜਾਬੀ)",
+    "ur": "Urdu script (Perso-Arabic, as in اردو). Never Hindi/Devanagari, never Roman letters",
+    "pt": "Latin alphabet with Portuguese accents",
+    "es": "Latin alphabet with Spanish accents",
+    "ar": "Arabic script (العربية)",
+    "bn": "Bengali script (বাংলা)",
+    "gu": "Gujarati script (ગુજરાતી)",
+    "it": "Latin alphabet with Italian accents",
+    "fa": "Persian script (Perso-Arabic, as in فارسی)",
+}
+
+# How many earlier turns of the conversation to show Gemini as context.
+# 6 = about the last 3 question-and-answer pairs: enough to know what is being
+# discussed, small enough to keep each request fast.
+HISTORY_TURNS = 6
+
 # Symptoms a GP must never miss. Used to tell Gemini what counts as "urgent".
 # Based on common NHS "call 999 / urgent" warning signs. To be checked and
 # extended by the team in the glossary step (C1).
@@ -109,13 +133,52 @@ def _glossary_lines(target_lang: str) -> list[str]:
     return lines
 
 
-def medical_prompt(source_hint: str, target_lang: str) -> str:
-    """The per-turn request, with glossary terms added when we have them."""
+def _script_rule(source_hint: str, target_lang: str) -> str:
+    """Tell Gemini exactly which writing system to use for the transcript and the translation."""
+    rule = ""
+    if source_hint in SCRIPTS:
+        rule += (
+            f"Write the transcript in {SCRIPTS[source_hint]}, if the speaker is speaking "
+            f"{LANGUAGES[source_hint]} as expected. (Spoken Urdu and Hindi sound alike: if Urdu is "
+            f"expected, write Urdu script.) If a clearly different language is spoken, use that "
+            f"language's own standard script. "
+        )
+    if target_lang in SCRIPTS:
+        rule += f"Write the translation in {SCRIPTS[target_lang]}."
+    return rule
+
+
+def _history_block(history: list[dict] | None) -> str:
+    """
+    The last few turns of THIS appointment, as context.
+
+    Why: a sentence like "It started two days ago" or "Yes, on the left" only
+    makes sense if you know what was asked before. Real interpreters remember
+    the conversation, so we give Gemini the same memory.
+    Each history item: {"speaker": "doctor"/"patient", "original_text": ..., "translation": ...}
+    """
+    if not history:
+        return ""
+    lines = []
+    for turn in history[-HISTORY_TURNS:]:
+        who = "Doctor" if turn["speaker"] == "doctor" else "Patient"
+        lines.append(f'{who}: "{turn["original_text"]}" (translated: "{turn["translation"]}")')
+    return (
+        "\n\nEarlier in this appointment (for context ONLY: use it to understand the new audio, "
+        "e.g. what 'it' refers to or which body part is meant. Do NOT translate it again, and do NOT "
+        "add anything to the translation that the speaker didn't say):\n" + "\n".join(lines)
+    )
+
+
+def medical_prompt(source_hint: str, target_lang: str, history: list[dict] | None = None) -> str:
+    """The per-turn request: script rules, conversation context, and glossary terms when we have them."""
     prompt = (
         f"The speaker is expected to speak {LANGUAGES.get(source_hint, source_hint)}. "
         f"Transcribe the audio, detect the language actually spoken, and translate it into "
-        f"{LANGUAGES[target_lang]} following your interpreter rules."
+        f"{LANGUAGES[target_lang]} following your interpreter rules. "
+        + _script_rule(source_hint, target_lang)
     )
+    prompt += _history_block(history)
     glossary = _glossary_lines(target_lang)
     if glossary:
         prompt += (
