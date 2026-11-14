@@ -27,6 +27,8 @@ BACKUP VOICE (Gemini text-to-speech, model gemini-3.8-flash-lite-tts):
 import base64
 import io
 import os
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as FutureTimeout
 
 from dotenv import load_dotenv
 from elevenlabs.client import ElevenLabs
@@ -47,6 +49,13 @@ VOICES = {
 # Backup voice settings (Gemini TTS). Two different voices again, one per direction.
 BACKUP_MODEL = os.getenv("BACKUP_TTS_MODEL", "gemini-3.8-flash-lite-tts")
 BACKUP_VOICES = {"patient": "Sulafat", "doctor": "Charon"}  # Sulafat = warm, Charon = informative
+
+# Hard stop for the backup voice. Google's own time limit was NOT enforced for
+# voice requests (one hung for 90+ s), so we run the request on a separate
+# "worker" thread and simply stop waiting after this many seconds. The user
+# then gets the text translation without audio, instead of a frozen app.
+BACKUP_HARD_STOP_SECONDS = 15
+_backup_worker = ThreadPoolExecutor(max_workers=4)
 
 # For testing the backup on purpose: set VOICE_PROVIDER=gemini in .env
 VOICE_PROVIDER = os.getenv("VOICE_PROVIDER", "elevenlabs")
@@ -114,7 +123,13 @@ def speak_detailed(text: str, language: str, speaker: str = "doctor", voice_id: 
         except Exception as e:
             print(f"[voice] ElevenLabs failed ({type(e).__name__}): {e}. Trying backup voice.")
     try:
-        return {"mp3": _gemini_tts(spoken_text, speaker), "provider": "gemini"}
+        # Start the backup voice on a worker thread, then wait at most 15 s for it.
+        job = _backup_worker.submit(_gemini_tts, spoken_text, speaker)
+        return {"mp3": job.result(timeout=BACKUP_HARD_STOP_SECONDS), "provider": "gemini"}
+    except FutureTimeout:
+        # Too slow: stop waiting. (The thread finishes on its own; we ignore its result.)
+        print(f"[voice] Backup voice took over {BACKUP_HARD_STOP_SECONDS}s, so we gave up. Text only.")
+        raise VoiceError("The spoken translation isn't available right now. Please read the text.")
     except Exception as e:
         print(f"[voice] Backup voice failed too ({type(e).__name__}): {e}")
         raise VoiceError("The spoken translation isn't available right now. Please read the text.") from e

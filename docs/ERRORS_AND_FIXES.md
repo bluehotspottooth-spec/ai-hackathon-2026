@@ -25,7 +25,7 @@ Times are London time, Sat 14 Nov 2026 unless stated.
 | K3 | **The AI's own "I'm unsure" signal is unreliable**: it said "clear" even when wrong | 🟠 Medium | We rely on the *objective* noise check for warnings; `unclear_words` is kept but never trusted alone | #22 |
 | K4 | **Medical layer not yet proven better than the baseline**; on 1 general sentence it was worse | 🟠 Medium | Expected (it's built for GP talk). Must be proven in the medical test C3 | #15 |
 | K5 | **Random slow answers from Google** (11 s, 22 s, 54 s instead of 3–4 s) | 🟠 Medium | 20-second limit + 1 retry on translation (tested). Report real latency in C4 | #27 |
-| K6 | **Backup voice can hang** and its time limit isn't enforced | 🟡 Low (only matters if ElevenLabs also fails) | Open: options in #28 | #28 |
+| K6 | **Backup voice (Google) is unreliable**: it sometimes freezes (2 of 3 requests in our last test) | 🟡 Low (only used if ElevenLabs fails) | ✅ Hard 15-second stop: after that, the turn returns **text only** instead of freezing. Tested | #28 |
 | K7 | **ElevenLabs credits limited**: ~400 spoken turns left this month (free plan) | 🟡 Low | Backup voice (Gemini) takes over automatically if credits run out. Testers: test translation without speech | #19, #26 |
 | K8 | **Medical audio goes to Google and ElevenLabs servers**; free plans may use data to improve products | 🟠 Medium (for real use) | Prototype uses only test data (FLEURS, AI voices, team voices). Write-up: not for real patients without an NHS-approved data agreement | — |
 | K9 | **Panjabi script**: we write Gurmukhi, but many UK Panjabi speakers (Pakistani heritage) read Shahmukhi | 🟡 Low | Ask a Panjabi speaker | #16 |
@@ -227,13 +227,18 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **What happened:** usually 3–4 s, but we saw 11 s, 22 s and once **54 s** (Bengali, backup voice).
 - **Fix (translation):** 20-second time limit per attempt, then retry. **Tested** that the limit is really enforced (set to 0.01 s → gave up after 2 attempts in 2 s) ✅.
 
-### 28. ⚠️ OPEN: the backup voice can hang, and its time limit isn't enforced
+### 28. ✅ The backup voice could hang, and its time limit wasn't enforced (fixed with a hard stop)
 - **What happened:** after #27, a backup-voice request didn't answer for **over 90 seconds** (twice), even with `timeout=20`. Earlier the same requests took 3–5 s, so Google's voice service seems to have slowed down or stalled, and the SDK doesn't apply our time limit to it.
 - **Impact:** only when ElevenLabs *also* fails. Then a turn could hang instead of showing text only.
 - **Options:**
   1. **Hard stop of our own**: run the backup voice in a separate thread and stop waiting after 15 s, then show text only. *(Recommended: simple, doesn't depend on Google's SDK.)*
   2. Remove the backup voice and accept "text only" if ElevenLabs fails.
   3. Use a different backup (e.g. the browser's built-in voice, in the frontend). No server needed, but quality varies by phone, and some languages may be missing.
+- **Decision (Ahmed): option 1.** `voice.py` now runs the backup voice on a separate worker thread and **stops waiting after 15 seconds**. The turn then returns the **text translation with no audio**, and the screen says *"Audio not available right now. Please read the translation."*
+- **Order of fallbacks:** ElevenLabs voice (~1 s) → Google backup voice (max 15 s) → text only. The text translation is always shown.
+- **Tests:**
+  - Fake voice that freezes for 60 s → gave up at **15.0 s** with the friendly message ✅
+  - Real Google backup voice, 3 sentences: Urdu answered in **2.9 s** ✅; English and Polish froze → stopped at **15.0 s**, text only ✅. So Google's voice service was unreliable at the time of testing, and the hard stop did its job.
 
 ### 29. ⚠️ Hugging Face still down (update to #13)
 - Retried fetching the FLEURS English references: still *HTTP 500*. Try again later.
