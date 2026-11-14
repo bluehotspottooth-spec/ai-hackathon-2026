@@ -125,6 +125,17 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
   - **The patient's button hint is in their own language** (e.g. Urdu: بولنے کے لیے دبائے رکھیں). These 11 hints are AI-translated and not yet checked by native speakers.
 - **Checked in the browser** at laptop (1024 px) and phone (375 px) sizes: welcome → wrong code → language search → appointment (5 turns: urgent banner, unclear-word highlight, background-noise badge, too-short press) → summary. No sideways scrolling on phones. Two layout bugs were fixed along the way (the speak-button text ran onto one line; the demo label covered the End button).
 
+### ~19:00 · Prototype v2: multi-page and fully clickable (same file, replaces v1)
+- Ahmed couldn't interact with v1: you had to *hold* the mic buttons, so a normal click seemed to do nothing. v2 changes:
+  - **Multiple pages** with a menu: Home, How it works, Languages, Safety, About, plus the appointment flow (Start → Language → Appointment → Summary). Each page has its own link (`#how`, `#languages`…), and the browser's Back button works.
+  - **Tap or hold to talk:** tap once to start and again to send, or hold and release. Keyboard: Space or Enter.
+  - **"Play the whole demo"** runs a 6-turn scripted Urdu consultation by itself, and **"Watch a demo consultation"** on the home page starts it straight away. The demo can read translations aloud with the browser's own voice (a preview only; the real app uses ElevenLabs).
+  - **Languages page:** every language with its script, direction, census rank and a "Where does it hurt?" phrase you can play (phrases AI-drafted, to be checked).
+  - **Safety page** uses our real test results (invented symptoms 2/2 → 0/4) and an honest "known limits" list.
+  - A **light and dark theme**, and an in-page "End this appointment?" confirmation (published pages block the browser's pop-up box).
+- **Tested with real clicks and typing** in the browser: menu pages, code entry, language choice, tap-to-talk, the full automatic demo, End → summary, and phone layout (no sideways scrolling). Bugs found and fixed: the end box showed on load (`hidden` was overridden), menu links didn't switch pages in the preview (page switching now runs through JavaScript), the demo bar layout, and the button dock floating mid-screen.
+- **Published as a private claude.ai artifact** for the team to click through (shared from its Share menu). The file in `docs/design/` is the same page and still works locally or as `frontend/index.html` with `USE_MOCK = false`.
+
 ---
 
 ## Next
