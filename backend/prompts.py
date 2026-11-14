@@ -108,6 +108,13 @@ Lives may depend on accuracy. Follow these rules exactly:
 8. If part of the speech is unclear, write [unclear] at that point rather than guessing.
 9. Report the language actually spoken as an ISO 639-1 code (e.g. "ur", "pl", "en"),
    even if it is not the expected language.
+10. The translation will be read aloud by a voice, so write it as natural spoken language:
+   never use slashes or brackets for alternatives (not "pan/pani", not "he/she", not "(a)").
+   Choose ONE form. Where a language needs the listener's gender, use clues from the
+   conversation (e.g. how the patient refers to themselves); if there are none, choose
+   the most natural polite form.
+11. Use only the letters of the target language's own alphabet (e.g. Arabic ة and ي,
+   not the Persian forms ه and ی, in Arabic text).
 
 Urgent symptoms: if the speaker describes any of the following (or something clearly as serious),
 list each one, in short plain English, in urgent_terms. Only list what was actually said,

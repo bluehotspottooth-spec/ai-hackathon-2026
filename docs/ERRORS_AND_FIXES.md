@@ -128,6 +128,34 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Caution:** we tested the fix on the same 2 clips we used to find the problem, so this proves the fix works on *these* clips only. The real measure is the FLEURS evaluation (C2) on **other** clips.
 - **Open question for a native speaker:** Panjabi in the UK is written in **Gurmukhi** (mostly Indian-heritage speakers) *or* **Shahmukhi** (Perso-Arabic; mostly Pakistani-heritage speakers). We chose Gurmukhi for now (it matches FLEURS). Worth asking a Panjabi speaker.
 
+## Speech / text-to-speech (step A4)
+
+### 17. ✅ ElevenLabs key missing the "Models" permission
+- **What happened:** asking ElevenLabs which model supports which language failed: *"missing the permission models_read"*.
+- **Fix:** instead of changing the key again, we read the same information in ElevenLabs' official model docs. (The app doesn't need this permission to work.)
+
+### 18. ✅ Older ElevenLabs models don't speak 5 of our languages
+- **What we found:** `eleven_multilingual_v2` and `eleven_flash_v2_5` (used in most tutorials) **don't support Urdu, Panjabi, Bengali, Gujarati or Persian**, so almost half our users would have had no audio.
+- **Fix:** chose `eleven_v4_turbo`. The docs list all 11 languages, and our test confirmed it (#19).
+
+### 19. 📊 Round-trip test of speech in all 11 languages
+- **How:** Gemini translated one GP sentence (*"Are you allergic to any medicines? Please tell me if you are pregnant."*) into all 11 languages, ElevenLabs spoke each one, and then our Gemini pipeline **listened back**. If the pronunciation were poor, the transcript would come back different.
+- **Result:** all 11 recognised as the right language; **95–100% text match**; speech generated in 0.6–1.1 s. Details: `tests/results/milestone2/tts_all_languages.json`.
+- **Limit of this test:** it uses AI to check AI. A native speaker still has to listen and judge whether it sounds natural (part of C4).
+
+### 20. ✅ Polish: the voice read a slash out loud ("pani ukośnik pan")
+- **What happened:** the Polish translation wrote *"pani/pan"* (Mrs/Mr) to cover both genders, and ElevenLabs read the "/" as the word *ukośnik* ("slash").
+- **Cause:** written-style shortcuts don't work when text is spoken aloud.
+- **Fix (two layers):**
+  1. **Prompt rule 10:** never use slashes or brackets for alternatives; choose ONE natural form, using conversation clues for the listener's gender.
+  2. **Safety net in `voice.py`:** any "/" is replaced with a comma (a short pause) before speaking.
+- **Re-test (3 runs):** *"Czy ma pani uczulenie na jakieś leki?…"*, one form, no slash, 3/3 ✅.
+
+### 21. ✅ Arabic text used a Persian letter (أدویه instead of أدوية)
+- **What happened:** in the all-languages test, the Arabic translation used the Persian form of a letter (Arabic and Persian share an alphabet but differ in a few letters).
+- **Fix:** prompt rule 11: use only the target language's own alphabet. **Re-test:** correct Arabic أدوية in 3/3 runs ✅.
+- **Our own mistake while checking:** our first automatic check wrongly flagged the correct Arabic, because we included ه, which is a normal Arabic letter too. We fixed the check to look only for the Persian-only letters ی and ک. Lesson: test your tests.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

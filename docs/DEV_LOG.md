@@ -62,9 +62,18 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 
   Same speed (2.4–3.3 s), and it still said "it", without adding the word "cough".
 
+### ~13:15 · A4: speech (`backend/voice.py`) + Milestone 2
+- `speak(text, language, speaker)` turns the translation into MP3 audio with ElevenLabs.
+- **Decision: model `eleven_v4_turbo`.** It's the only fast model that supports all 11 languages. The older models used in most tutorials skip Urdu, Panjabi, Bengali, Gujarati and Persian.
+- **Decision: two stock British voices**: *Alice* speaks the patient's words (in English) to the doctor, and *Daniel* speaks the doctor's words to the patient. Different voices make the direction obvious. They're stock voices, so we're not using anyone's real voice.
+- **Decision: send the language code** with the text, because Urdu, Persian and Arabic share an alphabet; the code tells the voice how to pronounce it.
+- **Milestone 2 ✅:** Urdu and Polish doctor questions + an English patient sentence, generated in **0.6–1.1 s** each. Files: `tests/results/milestone2/`.
+- **All-languages check:** we spoke one GP sentence in all 11 languages and had Gemini listen back: right language 11/11, 95–100% word match. It caught two real problems (Polish slash read aloud, Arabic letter), both fixed and re-tested (ERRORS_AND_FIXES #19–21).
+- **Cost:** about **0.4 credits per character**. 9,643 credits left = roughly 400 more spoken turns this month, so testers should avoid big speech batches.
+
 ---
 
 ## Next
-- A4: `voice.py`, text-to-speech with ElevenLabs.
-- A5: `sessions.py` stores each turn and passes the last 6 to `translate_audio(history=...)`.
+- A5: `sessions.py` (access code, 20-turn limit, stores each turn and passes the last 6 to `translate_audio(history=...)`).
+- A6: `service.py` + `main.py`, the `/api` endpoints.
 - Fetch the FLEURS English references once Hugging Face's service is back.
