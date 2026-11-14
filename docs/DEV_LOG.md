@@ -71,9 +71,19 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **All-languages check:** we spoke one GP sentence in all 11 languages and had Gemini listen back: right language 11/11, 95–100% word match. It caught two real problems (Polish slash read aloud, Arabic letter), both fixed and re-tested (ERRORS_AND_FIXES #19–21).
 - **Cost:** about **0.4 credits per character**. 9,643 credits left = roughly 400 more spoken turns this month, so testers should avoid big speech batches.
 
+### ~14:30 · Safety features + backup voice
+*(All problems, test numbers and open issues for this step are in [ERRORS_AND_FIXES.md](ERRORS_AND_FIXES.md) #22–29 and the Known Issues table K1–K16. This log only lists what was built and why.)*
+- **Noise check (`audio.py`):** measures speech-vs-background contrast with plain maths. Too noisy (< 4 dB) → ask to repeat; noisy (< 12 dB) → translate with a warning. **Why:** in heavy noise the AI invented symptoms that were never said; an objective check doesn't depend on the AI being honest.
+- **"Never invent" rule + `speech_clarity`** (clear / partly_unclear / inaudible) in the prompt and the JSON form. **Why:** a made-up symptom is more dangerous than "please repeat".
+- **`unclear_words`:** Gemini lists words it's unsure of, for highlighting. **Why:** it was asked for, and costs nothing. In tests the AI rarely admits doubt, so it's never the only safety check.
+- **Automatic retry + 20 s time limit** on translation. **Why:** temporary failures and random slow answers (up to 54 s) shouldn't ruin a turn.
+- **Backup voice (Gemini TTS):** used automatically if ElevenLabs fails. **Why:** the free ElevenLabs credits could run out before the demo. Works in all 11 languages, including Urdu.
+- **API contract updated** (approved by Ahmed): `/api/turn` now also returns `unclear_words`, `speech_clarity` and `noisy`. Both UI briefs explain how to show them ("Is that what you said?").
+
 ---
 
 ## Next
+- Decide how to fix the backup voice hang (ERRORS_AND_FIXES #28).
 - A5: `sessions.py` (access code, 20-turn limit, stores each turn and passes the last 6 to `translate_audio(history=...)`).
 - A6: `service.py` + `main.py`, the `/api` endpoints.
 - Fetch the FLEURS English references once Hugging Face's service is back.

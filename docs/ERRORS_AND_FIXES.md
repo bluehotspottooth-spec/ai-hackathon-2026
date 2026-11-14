@@ -1,17 +1,45 @@
-# Errors and fixes log
+# Errors, fixes and known issues
 
-Every problem we hit while building VoiceBridge, what caused it, and how we fixed it.
-Newest at the bottom. Times are London time, Sat 14 Nov 2026 unless stated.
+**The one place for every problem in VoiceBridge:** what went wrong, why, how we fixed it, and what's still open.
+- **Part 1** (just below): a summary of all **known issues and limitations right now**. Read this first.
+- **Part 2:** the full numbered log of every error, in the order we hit it.
+
+Times are London time, Sat 14 Nov 2026 unless stated.
 
 **Why we keep this:** it shows how we tested and debugged, and gives honest material for the "where it fails" part of the write-up.
 
-| # | Status |
+| Symbol | Meaning |
 |---|---|
 | ✅ | Fixed |
 | ⚠️ | Worked around / still open |
 | 📊 | A real AI failure, kept as a result (not "fixed", because it's evidence) |
 
 ---
+
+# Part 1: Known issues and limitations (current)
+
+| # | Issue | How serious | What we've done / plan | Log |
+|---|---|---|---|---|
+| K1 | **Gemini sometimes mis-hears a word** and is fully confident about it (Urdu *rihaa* "released" → *jalaa* "burnt to death") | 🔴 High | Can't be fixed by prompting. Safety design: the speaker always sees what was heard in their own language, plus a "That's not what I said ↺" button (UI). Write-up: VoiceBridge supports, it doesn't replace, a professional interpreter | #14, #22 |
+| K2 | **In heavy noise, Gemini invented whole sentences** (fake "chest pain") | 🔴 High | ✅ Fixed with 2 layers: a maths noise check blocks very noisy audio before the AI; the prompt says "never invent, say [inaudible]". Tested 4/4 | #23 |
+| K3 | **The AI's own "I'm unsure" signal is unreliable**: it said "clear" even when wrong | 🟠 Medium | We rely on the *objective* noise check for warnings; `unclear_words` is kept but never trusted alone | #22 |
+| K4 | **Medical layer not yet proven better than the baseline**; on 1 general sentence it was worse | 🟠 Medium | Expected (it's built for GP talk). Must be proven in the medical test C3 | #15 |
+| K5 | **Random slow answers from Google** (11 s, 22 s, 54 s instead of 3–4 s) | 🟠 Medium | 20-second limit + 1 retry on translation (tested). Report real latency in C4 | #27 |
+| K6 | **Backup voice can hang** and its time limit isn't enforced | 🟡 Low (only matters if ElevenLabs also fails) | Open: options in #28 | #28 |
+| K7 | **ElevenLabs credits limited**: ~400 spoken turns left this month (free plan) | 🟡 Low | Backup voice (Gemini) takes over automatically if credits run out. Testers: test translation without speech | #19, #26 |
+| K8 | **Medical audio goes to Google and ElevenLabs servers**; free plans may use data to improve products | 🟠 Medium (for real use) | Prototype uses only test data (FLEURS, AI voices, team voices). Write-up: not for real patients without an NHS-approved data agreement | — |
+| K9 | **Panjabi script**: we write Gurmukhi, but many UK Panjabi speakers (Pakistani heritage) read Shahmukhi | 🟡 Low | Ask a Panjabi speaker | #16 |
+| K10 | **Only checked by AI so far**: no native speaker has listened to the voices or read the translations yet | 🟠 Medium | Native-speaker checks in C3/C4 (hackathon rule) | #19 |
+| K11 | **FLEURS English reference translations not downloaded** (Hugging Face server error) | 🟡 Low | Retry later; needed for C2 | #13, #29 |
+| K12 | **2 FLEURS Urdu clips (1806, 1930) were used for building**, so they can't count as test results | Rule | Excluded from C2 (see note at the bottom) | — |
+| K13 | **Gemini free-tier limits**: many fast requests may get slowed down | 🟡 Low | Spread tests out; retry is built in | #25 |
+| K14 | **Pre-hackathon commits** (Fri 13 Nov, repo test only) | 🟡 Low | Explain honestly if asked | #8 |
+| K15 | **Frontend choice (HTML vs Gradio) not decided** | 🟠 Medium (timeline) | Team decision needed today | — |
+| K16 | **Real phones/mics not tested yet**: noise thresholds were set on artificial noise | 🟠 Medium | Test on real devices after deploy; adjust `NOISE_BLOCK_DB` / `NOISE_WARN_DB` | #23 |
+
+---
+
+# Part 2: Full error log
 
 ## Setup (step A1)
 
@@ -155,6 +183,60 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **What happened:** in the all-languages test, the Arabic translation used the Persian form of a letter (Arabic and Persian share an alphabet but differ in a few letters).
 - **Fix:** prompt rule 11: use only the target language's own alphabet. **Re-test:** correct Arabic أدوية in 3/3 runs ✅.
 - **Our own mistake while checking:** our first automatic check wrongly flagged the correct Arabic, because we included ه, which is a normal Arabic letter too. We fixed the check to look only for the Persian-only letters ی and ک. Lesson: test your tests.
+
+## Safety features (afternoon)
+
+### 22. 📊 The AI doesn't admit when it mis-hears ("unclear words")
+- **What we built:** a new field `unclear_words`, where Gemini lists the words it isn't sure it heard correctly, so the screen can highlight them.
+- **Test:** clip 1930 (where it mis-hears "released" as "burnt"), 3 runs: **0/3 flagged anything**. It was confidently wrong every time. It also said "clear" on a lightly noisy clip where it got a word wrong.
+- **Lesson:** AI models are often *confidently wrong*; asking them to report doubt isn't reliable. We kept the field (it costs nothing), but our real safety comes from objective checks (#23) and from showing the speaker what was heard (K1).
+
+### 23. ✅ In heavy noise, the AI **invented** medical sentences (most serious bug so far)
+- **What happened:** we added heavy background noise to clip 1806 (about pollution). VoiceBridge returned *"Doctor, I have very sharp **chest pain** and I am having difficulty breathing"*, a sentence **never said**, with an urgent flag, in 2/2 runs. The baseline invented *"my throat is very bad and I have a cough"* in 1 of 2 runs.
+- **Cause:** when the model can't hear, it guesses, and our "GP appointment" instructions pushed the guess towards medical symptoms (*priming*).
+- **Fix, layer 1: an objective noise check in `audio.py`** (plain maths, no AI). We measure the "contrast" between the loud parts (speech) and the quiet gaps between words (background):
+
+  | Clip | Contrast | What Gemini did | Our rule |
+  |---|---|---|---|
+  | Clean speech (FLEURS, AI voices, robot) | 23–28 dB | correct | ✅ pass |
+  | Light noise | 5.7 dB | mostly right, one word wrong | ⚠️ pass **with a warning** (< 12 dB) |
+  | Medium / heavy noise | 2.9 dB | nonsense / invented symptoms | 🛑 **blocked** (< 4 dB): "too much background noise, please try again" |
+
+- **Fix, layer 2: stricter prompt.** New rule 0, *"NEVER INVENT… being in a GP appointment does NOT mean the audio is about health… say [inaudible]"*; a required `speech_clarity` answer (clear / partly_unclear / inaudible); and an extra warning in the request when layer 1 measured noise.
+- **Re-test of layer 2 on its own** (heavy and medium noise sent straight to Gemini, bypassing layer 1): **"inaudible", no translation, no urgent flags: 4/4** (before: invented chest pain 2/2).
+- **Regression check:** clean clips still translate normally, and urgent flags still work (chest pain + breathlessness on the English test).
+- **Limit:** thresholds were set on *artificial* pink noise; real rooms and phone mics may differ (K16).
+
+### 24. ✅ Our old audio test clips were beeps, and now count as "noise"
+- **What happened:** the A2 format test used pure tones. The new noise check rejects them, because a steady beep has no gaps between words.
+- **Fix:** redid the format test with real speech converted to webm, m4a, wav and ogg: **all 4 pass**. (The beep test wasn't a fair test of speech anyway.)
+
+### 25. ✅ Automatic retry for temporary Gemini failures
+- **Why:** busy servers, rate limits or network blips shouldn't ruin a turn.
+- **What:** `pipeline.py` now tries **twice** (1.5 s pause) before showing "please try again".
+- **Test:** asked for a model that doesn't exist → *attempt 1 failed, attempt 2 failed* → user sees the friendly message, no crash ✅.
+
+### 26. ✅ Backup voice: "model not found" until we used the beta API
+- **What we built:** if ElevenLabs fails (credits used up, service down), `voice.py` automatically switches to **Gemini's own voice** (`gemini-3.8-flash-lite-tts`), with two different voices again (Charon / Sulafat).
+- **Error:** every request failed with *"Model 'gemini-3.8-flash-lite-tts' not found"*, even though Google's docs list it.
+- **Cause:** voice models only work through the **beta version** of the API (`v1beta`); Google's example uses it, our client didn't.
+- **Fix:** one line, `http_options={"api_version": "v1beta"}`.
+- **Test (listen-back, all 11 languages):** right language **11/11**, **93–100%** word match, **including Urdu** (which Google's list didn't mention). 3.3–4.7 s each (slower than ElevenLabs' ~1 s). **Automatic switch test:** ElevenLabs given a bad voice → Gemini voice took over ✅. Results: `tests/results/milestone2/backup_voice_all_languages.json`.
+
+### 27. ⚠️ Random slow answers from Google
+- **What happened:** usually 3–4 s, but we saw 11 s, 22 s and once **54 s** (Bengali, backup voice).
+- **Fix (translation):** 20-second time limit per attempt, then retry. **Tested** that the limit is really enforced (set to 0.01 s → gave up after 2 attempts in 2 s) ✅.
+
+### 28. ⚠️ OPEN: the backup voice can hang, and its time limit isn't enforced
+- **What happened:** after #27, a backup-voice request didn't answer for **over 90 seconds** (twice), even with `timeout=20`. Earlier the same requests took 3–5 s, so Google's voice service seems to have slowed down or stalled, and the SDK doesn't apply our time limit to it.
+- **Impact:** only when ElevenLabs *also* fails. Then a turn could hang instead of showing text only.
+- **Options:**
+  1. **Hard stop of our own**: run the backup voice in a separate thread and stop waiting after 15 s, then show text only. *(Recommended: simple, doesn't depend on Google's SDK.)*
+  2. Remove the backup voice and accept "text only" if ElevenLabs fails.
+  3. Use a different backup (e.g. the browser's built-in voice, in the frontend). No server needed, but quality varies by phone, and some languages may be missing.
+
+### 29. ⚠️ Hugging Face still down (update to #13)
+- Retried fetching the FLEURS English references: still *HTTP 500*. Try again later.
 
 ---
 

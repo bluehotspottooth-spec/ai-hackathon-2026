@@ -95,6 +95,12 @@ def medical_system_instruction() -> str:
 A patient with limited English and an English-speaking GP are talking through you.
 Lives may depend on accuracy. Follow these rules exactly:
 
+0. NEVER INVENT. Transcribe and translate ONLY words you actually hear. Being in a GP
+   appointment does NOT mean the audio is about health: never fill gaps with symptoms or
+   phrases that are typical in a clinic. A made-up symptom is far more dangerous than
+   saying you could not hear. If you cannot make out the speech, set original_text to
+   "[inaudible]", translation to "", and speech_clarity to "inaudible".
+
 1. Transcribe exactly what was said, in the original language and script (e.g. Urdu in Urdu script).
 2. Translate faithfully, as a professional interpreter would. Keep the first person:
    "I have pain" stays "I have pain", never "The patient says they have pain".
@@ -106,6 +112,10 @@ Lives may depend on accuracy. Follow these rules exactly:
    and plain everyday words when translating for the patient.
 7. Do not add advice, explanations, diagnoses or answers. Only interpret what was said.
 8. If part of the speech is unclear, write [unclear] at that point rather than guessing.
+   Be honest about doubt: list in unclear_words every word or short phrase of the transcript
+   you are not confident you heard correctly (mumbled, noisy, cut off, or could be a
+   similar-sounding word). Copy each exactly as it appears in original_text. Pay special
+   attention to words that change the meaning: verbs, negations, numbers, body parts, medicines.
 9. Report the language actually spoken as an ISO 639-1 code (e.g. "ur", "pl", "en"),
    even if it is not the expected language.
 10. The translation will be read aloud by a voice, so write it as natural spoken language:
@@ -177,14 +187,23 @@ def _history_block(history: list[dict] | None) -> str:
     )
 
 
-def medical_prompt(source_hint: str, target_lang: str, history: list[dict] | None = None) -> str:
-    """The per-turn request: script rules, conversation context, and glossary terms when we have them."""
+def medical_prompt(
+    source_hint: str, target_lang: str, history: list[dict] | None = None, noisy: bool = False
+) -> str:
+    """The per-turn request: script rules, noise warning, conversation context, and glossary terms."""
     prompt = (
         f"The speaker is expected to speak {LANGUAGES.get(source_hint, source_hint)}. "
         f"Transcribe the audio, detect the language actually spoken, and translate it into "
         f"{LANGUAGES[target_lang]} following your interpreter rules. "
         + _script_rule(source_hint, target_lang)
     )
+    if noisy:
+        # audio.py measured background noise in this recording.
+        prompt += (
+            "\n\nWARNING: our audio check measured background noise in this recording. Be extra careful: "
+            "only transcribe words you hear clearly, write [unclear] for the rest and list them in "
+            "unclear_words. If you can't make out the meaning, return [inaudible]."
+        )
     prompt += _history_block(history)
     glossary = _glossary_lines(target_lang)
     if glossary:

@@ -94,12 +94,17 @@ Returns:
   "target_language": "en",
   "translation": "I have chest pain.",
   "urgent_terms": ["chest pain"],
+  "unclear_words": [],              # words the AI wasn't sure of: highlight them
+  "speech_clarity": "clear",        # "clear" / "partly_unclear" / "inaudible"
+  "noisy": False,                   # True = background noise: show a warning
   "audio_base64": "<mp3 as base64, or '' if not available>",
   "timings": {"convert": 0.2, "translate": 2.1, "speak": 0.9, "total": 3.3},
   "turns_left": 19,
 }
 ```
-More than 20 turns → `ServiceError(..., 429)`. Empty or too-short audio → `ServiceError(..., 400)`.
+More than 20 turns → `ServiceError(..., 429)`. Empty, too-short or far-too-noisy audio → `ServiceError(..., 400)`.
+
+**Safety displays (added Sat 14 Nov; the AI sometimes mis-hears):** always show the original text to the speaker so they can spot mistakes; mark `unclear_words` in bold or with ⚠; if `noisy` is True add "Background noise: please check this was heard correctly"; if `speech_clarity == "inaudible"`, don't play audio, just show "We couldn't hear that clearly. Please say it again."
 
 ### `get_summary(session_id: str) -> dict`
 Returns `{"summary_en": "...", "summary_patient_lang": "..."}`.

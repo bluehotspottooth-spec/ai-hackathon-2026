@@ -101,6 +101,13 @@ It's a single page, but only one screen is visible at a time. Use 4 `<section>`s
 
 **Urgent flags:** if `urgent_terms` is not empty, show a **red card** clearly aimed at the doctor, e.g. "⚠ Urgent: chest pain, shortness of breath". Use red **plus** an icon **plus** the word "Urgent" (never colour alone).
 
+**Safety: "Is that what you said?"** (added Sat 14 Nov; the AI sometimes mis-hears, e.g. "released" became "burnt to death")
+- Always show the **original text** to the person who spoke, in their own language, so they can see if it's wrong.
+- **`unclear_words`:** underline / highlight these words inside the original text (amber, dotted underline), with a small note "Some words may be wrong. Please check".
+- **`noisy: true`:** show an amber banner on that card: "Background noise: please check this was heard correctly."
+- **`speech_clarity: "inaudible"`:** the translation is empty. Don't play audio; show "We couldn't hear that clearly. Please say it again." on the speaker's panel.
+- Add a small **"That's not what I said ↺"** button on each card that just asks the speaker to record again (no backend call needed; the turn still counts).
+
 **Bottom bar:** "Turns left: N" and an "End appointment" button (ask "Are you sure?" first).
 
 ### Screen 4: Summary
@@ -145,6 +152,9 @@ Response:
   "target_language": "en",
   "translation": "I have chest pain.",
   "urgent_terms": ["chest pain"],
+  "unclear_words": [],
+  "speech_clarity": "clear",
+  "noisy": false,
   "audio_base64": "<mp3 as base64>",
   "timings": { "convert": 0.2, "translate": 2.1, "speak": 0.9, "total": 3.3 },
   "turns_left": 19
@@ -152,7 +162,9 @@ Response:
 ```
 - `speaker` decides direction: patient → translated to English; doctor → translated to the patient's language.
 - More than 20 turns → **429** with a friendly message. Show it, and disable the mic buttons.
-- `audio_base64` **may be empty** for a language our voice service doesn't support. Then show the text only, with a small note "Audio not available for this language".
+- Far too much background noise → **400** with a friendly `error` ("There's too much background noise…"). Show it on the speaker's panel.
+- `unclear_words`, `speech_clarity`, `noisy`: safety fields, see "Is that what you said?" above.
+- `audio_base64` **may be empty** if both voice services fail. Then show the text only, with a small note "Audio not available right now. Please read the translation".
 - Play the audio with: `new Audio("data:audio/mpeg;base64," + audio_base64).play()`
 
 ### `POST /api/summary`
@@ -220,6 +232,7 @@ Make the mock realistic so you can test every state:
 - every 3rd turn include `urgent_terms: ["chest pain"]`
 - sometimes return a different `detected_language` (tests the yellow warning)
 - return `audio_base64: ""` (tests the "audio not available" path; no fake MP3 needed)
+- sometimes return `unclear_words: ["درد"]` + `speech_clarity: "partly_unclear"`, sometimes `noisy: true`, and once `speech_clarity: "inaudible"` with `translation: ""` (tests the safety displays)
 - include some Urdu/Arabic text so you can see RTL working
 
 ### Step 5: Microphone recording (hold-to-speak)

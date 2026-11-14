@@ -121,7 +121,7 @@ All endpoints are under `/api`. All responses are JSON. Errors return `{"error":
 |---|---|---|
 | `POST /api/session` | JSON: `access_code`, `doctor_lang` ("en"), `patient_lang` (e.g. "ur") | `{session_id, turns_left}` |
 | `POST /api/clone` *(optional feature)* | `session_id`, `speaker` ("doctor"/"patient"), `consent` (true/false), `audio` file | `{voice_ready: true, cloned: true/false}` |
-| `POST /api/turn` | `session_id`, `speaker` ("doctor"/"patient"), `audio` file | `{original_text, detected_language, target_language, translation, urgent_terms: [..], audio_base64 (mp3), timings: {convert, translate, speak, total}, turns_left}` |
+| `POST /api/turn` | `session_id`, `speaker` ("doctor"/"patient"), `audio` file | `{original_text, detected_language, target_language, translation, urgent_terms: [..], unclear_words: [..], speech_clarity ("clear"/"partly_unclear"/"inaudible"), noisy (true/false), audio_base64 (mp3, may be ""), timings: {convert, translate, speak, total}, turns_left}` |
 | `POST /api/summary` | JSON: `session_id` | `{summary_en, summary_patient_lang}` |
 | `POST /api/end` | JSON: `session_id` | `{ended: true}` (deletes any cloned voices) |
 
@@ -130,6 +130,7 @@ Rules:
 - `speaker` decides the direction: patient speaks → translate to English; doctor speaks → translate to `patient_lang`.
 - `detected_language` is still reported (auto-detect) and shown in the UI; if it differs from the expected language, show a warning.
 - A config flag `USE_MEDICAL_LAYER` (glossary + GP prompt) must exist so tests can switch it off for the **baseline**.
+- **Safety fields (added Sat 14 Nov, approved by Ahmed):** `unclear_words` = words in `original_text` the AI wasn't sure of (highlight them); `speech_clarity` = "inaudible" means nothing was translated, so ask the speaker to repeat; `noisy` = our audio check measured background noise, so show "Background noise: check the transcript". A recording that's far too noisy is rejected with HTTP 400 and a friendly `error` message. See `docs/ERRORS_AND_FIXES.md` for why (the AI invented symptoms in noise).
 
 ## 7. The three parts
 

@@ -1,0 +1,93 @@
+{
+  "model": "gemini-3.8-flash-lite-tts",
+  "results": [
+    {
+      "lang": "pl",
+      "provider": "gemini",
+      "seconds": 4.67,
+      "detected": "pl",
+      "match_percent": 100,
+      "heard_back": "Czy ma pani, pan, uczulenie na jakieś leki? Proszę mi powiedzieć, czy jest pani w ciąży?"
+    },
+    {
+      "lang": "ro",
+      "provider": "gemini",
+      "seconds": 4.24,
+      "detected": "ro",
+      "match_percent": 100,
+      "heard_back": "Sunteți alergic la vreun medicament? Vă rog să-mi spuneți dacă sunteți însărcinată."
+    },
+    {
+      "lang": "pa",
+      "provider": "gemini",
+      "seconds": 4.45,
+      "detected": "pa",
+      "match_percent": 100,
+      "heard_back": "ਕੀ ਤੁਹਾਨੂੰ ਕਿਸੇ ਦਵਾਈ ਤੋਂ ਐਲਰਜੀ ਹੈ? ਕ੍ਰਿਪਾ ਕਰਕੇ ਮੈਨੂੰ ਦੱਸੋ ਜੇ ਤੁਸੀਂ ਗਰਭਵਤੀ ਹੋ।"
+    },
+    {
+      "lang": "ur",
+      "provider": "gemini",
+      "seconds": 4.04,
+      "detected": "ur",
+      "match_percent": 100,
+      "heard_back": "کیا آپ کو کسی دوا سے الرجی ہے؟ براہ کرم مجھے بتائیں اگر آپ حاملہ ہیں۔"
+    },
+    {
+      "lang": "pt",
+      "provider": "gemini",
+      "seconds": 3.72,
+      "detected": "pt",
+      "match_percent": 96,
+      "heard_back": "Tenha alergia a algum medicamento? Por favor, diga-me se está grávida."
+    },
+    {
+      "lang": "es",
+      "provider": "gemini",
+      "seconds": 3.34,
+      "detected": "es",
+      "match_percent": 100,
+      "heard_back": "Es alérgico a algún medicamento? Por favor, dígame si está embarazada."
+    },
+    {
+      "lang": "ar",
+      "provider": "gemini",
+      "seconds": 4.02,
+      "detected": "ar",
+      "match_percent": 93,
+      "heard_back": "هل لديك حساسیة تجاه أي أدوية؟ أرجو إخباري إذا كنت حاملاً."
+    },
+    {
+      "lang": "bn",
+      "provider": "gemini",
+      "seconds": 53.71,
+      "detected": "bn",
+      "match_percent": 96,
+      "heard_back": "আপনার কি কোন ওষুধের অ্যালার্জি আছে? আপনি গর্ভবতী হলে অনুগ্রহ করে আমাকে বলুন।"
+    },
+    {
+      "lang": "gu",
+      "provider": "gemini",
+      "seconds": 4.49,
+      "detected": "gu",
+      "match_percent": 100,
+      "heard_back": "શું તમને કોઈ દવાઓની એલર્જી છે? કૃપા કરીને મને જણાવો કે શું તમે સગર્ભા છો?"
+    },
+    {
+      "lang": "it",
+      "provider": "gemini",
+      "seconds": 3.71,
+      "detected": "it",
+      "match_percent": 99,
+      "heard_back": "È allergico a qualche medicinale? Per favore, mi dica se è incinta."
+    },
+    {
+      "lang": "fa",
+      "provider": "gemini",
+      "seconds": 3.66,
+      "detected": "fa",
+      "match_percent": 100,
+      "heard_back": "آیا به دارویی حساسیت دارید؟ لطفا اگر باردار هستید به من بگویید."
+    }
+  ]
+}
