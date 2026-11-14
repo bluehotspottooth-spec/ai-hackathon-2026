@@ -1,0 +1,389 @@
+term,category,consultations
+fever,symptom,24
+nausea,symptom,20
+vomiting,symptom,18
+paracetamol,medicine,16
+diarrhoea,symptom,15
+headache,symptom,15
+cough,symptom,13
+ibuprofen,medicine,12
+shortness of breath,symptom,12
+asthma,condition,11
+rash,symptom,10
+arm,body_part,10
+antibiotic,medicine,9
+chest,body_part,9
+leg,body_part,9
+blood test,test_or_procedure,9
+throat,body_part,8
+eye,body_part,7
+numbness,symptom,7
+migraine,condition,7
+cold,condition,7
+weakness,symptom,6
+eczema,condition,6
+head,body_part,6
+ear,body_part,6
+period,symptom,6
+hypertension,condition,6
+tingling,symptom,6
+abdominal pain,symptom,6
+stomach,body_part,5
+antihistamine,medicine,5
+neck,body_part,5
+diabetes,condition,5
+chest pain,symptom,5
+tiredness,symptom,5
+palpitations,symptom,5
+constipation,symptom,5
+urine,body_part,5
+aspirin,medicine,5
+gastroenteritis,condition,4
+dioralyte,medicine,4
+hand,body_part,4
+runny nose,symptom,4
+sore throat,symptom,4
+tummy,body_part,4
+heart attack,condition,4
+kidney,body_part,4
+blood,symptom,4
+bowel,body_part,4
+dehydration,condition,4
+high blood pressure,condition,4
+infection,condition,4
+dizziness,symptom,4
+fatigue,symptom,4
+blood pressure,test_or_procedure,4
+hay fever,condition,4
+salbutamol,medicine,4
+stool,body_part,3
+inhaler,medicine,3
+abdomen,body_part,3
+stool sample,test_or_procedure,3
+cramp,symptom,3
+sweating,symptom,3
+elbow,body_part,3
+skin,body_part,3
+naproxen,medicine,3
+painkiller,medicine,3
+tummy pain,symptom,3
+trimethoprim,medicine,3
+pregnancy test,test_or_procedure,3
+implanon,medicine,3
+clindamycin,medicine,3
+irritable bowel syndrome,condition,3
+gut,body_part,3
+back,body_part,3
+swelling,symptom,3
+urinary tract infection,condition,3
+dysuria,symptom,3
+appetite,symptom,3
+metformin,medicine,3
+phlegm,symptom,3
+chest infection,condition,3
+stroke,condition,3
+penicillin,medicine,3
+shoulder,body_part,3
+neck stiffness,symptom,3
+acid reflux,condition,3
+vitamin d,medicine,3
+hypothyroidism,condition,3
+blurred vision,symptom,3
+blood in the urine,symptom,3
+night sweat,symptom,2
+temperature,symptom,2
+loratadine,medicine,2
+breathing difficulty,symptom,2
+piriton,medicine,2
+underactive thyroid,condition,2
+skin rash,symptom,2
+vomit,symptom,2
+brain tumour,condition,2
+microgynon,medicine,2
+nose,body_part,2
+loose stool,symptom,2
+std screen,test_or_procedure,2
+nitrofurantoin,medicine,2
+bladder,body_part,2
+mebeverine,medicine,2
+urinary frequency,symptom,2
+bowel cancer,condition,2
+vision,symptom,2
+type 2 diabetes,condition,2
+lisinopril,medicine,2
+muscle,body_part,2
+peanut allergy,condition,2
+tinnitus,symptom,2
+hearing loss,symptom,2
+face,body_part,2
+physical examination,test_or_procedure,2
+labyrinthitis,condition,2
+wrist,body_part,2
+finger,body_part,2
+lung,body_part,2
+glasses,other,2
+muscle weakness,symptom,2
+brain scan,test_or_procedure,2
+jaw,body_part,2
+heart,body_part,2
+high cholesterol,condition,2
+ear pain,symptom,2
+back pain,symptom,2
+difficulty swallowing,symptom,2
+chest tightness,symptom,2
+anaphylaxis,condition,2
+weight loss,symptom,2
+thyroxine,medicine,2
+flu,condition,2
+melatonin,medicine,2
+kidney stone,condition,2
+spacer,test_or_procedure,2
+allergy,condition,2
+amoxicillin,medicine,2
+thermometer,test_or_procedure,2
+contraception,medicine,2
+vaginal discharge,symptom,2
+high temperature,symptom,2
+blood in the stool,symptom,2
+wheezing,symptom,2
+toe,body_part,2
+knee,body_part,2
+shakiness,symptom,1
+loss of appetite,symptom,1
+steroid cream,medicine,1
+fexofenadine,medicine,1
+emollient,medicine,1
+co-codamol,medicine,1
+brain cancer,condition,1
+breathlessness,symptom,1
+meningitis,condition,1
+vision blurred,symptom,1
+speech,symptom,1
+viral upper respiratory tract infection,condition,1
+muscle pain,symptom,1
+night sweats,symptom,1
+joint pain,symptom,1
+pain on swallowing,symptom,1
+sneezing,symptom,1
+influenza,condition,1
+nasal congestion,symptom,1
+redness,symptom,1
+burning pain,symptom,1
+urine infection,condition,1
+blood in urine,symptom,1
+frequency,symptom,1
+hot and sweaty,symptom,1
+pink urine,symptom,1
+belly button,body_part,1
+bisoprolol,medicine,1
+angina,condition,1
+furosemide,medicine,1
+echocardiogram,test_or_procedure,1
+osteoporosis,condition,1
+ankle swelling,symptom,1
+heart failure,condition,1
+cramping,symptom,1
+stinging,symptom,1
+flank,body_part,1
+discharge,symptom,1
+condom,other,1
+bicarbonate,medicine,1
+hematuria,symptom,1
+cystitis,condition,1
+combined oral contraceptive pill,medicine,1
+colon,body_part,1
+colon cancer,condition,1
+watery stool,symptom,1
+dehydrated,symptom,1
+weak,symptom,1
+codeine,medicine,1
+pill,medicine,1
+eye test,test_or_procedure,1
+headache diary,other,1
+eyes,body_part,1
+dry cough,symptom,1
+lethargy,symptom,1
+shiver,symptom,1
+immune system,body_part,1
+viral illness,condition,1
+joint,body_part,1
+alcohol,other,1
+chills,symptom,1
+bursitis,condition,1
+gout,condition,1
+anti-inflammatory medication,medicine,1
+osteoarthritis,condition,1
+dry skin,symptom,1
+rheumatoid arthritis,condition,1
+lupus,condition,1
+septic arthritis,condition,1
+bell's palsy,condition,1
+neurological examination,test_or_procedure,1
+jawline,body_part,1
+neurofibromatosis,condition,1
+rennie,medicine,1
+nasal polyp,condition,1
+latex,other,1
+thumb,body_part,1
+pneumonia,condition,1
+larynx,body_part,1
+chest x-ray,test_or_procedure,1
+blood clot,condition,1
+stethoscope,test_or_procedure,1
+blood in sputum,symptom,1
+lung cancer,condition,1
+methotrexate,medicine,1
+pulse,test_or_procedure,1
+systemic lupus erythematosus,condition,1
+carotid artery,body_part,1
+pins and needles,symptom,1
+transient ischaemic attack,condition,1
+abnormal gait,symptom,1
+cholesterol,test_or_procedure,1
+ultrasound,test_or_procedure,1
+pressure on my chest,symptom,1
+allergic reaction,condition,1
+heartburn,symptom,1
+ecg,test_or_procedure,1
+overweight,condition,1
+chest discomfort,symptom,1
+smoking,other,1
+pollen allergy,condition,1
+thick and thin blood films,test_or_procedure,1
+throat infection,condition,1
+muscle ache,symptom,1
+inflammatory markers,test_or_procedure,1
+seroxat,medicine,1
+hepatitis b vaccine,test_or_procedure,1
+painful urination,symptom,1
+malaria,condition,1
+joint swelling,symptom,1
+heart disease,condition,1
+type 2 diabetes mellitus,condition,1
+arm weakness,symptom,1
+amlodipine,medicine,1
+left leg,body_part,1
+losartan,medicine,1
+speech problem,symptom,1
+left arm,body_part,1
+tension headache,condition,1
+anxiety,condition,1
+stress,condition,1
+sertraline,medicine,1
+depression,condition,1
+sensitivity to bright light,symptom,1
+upper lip,body_part,1
+lip swelling,symptom,1
+difficulty breathing,symptom,1
+cetirizine,medicine,1
+liver,body_part,1
+thyroid,body_part,1
+mood,symptom,1
+anaemia,condition,1
+mucus,symptom,1
+vitamin,other,1
+energy,symptom,1
+otorrhea,symptom,1
+middle ear,body_part,1
+hormone replacement therapy,medicine,1
+gait disturbance,symptom,1
+vertigo,symptom,1
+premature ovarian failure,condition,1
+shakey,symptom,1
+blood pressure measurement,test_or_procedure,1
+shallow breath,symptom,1
+aerosinusitis,condition,1
+lip,body_part,1
+wasp sting,condition,1
+massage,test_or_procedure,1
+multiple sclerosis,condition,1
+palm,body_part,1
+autoimmune disease,condition,1
+muscle sore,symptom,1
+iron supplement,medicine,1
+knuckle,body_part,1
+neurology referral,test_or_procedure,1
+contact lens,other,1
+neck pain,symptom,1
+fit,symptom,1
+steroid,medicine,1
+seizure,symptom,1
+lexapro,medicine,1
+appetite loss,symptom,1
+blood in stool,symptom,1
+mucus in stool,symptom,1
+neurological exam,test_or_procedure,1
+dizzy,symptom,1
+low mood,symptom,1
+poor appetite,symptom,1
+decreased libido,symptom,1
+poor concentration,symptom,1
+insomnia,symptom,1
+intubation,test_or_procedure,1
+steroids,medicine,1
+asthma exacerbation,condition,1
+clenil modulite,medicine,1
+milk protein allergy,condition,1
+wheeze,symptom,1
+high blood sugar,condition,1
+tight chest,symptom,1
+hayfever,condition,1
+type 1 diabetes mellitus,condition,1
+pregnancy,condition,1
+abdominal examination,test_or_procedure,1
+vaginal spotting,symptom,1
+urinary urgency,symptom,1
+sensitivity to light,symptom,1
+menstrual cycle,other,1
+non-steroidal anti-inflammatory,medicine,1
+feverish,symptom,1
+sneeze,symptom,1
+eyesight,symptom,1
+malodorous urine,symptom,1
+haematuria,symptom,1
+lower back pain,symptom,1
+loin pain,symptom,1
+vaginal bleeding,symptom,1
+tummy ache,symptom,1
+antibiotics,medicine,1
+bleeding between periods,symptom,1
+breast cancer,condition,1
+contraceptive implant,medicine,1
+amoxycillin,medicine,1
+thirst,symptom,1
+navel,body_part,1
+menstrual cramp,symptom,1
+oral rehydration salts,medicine,1
+blood pressure check,test_or_procedure,1
+weight,other,1
+height,other,1
+sinus,body_part,1
+peak flow meter,test_or_procedure,1
+asthma inhaler,medicine,1
+viral infection,condition,1
+itching,symptom,1
+difficulty passing urine,symptom,1
+run down,symptom,1
+lyme disease,condition,1
+calf,body_part,1
+hip,body_part,1
+bacterial infection,condition,1
+ankle,body_part,1
+earache,symptom,1
+uti,condition,1
+physiotherapy,test_or_procedure,1
+indigestion,symptom,1
+far-sighted,condition,1
+ligament,body_part,1
+aleve,medicine,1
+acetaminophen,medicine,1
+bruise,condition,1
+injury,condition,1
+pain,symptom,1
+morphine,medicine,1
+cartilage,body_part,1
+xanax,medicine,1
+lasik surgery,test_or_procedure,1
+acl,body_part,1
+clicking,symptom,1
+nurofen,medicine,1

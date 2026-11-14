@@ -90,7 +90,28 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 
 ---
 
+### ~15:30 · C1: glossary built from PriMock57 (done by Claude on Ahmed's request, in the testing folder)
+- Downloaded the **PriMock57 transcripts** (114 TextGrid files, 1.7 MB, CC BY 4.0; no audio) into `data/primock57/` (not uploaded to GitHub).
+- `tests/primock57.py` reads them: it merges doctor + patient files into one conversation and removes transcriber tags.
+- `tests/build_glossary.py`:
+  - `split`: **40 BUILD / 17 TEST**, shuffled with fixed seed 2026 → `data/split.json`.
+  - `extract`: Gemini listed the medical terms in each of the 40 BUILD consultations → **388 different terms**, counted by how many consultations mention them → `data/term_counts.csv`. Top: fever (24), nausea (20), vomiting (18), paracetamol (16), diarrhoea (15), headache (15).
+  - `build`: chose ~80–100 terms (frequent clinical terms, medicines, NHS urgent warning signs) and drafted translations into all 11 languages → `backend/glossary.json`.
+  - **Decision: a stronger model (gemini-4-hydrogen) drafts the glossary.** It runs once, offline, so quality matters more than speed (the live app keeps the fast model).
+  - **Decision: `verified=false` everywhere and SNOMED IDs left empty.** Only a real speaker can verify a translation, and only a person should confirm an NHS code.
+- `tests/make_medical_test_set.py`: sentences containing glossary terms, **only from the 17 TEST consultations** → `tests/test_set_medical.csv` (input for C3).
+
+### ~15:45 · A5 + A6: sessions, service and the API (Milestone 3)
+- `backend/sessions.py`: the access code (compared safely with `secrets.compare_digest`), the 20-turn limit (only successful turns count), stored turns that feed the **conversation history**, and appointments deleted on "end" or after 2 hours. **Decision: in memory, not a database.** Simpler, and nothing is kept after the appointment, which is good for privacy.
+- `backend/errors.py`: one `ServiceError` (friendly message + HTTP status) used everywhere.
+- `backend/service.py`: the 4 functions both frontends use. One turn = noise check → translate with history → speak (with backup) → save. Also the **summary** (A7): English + patient language, only what was said, urgent symptoms highlighted.
+- `backend/main.py`: FastAPI endpoints `/api/session`, `/api/turn`, `/api/summary`, `/api/end`, `/api/health`; errors always come back as `{"error": ...}`; a 10 MB upload limit; serves `frontend/index.html` when it exists, otherwise `/` goes to the `/docs` test page.
+- **Milestone 3 ✅:** a full appointment over HTTP. Wrong code 401; Urdu patient turn **4.2 s**; English doctor turn **5.5 s** (with urgent flags); noisy turn refused (400); summary in both languages; end; using it after ending → 404.
+- **Glossary connected:** checked translations are given as rules, AI-drafted ones as suggestions; glossary urgent terms join the urgent list.
+
+---
+
 ## Next
-- A5: `sessions.py` (access code, 20-turn limit, stores each turn and passes the last 6 to `translate_audio(history=...)`).
-- A6: `service.py` + `main.py`, the `/api` endpoints.
+- Frontend connection (HTML from the mockup, or Gradio).
+- A8: Dockerfile + Hugging Face deployment.
 - Fetch the FLEURS English references once Hugging Face's service is back.

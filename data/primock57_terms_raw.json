@@ -1,0 +1,3582 @@
+{
+  "day1_consultation01": [
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "stool",
+      "category": "body_part"
+    },
+    {
+      "term": "stomach",
+      "category": "body_part"
+    },
+    {
+      "term": "abdomen",
+      "category": "body_part"
+    },
+    {
+      "term": "cramp",
+      "category": "symptom"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "shakiness",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "temperature",
+      "category": "symptom"
+    },
+    {
+      "term": "sweating",
+      "category": "symptom"
+    },
+    {
+      "term": "night sweat",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "loss of appetite",
+      "category": "symptom"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "inhaler",
+      "category": "medicine"
+    },
+    {
+      "term": "gastroenteritis",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "dioralyte",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "stool sample",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day1_consultation02": [
+    {
+      "term": "skin",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "hand",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "steroid cream",
+      "category": "medicine"
+    },
+    {
+      "term": "elbow",
+      "category": "body_part"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "breathing difficulty",
+      "category": "symptom"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "emollient",
+      "category": "medicine"
+    },
+    {
+      "term": "antihistamine",
+      "category": "medicine"
+    },
+    {
+      "term": "loratadine",
+      "category": "medicine"
+    },
+    {
+      "term": "piriton",
+      "category": "medicine"
+    },
+    {
+      "term": "fexofenadine",
+      "category": "medicine"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    }
+  ],
+  "day1_consultation03": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "vomit",
+      "category": "symptom"
+    },
+    {
+      "term": "vision blurred",
+      "category": "symptom"
+    },
+    {
+      "term": "neck",
+      "category": "body_part"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "brain cancer",
+      "category": "condition"
+    },
+    {
+      "term": "brain tumour",
+      "category": "condition"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "skin rash",
+      "category": "symptom"
+    },
+    {
+      "term": "painkiller",
+      "category": "medicine"
+    },
+    {
+      "term": "speech",
+      "category": "symptom"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "breathlessness",
+      "category": "symptom"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "underactive thyroid",
+      "category": "condition"
+    },
+    {
+      "term": "microgynon",
+      "category": "medicine"
+    },
+    {
+      "term": "meningitis",
+      "category": "condition"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "co-codamol",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "naproxen",
+      "category": "medicine"
+    }
+  ],
+  "day1_consultation04": [
+    {
+      "term": "sore throat",
+      "category": "symptom"
+    },
+    {
+      "term": "runny nose",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "tiredness",
+      "category": "symptom"
+    },
+    {
+      "term": "sneezing",
+      "category": "symptom"
+    },
+    {
+      "term": "pain on swallowing",
+      "category": "symptom"
+    },
+    {
+      "term": "redness",
+      "category": "symptom"
+    },
+    {
+      "term": "nasal congestion",
+      "category": "symptom"
+    },
+    {
+      "term": "night sweats",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "chest pain",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "muscle pain",
+      "category": "symptom"
+    },
+    {
+      "term": "joint pain",
+      "category": "symptom"
+    },
+    {
+      "term": "diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "viral upper respiratory tract infection",
+      "category": "condition"
+    },
+    {
+      "term": "influenza",
+      "category": "condition"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "nose",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "skin",
+      "category": "body_part"
+    }
+  ],
+  "day1_consultation05": [
+    {
+      "term": "tummy pain",
+      "category": "symptom"
+    },
+    {
+      "term": "hot and sweaty",
+      "category": "symptom"
+    },
+    {
+      "term": "tummy",
+      "category": "body_part"
+    },
+    {
+      "term": "belly button",
+      "category": "body_part"
+    },
+    {
+      "term": "burning pain",
+      "category": "symptom"
+    },
+    {
+      "term": "constipation",
+      "category": "symptom"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "loose stool",
+      "category": "symptom"
+    },
+    {
+      "term": "urine",
+      "category": "body_part"
+    },
+    {
+      "term": "pink urine",
+      "category": "symptom"
+    },
+    {
+      "term": "frequency",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in urine",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "std screen",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "implanon",
+      "category": "medicine"
+    },
+    {
+      "term": "period",
+      "category": "symptom"
+    },
+    {
+      "term": "pregnancy test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "palpitations",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "urine infection",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "painkiller",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "trimethoprim",
+      "category": "medicine"
+    }
+  ],
+  "day1_consultation06": [
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "heart failure",
+      "category": "condition"
+    },
+    {
+      "term": "chest pain",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "ankle swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "palpitations",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "heart attack",
+      "category": "condition"
+    },
+    {
+      "term": "angina",
+      "category": "condition"
+    },
+    {
+      "term": "furosemide",
+      "category": "medicine"
+    },
+    {
+      "term": "aspirin",
+      "category": "medicine"
+    },
+    {
+      "term": "bisoprolol",
+      "category": "medicine"
+    },
+    {
+      "term": "osteoporosis",
+      "category": "condition"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "echocardiogram",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day1_consultation09": [
+    {
+      "term": "stinging",
+      "category": "symptom"
+    },
+    {
+      "term": "tummy",
+      "category": "body_part"
+    },
+    {
+      "term": "cramping",
+      "category": "symptom"
+    },
+    {
+      "term": "period",
+      "category": "symptom"
+    },
+    {
+      "term": "urine",
+      "category": "body_part"
+    },
+    {
+      "term": "blood",
+      "category": "symptom"
+    },
+    {
+      "term": "back",
+      "category": "body_part"
+    },
+    {
+      "term": "flank",
+      "category": "body_part"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "loose stool",
+      "category": "symptom"
+    },
+    {
+      "term": "discharge",
+      "category": "symptom"
+    },
+    {
+      "term": "std screen",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "condom",
+      "category": "other"
+    },
+    {
+      "term": "pregnancy test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "irritable bowel syndrome",
+      "category": "condition"
+    },
+    {
+      "term": "bicarbonate",
+      "category": "medicine"
+    },
+    {
+      "term": "clindamycin",
+      "category": "medicine"
+    },
+    {
+      "term": "swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "kidney",
+      "category": "body_part"
+    },
+    {
+      "term": "bladder",
+      "category": "body_part"
+    },
+    {
+      "term": "bowel",
+      "category": "body_part"
+    },
+    {
+      "term": "gut",
+      "category": "body_part"
+    },
+    {
+      "term": "urinary tract infection",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "nitrofurantoin",
+      "category": "medicine"
+    },
+    {
+      "term": "trimethoprim",
+      "category": "medicine"
+    }
+  ],
+  "day1_consultation10": [
+    {
+      "term": "dysuria",
+      "category": "symptom"
+    },
+    {
+      "term": "urinary frequency",
+      "category": "symptom"
+    },
+    {
+      "term": "tummy pain",
+      "category": "symptom"
+    },
+    {
+      "term": "tummy",
+      "category": "body_part"
+    },
+    {
+      "term": "urine",
+      "category": "body_part"
+    },
+    {
+      "term": "hematuria",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "bowel",
+      "category": "body_part"
+    },
+    {
+      "term": "irritable bowel syndrome",
+      "category": "condition"
+    },
+    {
+      "term": "combined oral contraceptive pill",
+      "category": "medicine"
+    },
+    {
+      "term": "period",
+      "category": "other"
+    },
+    {
+      "term": "bladder",
+      "category": "body_part"
+    },
+    {
+      "term": "mebeverine",
+      "category": "medicine"
+    },
+    {
+      "term": "clindamycin",
+      "category": "medicine"
+    },
+    {
+      "term": "kidney",
+      "category": "body_part"
+    },
+    {
+      "term": "cystitis",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "trimethoprim",
+      "category": "medicine"
+    },
+    {
+      "term": "nitrofurantoin",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    }
+  ],
+  "day1_consultation11": [
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "watery stool",
+      "category": "symptom"
+    },
+    {
+      "term": "tummy pain",
+      "category": "symptom"
+    },
+    {
+      "term": "cramp",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "dehydration",
+      "category": "condition"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "colon cancer",
+      "category": "condition"
+    },
+    {
+      "term": "gastroenteritis",
+      "category": "condition"
+    },
+    {
+      "term": "dioralyte",
+      "category": "medicine"
+    },
+    {
+      "term": "abdomen",
+      "category": "body_part"
+    },
+    {
+      "term": "bowel",
+      "category": "body_part"
+    },
+    {
+      "term": "colon",
+      "category": "body_part"
+    },
+    {
+      "term": "gut",
+      "category": "body_part"
+    }
+  ],
+  "day1_consultation12": [
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "dehydrated",
+      "category": "symptom"
+    },
+    {
+      "term": "appetite",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "weak",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "inhaler",
+      "category": "medicine"
+    },
+    {
+      "term": "high blood pressure",
+      "category": "condition"
+    },
+    {
+      "term": "bowel cancer",
+      "category": "condition"
+    },
+    {
+      "term": "diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "gastroenteritis",
+      "category": "condition"
+    },
+    {
+      "term": "dioralyte",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    }
+  ],
+  "day1_consultation13": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "eyes",
+      "category": "body_part"
+    },
+    {
+      "term": "vision",
+      "category": "symptom"
+    },
+    {
+      "term": "neck",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "pill",
+      "category": "medicine"
+    },
+    {
+      "term": "eye test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "naproxen",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "codeine",
+      "category": "medicine"
+    },
+    {
+      "term": "headache diary",
+      "category": "other"
+    }
+  ],
+  "day1_consultation14": [
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "runny nose",
+      "category": "symptom"
+    },
+    {
+      "term": "dry cough",
+      "category": "symptom"
+    },
+    {
+      "term": "phlegm",
+      "category": "symptom"
+    },
+    {
+      "term": "sore throat",
+      "category": "symptom"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "tiredness",
+      "category": "symptom"
+    },
+    {
+      "term": "shiver",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "appetite",
+      "category": "other"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "stomach",
+      "category": "body_part"
+    },
+    {
+      "term": "urine",
+      "category": "other"
+    },
+    {
+      "term": "skin rash",
+      "category": "symptom"
+    },
+    {
+      "term": "muscle",
+      "category": "body_part"
+    },
+    {
+      "term": "joint",
+      "category": "body_part"
+    },
+    {
+      "term": "chills",
+      "category": "symptom"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "lethargy",
+      "category": "symptom"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "type 2 diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "metformin",
+      "category": "medicine"
+    },
+    {
+      "term": "lisinopril",
+      "category": "medicine"
+    },
+    {
+      "term": "immune system",
+      "category": "body_part"
+    },
+    {
+      "term": "alcohol",
+      "category": "other"
+    },
+    {
+      "term": "viral illness",
+      "category": "condition"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "infection",
+      "category": "condition"
+    }
+  ],
+  "day2_consultation02": [
+    {
+      "term": "elbow",
+      "category": "body_part"
+    },
+    {
+      "term": "swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "rheumatoid arthritis",
+      "category": "condition"
+    },
+    {
+      "term": "lupus",
+      "category": "condition"
+    },
+    {
+      "term": "osteoarthritis",
+      "category": "condition"
+    },
+    {
+      "term": "peanut allergy",
+      "category": "condition"
+    },
+    {
+      "term": "dry skin",
+      "category": "symptom"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "bursitis",
+      "category": "condition"
+    },
+    {
+      "term": "anti-inflammatory medication",
+      "category": "medicine"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "gout",
+      "category": "condition"
+    },
+    {
+      "term": "septic arthritis",
+      "category": "condition"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    }
+  ],
+  "day2_consultation03": [
+    {
+      "term": "hearing loss",
+      "category": "symptom"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "face",
+      "category": "body_part"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "jawline",
+      "category": "body_part"
+    },
+    {
+      "term": "tinnitus",
+      "category": "symptom"
+    },
+    {
+      "term": "nasal polyp",
+      "category": "condition"
+    },
+    {
+      "term": "rennie",
+      "category": "medicine"
+    },
+    {
+      "term": "labyrinthitis",
+      "category": "condition"
+    },
+    {
+      "term": "latex",
+      "category": "other"
+    },
+    {
+      "term": "neurofibromatosis",
+      "category": "condition"
+    },
+    {
+      "term": "dizziness",
+      "category": "symptom"
+    },
+    {
+      "term": "bell's palsy",
+      "category": "condition"
+    },
+    {
+      "term": "neurological examination",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "physical examination",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day2_consultation04": [
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "back",
+      "category": "body_part"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in sputum",
+      "category": "symptom"
+    },
+    {
+      "term": "palpitations",
+      "category": "symptom"
+    },
+    {
+      "term": "fatigue",
+      "category": "symptom"
+    },
+    {
+      "term": "methotrexate",
+      "category": "medicine"
+    },
+    {
+      "term": "systemic lupus erythematosus",
+      "category": "condition"
+    },
+    {
+      "term": "pulse",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "wrist",
+      "category": "body_part"
+    },
+    {
+      "term": "thumb",
+      "category": "body_part"
+    },
+    {
+      "term": "finger",
+      "category": "body_part"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "neck",
+      "category": "body_part"
+    },
+    {
+      "term": "larynx",
+      "category": "body_part"
+    },
+    {
+      "term": "chest infection",
+      "category": "condition"
+    },
+    {
+      "term": "blood pressure",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "pneumonia",
+      "category": "condition"
+    },
+    {
+      "term": "stethoscope",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "blood clot",
+      "category": "condition"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "lung",
+      "category": "body_part"
+    },
+    {
+      "term": "lung cancer",
+      "category": "condition"
+    },
+    {
+      "term": "chest x-ray",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day2_consultation05": [
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "tiredness",
+      "category": "symptom"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "pins and needles",
+      "category": "symptom"
+    },
+    {
+      "term": "hand",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "muscle weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "abnormal gait",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "glasses",
+      "category": "other"
+    },
+    {
+      "term": "stroke",
+      "category": "condition"
+    },
+    {
+      "term": "transient ischaemic attack",
+      "category": "condition"
+    },
+    {
+      "term": "neck",
+      "category": "body_part"
+    },
+    {
+      "term": "cholesterol",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "blood pressure",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "aspirin",
+      "category": "medicine"
+    },
+    {
+      "term": "heart attack",
+      "category": "condition"
+    },
+    {
+      "term": "penicillin",
+      "category": "medicine"
+    },
+    {
+      "term": "ultrasound",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "carotid artery",
+      "category": "body_part"
+    },
+    {
+      "term": "brain scan",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day2_consultation07": [
+    {
+      "term": "chest discomfort",
+      "category": "symptom"
+    },
+    {
+      "term": "pressure on my chest",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "sweating",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "jaw",
+      "category": "body_part"
+    },
+    {
+      "term": "neck",
+      "category": "body_part"
+    },
+    {
+      "term": "shoulder",
+      "category": "body_part"
+    },
+    {
+      "term": "palpitations",
+      "category": "symptom"
+    },
+    {
+      "term": "heart",
+      "category": "body_part"
+    },
+    {
+      "term": "smoking",
+      "category": "other"
+    },
+    {
+      "term": "high blood pressure",
+      "category": "condition"
+    },
+    {
+      "term": "high cholesterol",
+      "category": "condition"
+    },
+    {
+      "term": "diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "heart attack",
+      "category": "condition"
+    },
+    {
+      "term": "overweight",
+      "category": "condition"
+    },
+    {
+      "term": "ecg",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "aspirin",
+      "category": "medicine"
+    },
+    {
+      "term": "heartburn",
+      "category": "symptom"
+    },
+    {
+      "term": "allergic reaction",
+      "category": "condition"
+    }
+  ],
+  "day2_consultation08": [
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "muscle ache",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "tiredness",
+      "category": "symptom"
+    },
+    {
+      "term": "night sweat",
+      "category": "symptom"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "ear pain",
+      "category": "symptom"
+    },
+    {
+      "term": "infection",
+      "category": "condition"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "neck stiffness",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "joint swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "back pain",
+      "category": "symptom"
+    },
+    {
+      "term": "painful urination",
+      "category": "symptom"
+    },
+    {
+      "term": "malaria",
+      "category": "condition"
+    },
+    {
+      "term": "heart attack",
+      "category": "condition"
+    },
+    {
+      "term": "seroxat",
+      "category": "medicine"
+    },
+    {
+      "term": "pollen allergy",
+      "category": "condition"
+    },
+    {
+      "term": "hay fever",
+      "category": "condition"
+    },
+    {
+      "term": "hepatitis b vaccine",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "chest infection",
+      "category": "condition"
+    },
+    {
+      "term": "throat infection",
+      "category": "condition"
+    },
+    {
+      "term": "thick and thin blood films",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "inflammatory markers",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day2_consultation09": [
+    {
+      "term": "arm weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "left arm",
+      "category": "body_part"
+    },
+    {
+      "term": "left leg",
+      "category": "body_part"
+    },
+    {
+      "term": "face",
+      "category": "body_part"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "difficulty swallowing",
+      "category": "symptom"
+    },
+    {
+      "term": "speech problem",
+      "category": "symptom"
+    },
+    {
+      "term": "stroke",
+      "category": "condition"
+    },
+    {
+      "term": "type 2 diabetes mellitus",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "metformin",
+      "category": "medicine"
+    },
+    {
+      "term": "losartan",
+      "category": "medicine"
+    },
+    {
+      "term": "amlodipine",
+      "category": "medicine"
+    },
+    {
+      "term": "penicillin",
+      "category": "medicine"
+    },
+    {
+      "term": "heart disease",
+      "category": "condition"
+    }
+  ],
+  "day2_consultation10": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "neck stiffness",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "sensitivity to bright light",
+      "category": "symptom"
+    },
+    {
+      "term": "dizziness",
+      "category": "symptom"
+    },
+    {
+      "term": "anxiety",
+      "category": "condition"
+    },
+    {
+      "term": "depression",
+      "category": "condition"
+    },
+    {
+      "term": "stress",
+      "category": "condition"
+    },
+    {
+      "term": "high blood pressure",
+      "category": "condition"
+    },
+    {
+      "term": "tension headache",
+      "category": "condition"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "dehydration",
+      "category": "condition"
+    },
+    {
+      "term": "fatigue",
+      "category": "symptom"
+    },
+    {
+      "term": "sertraline",
+      "category": "medicine"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "aspirin",
+      "category": "medicine"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    }
+  ],
+  "day3_consultation01": [
+    {
+      "term": "lip swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "upper lip",
+      "category": "body_part"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "difficulty breathing",
+      "category": "symptom"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "chest tightness",
+      "category": "symptom"
+    },
+    {
+      "term": "salbutamol",
+      "category": "medicine"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "cetirizine",
+      "category": "medicine"
+    },
+    {
+      "term": "loratadine",
+      "category": "medicine"
+    },
+    {
+      "term": "piriton",
+      "category": "medicine"
+    },
+    {
+      "term": "peanut allergy",
+      "category": "condition"
+    },
+    {
+      "term": "dizziness",
+      "category": "symptom"
+    },
+    {
+      "term": "anaphylaxis",
+      "category": "condition"
+    },
+    {
+      "term": "antihistamine",
+      "category": "medicine"
+    }
+  ],
+  "day3_consultation03": [
+    {
+      "term": "appetite",
+      "category": "symptom"
+    },
+    {
+      "term": "energy",
+      "category": "symptom"
+    },
+    {
+      "term": "mood",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "weight loss",
+      "category": "symptom"
+    },
+    {
+      "term": "bowel",
+      "category": "body_part"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "blood",
+      "category": "symptom"
+    },
+    {
+      "term": "mucus",
+      "category": "symptom"
+    },
+    {
+      "term": "acid reflux",
+      "category": "condition"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "heart",
+      "category": "body_part"
+    },
+    {
+      "term": "palpitations",
+      "category": "symptom"
+    },
+    {
+      "term": "chest pain",
+      "category": "symptom"
+    },
+    {
+      "term": "thyroid",
+      "category": "body_part"
+    },
+    {
+      "term": "underactive thyroid",
+      "category": "condition"
+    },
+    {
+      "term": "thyroxine",
+      "category": "medicine"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "anaemia",
+      "category": "condition"
+    },
+    {
+      "term": "kidney",
+      "category": "body_part"
+    },
+    {
+      "term": "liver",
+      "category": "body_part"
+    },
+    {
+      "term": "vitamin",
+      "category": "other"
+    },
+    {
+      "term": "physical examination",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day3_consultation05": [
+    {
+      "term": "dizziness",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vertigo",
+      "category": "symptom"
+    },
+    {
+      "term": "gait disturbance",
+      "category": "symptom"
+    },
+    {
+      "term": "tinnitus",
+      "category": "symptom"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "shakey",
+      "category": "symptom"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "ear pain",
+      "category": "symptom"
+    },
+    {
+      "term": "otorrhea",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "muscle weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "hearing loss",
+      "category": "symptom"
+    },
+    {
+      "term": "premature ovarian failure",
+      "category": "condition"
+    },
+    {
+      "term": "hormone replacement therapy",
+      "category": "medicine"
+    },
+    {
+      "term": "labyrinthitis",
+      "category": "condition"
+    },
+    {
+      "term": "middle ear",
+      "category": "body_part"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "blood pressure measurement",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    }
+  ],
+  "day3_consultation06": [
+    {
+      "term": "breathing difficulty",
+      "category": "symptom"
+    },
+    {
+      "term": "wasp sting",
+      "category": "condition"
+    },
+    {
+      "term": "shallow breath",
+      "category": "symptom"
+    },
+    {
+      "term": "lip",
+      "category": "body_part"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "chest tightness",
+      "category": "symptom"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "penicillin",
+      "category": "medicine"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "antihistamine",
+      "category": "medicine"
+    },
+    {
+      "term": "aerosinusitis",
+      "category": "condition"
+    },
+    {
+      "term": "anaphylaxis",
+      "category": "condition"
+    }
+  ],
+  "day3_consultation09": [
+    {
+      "term": "jaw",
+      "category": "body_part"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "elbow",
+      "category": "body_part"
+    },
+    {
+      "term": "hand",
+      "category": "body_part"
+    },
+    {
+      "term": "massage",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "muscle sore",
+      "category": "symptom"
+    },
+    {
+      "term": "knuckle",
+      "category": "body_part"
+    },
+    {
+      "term": "shoulder",
+      "category": "body_part"
+    },
+    {
+      "term": "finger",
+      "category": "body_part"
+    },
+    {
+      "term": "palm",
+      "category": "body_part"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "neck pain",
+      "category": "symptom"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "flu",
+      "category": "condition"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "fatigue",
+      "category": "symptom"
+    },
+    {
+      "term": "glasses",
+      "category": "other"
+    },
+    {
+      "term": "contact lens",
+      "category": "other"
+    },
+    {
+      "term": "seizure",
+      "category": "symptom"
+    },
+    {
+      "term": "fit",
+      "category": "symptom"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "vitamin d",
+      "category": "medicine"
+    },
+    {
+      "term": "iron supplement",
+      "category": "medicine"
+    },
+    {
+      "term": "melatonin",
+      "category": "medicine"
+    },
+    {
+      "term": "hypothyroidism",
+      "category": "condition"
+    },
+    {
+      "term": "autoimmune disease",
+      "category": "condition"
+    },
+    {
+      "term": "type 2 diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "high cholesterol",
+      "category": "condition"
+    },
+    {
+      "term": "multiple sclerosis",
+      "category": "condition"
+    },
+    {
+      "term": "neurology referral",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "brain scan",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "steroid",
+      "category": "medicine"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    }
+  ],
+  "day3_consultation10": [
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in stool",
+      "category": "symptom"
+    },
+    {
+      "term": "mucus in stool",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "appetite loss",
+      "category": "symptom"
+    },
+    {
+      "term": "dehydration",
+      "category": "condition"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "bowel cancer",
+      "category": "condition"
+    },
+    {
+      "term": "salbutamol",
+      "category": "medicine"
+    },
+    {
+      "term": "lexapro",
+      "category": "medicine"
+    },
+    {
+      "term": "dioralyte",
+      "category": "medicine"
+    },
+    {
+      "term": "stool sample",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "gut",
+      "category": "body_part"
+    }
+  ],
+  "day4_consultation06": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "dizzy",
+      "category": "symptom"
+    },
+    {
+      "term": "blurred vision",
+      "category": "symptom"
+    },
+    {
+      "term": "kidney stone",
+      "category": "condition"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomit",
+      "category": "symptom"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "hypothyroidism",
+      "category": "condition"
+    },
+    {
+      "term": "brain tumour",
+      "category": "condition"
+    },
+    {
+      "term": "stroke",
+      "category": "condition"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "neurological exam",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    }
+  ],
+  "day4_consultation08": [
+    {
+      "term": "fatigue",
+      "category": "symptom"
+    },
+    {
+      "term": "poor appetite",
+      "category": "symptom"
+    },
+    {
+      "term": "insomnia",
+      "category": "symptom"
+    },
+    {
+      "term": "poor concentration",
+      "category": "symptom"
+    },
+    {
+      "term": "low mood",
+      "category": "symptom"
+    },
+    {
+      "term": "decreased libido",
+      "category": "symptom"
+    },
+    {
+      "term": "hypothyroidism",
+      "category": "condition"
+    },
+    {
+      "term": "thyroxine",
+      "category": "medicine"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day4_consultation09": [
+    {
+      "term": "tight chest",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "wheeze",
+      "category": "symptom"
+    },
+    {
+      "term": "sore throat",
+      "category": "symptom"
+    },
+    {
+      "term": "runny nose",
+      "category": "symptom"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "hayfever",
+      "category": "condition"
+    },
+    {
+      "term": "allergy",
+      "category": "condition"
+    },
+    {
+      "term": "salbutamol",
+      "category": "medicine"
+    },
+    {
+      "term": "clenil modulite",
+      "category": "medicine"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "milk protein allergy",
+      "category": "condition"
+    },
+    {
+      "term": "chest pain",
+      "category": "symptom"
+    },
+    {
+      "term": "asthma exacerbation",
+      "category": "condition"
+    },
+    {
+      "term": "intubation",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "steroids",
+      "category": "medicine"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "high blood sugar",
+      "category": "condition"
+    },
+    {
+      "term": "spacer",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "lung",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    }
+  ],
+  "day4_consultation10": [
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "constipation",
+      "category": "symptom"
+    },
+    {
+      "term": "dysuria",
+      "category": "symptom"
+    },
+    {
+      "term": "urinary frequency",
+      "category": "symptom"
+    },
+    {
+      "term": "urinary urgency",
+      "category": "symptom"
+    },
+    {
+      "term": "vaginal spotting",
+      "category": "symptom"
+    },
+    {
+      "term": "amoxicillin",
+      "category": "medicine"
+    },
+    {
+      "term": "implanon",
+      "category": "medicine"
+    },
+    {
+      "term": "type 1 diabetes mellitus",
+      "category": "condition"
+    },
+    {
+      "term": "pregnancy",
+      "category": "condition"
+    },
+    {
+      "term": "abdominal examination",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day5_consultation01": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "sensitivity to light",
+      "category": "symptom"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "eyesight",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "menstrual cycle",
+      "category": "other"
+    },
+    {
+      "term": "period",
+      "category": "other"
+    },
+    {
+      "term": "feverish",
+      "category": "symptom"
+    },
+    {
+      "term": "runny nose",
+      "category": "symptom"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "skin",
+      "category": "body_part"
+    },
+    {
+      "term": "temperature",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "thermometer",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "arm",
+      "category": "body_part"
+    },
+    {
+      "term": "leg",
+      "category": "body_part"
+    },
+    {
+      "term": "painkiller",
+      "category": "medicine"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "sneeze",
+      "category": "symptom"
+    },
+    {
+      "term": "contraception",
+      "category": "medicine"
+    },
+    {
+      "term": "microgynon",
+      "category": "medicine"
+    },
+    {
+      "term": "high blood pressure",
+      "category": "condition"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "blood pressure",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "aspirin",
+      "category": "medicine"
+    },
+    {
+      "term": "non-steroidal anti-inflammatory",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "naproxen",
+      "category": "medicine"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    }
+  ],
+  "day5_consultation02": [
+    {
+      "term": "dysuria",
+      "category": "symptom"
+    },
+    {
+      "term": "malodorous urine",
+      "category": "symptom"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    },
+    {
+      "term": "lower back pain",
+      "category": "symptom"
+    },
+    {
+      "term": "haematuria",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "loin pain",
+      "category": "symptom"
+    },
+    {
+      "term": "vaginal discharge",
+      "category": "symptom"
+    },
+    {
+      "term": "kidney",
+      "category": "body_part"
+    },
+    {
+      "term": "urinary tract infection",
+      "category": "condition"
+    },
+    {
+      "term": "irritable bowel syndrome",
+      "category": "condition"
+    },
+    {
+      "term": "weight loss",
+      "category": "symptom"
+    },
+    {
+      "term": "mebeverine",
+      "category": "medicine"
+    },
+    {
+      "term": "clindamycin",
+      "category": "medicine"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    },
+    {
+      "term": "thermometer",
+      "category": "test_or_procedure"
+    }
+  ],
+  "day5_consultation04": [
+    {
+      "term": "tummy ache",
+      "category": "symptom"
+    },
+    {
+      "term": "abdomen",
+      "category": "body_part"
+    },
+    {
+      "term": "vaginal bleeding",
+      "category": "symptom"
+    },
+    {
+      "term": "constipation",
+      "category": "symptom"
+    },
+    {
+      "term": "period",
+      "category": "other"
+    },
+    {
+      "term": "contraception",
+      "category": "medicine"
+    },
+    {
+      "term": "implanon",
+      "category": "medicine"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "stool",
+      "category": "other"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "vaginal discharge",
+      "category": "symptom"
+    },
+    {
+      "term": "high temperature",
+      "category": "symptom"
+    },
+    {
+      "term": "amoxicillin",
+      "category": "medicine"
+    },
+    {
+      "term": "allergy",
+      "category": "condition"
+    },
+    {
+      "term": "pregnancy test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    }
+  ],
+  "day5_consultation05": [
+    {
+      "term": "tummy",
+      "category": "body_part"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "constipation",
+      "category": "symptom"
+    },
+    {
+      "term": "stool",
+      "category": "body_part"
+    },
+    {
+      "term": "urine",
+      "category": "body_part"
+    },
+    {
+      "term": "blood in the urine",
+      "category": "symptom"
+    },
+    {
+      "term": "thirst",
+      "category": "symptom"
+    },
+    {
+      "term": "stomach",
+      "category": "body_part"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "flu",
+      "category": "condition"
+    },
+    {
+      "term": "amoxycillin",
+      "category": "medicine"
+    },
+    {
+      "term": "contraceptive implant",
+      "category": "medicine"
+    },
+    {
+      "term": "period",
+      "category": "other"
+    },
+    {
+      "term": "bleeding between periods",
+      "category": "symptom"
+    },
+    {
+      "term": "sweating",
+      "category": "symptom"
+    },
+    {
+      "term": "back pain",
+      "category": "symptom"
+    },
+    {
+      "term": "breast cancer",
+      "category": "condition"
+    },
+    {
+      "term": "urinary tract infection",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotics",
+      "category": "medicine"
+    }
+  ],
+  "day5_consultation06": [
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "high temperature",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in the stool",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in the urine",
+      "category": "symptom"
+    },
+    {
+      "term": "constipation",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    },
+    {
+      "term": "menstrual cramp",
+      "category": "symptom"
+    },
+    {
+      "term": "dehydration",
+      "category": "condition"
+    },
+    {
+      "term": "gastroenteritis",
+      "category": "condition"
+    },
+    {
+      "term": "vitamin d",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "oral rehydration salts",
+      "category": "medicine"
+    },
+    {
+      "term": "stool sample",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "navel",
+      "category": "body_part"
+    },
+    {
+      "term": "stomach",
+      "category": "body_part"
+    }
+  ],
+  "day5_consultation07": [
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "diabetes",
+      "category": "condition"
+    },
+    {
+      "term": "chest pain",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "blood",
+      "category": "symptom"
+    },
+    {
+      "term": "nose",
+      "category": "body_part"
+    },
+    {
+      "term": "sinus",
+      "category": "body_part"
+    },
+    {
+      "term": "ear",
+      "category": "body_part"
+    },
+    {
+      "term": "throat",
+      "category": "body_part"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "vision",
+      "category": "body_part"
+    },
+    {
+      "term": "muscle",
+      "category": "body_part"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "wheezing",
+      "category": "symptom"
+    },
+    {
+      "term": "infection",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "metformin",
+      "category": "medicine"
+    },
+    {
+      "term": "lisinopril",
+      "category": "medicine"
+    },
+    {
+      "term": "blood pressure check",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "weight",
+      "category": "other"
+    },
+    {
+      "term": "height",
+      "category": "other"
+    },
+    {
+      "term": "hay fever",
+      "category": "condition"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    }
+  ],
+  "day5_consultation08": [
+    {
+      "term": "wheezing",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "hay fever",
+      "category": "condition"
+    },
+    {
+      "term": "eczema",
+      "category": "condition"
+    },
+    {
+      "term": "asthma inhaler",
+      "category": "medicine"
+    },
+    {
+      "term": "chest",
+      "category": "body_part"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "phlegm",
+      "category": "symptom"
+    },
+    {
+      "term": "blood",
+      "category": "other"
+    },
+    {
+      "term": "peak flow meter",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "salbutamol",
+      "category": "medicine"
+    },
+    {
+      "term": "viral infection",
+      "category": "condition"
+    },
+    {
+      "term": "spacer",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "antihistamine",
+      "category": "medicine"
+    }
+  ],
+  "day5_consultation09": [
+    {
+      "term": "tiredness",
+      "category": "symptom"
+    },
+    {
+      "term": "run down",
+      "category": "symptom"
+    },
+    {
+      "term": "infection",
+      "category": "condition"
+    },
+    {
+      "term": "chest infection",
+      "category": "condition"
+    },
+    {
+      "term": "diarrhoea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "earache",
+      "category": "symptom"
+    },
+    {
+      "term": "sore throat",
+      "category": "symptom"
+    },
+    {
+      "term": "cough",
+      "category": "symptom"
+    },
+    {
+      "term": "shortness of breath",
+      "category": "symptom"
+    },
+    {
+      "term": "phlegm",
+      "category": "symptom"
+    },
+    {
+      "term": "difficulty swallowing",
+      "category": "symptom"
+    },
+    {
+      "term": "acid reflux",
+      "category": "symptom"
+    },
+    {
+      "term": "abdominal pain",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in the stool",
+      "category": "symptom"
+    },
+    {
+      "term": "difficulty passing urine",
+      "category": "symptom"
+    },
+    {
+      "term": "blood in the urine",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "calf",
+      "category": "body_part"
+    },
+    {
+      "term": "itching",
+      "category": "symptom"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "blurred vision",
+      "category": "symptom"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "shoulder",
+      "category": "body_part"
+    },
+    {
+      "term": "back",
+      "category": "body_part"
+    },
+    {
+      "term": "hip",
+      "category": "body_part"
+    },
+    {
+      "term": "knee",
+      "category": "body_part"
+    },
+    {
+      "term": "hand",
+      "category": "body_part"
+    },
+    {
+      "term": "wrist",
+      "category": "body_part"
+    },
+    {
+      "term": "ankle",
+      "category": "body_part"
+    },
+    {
+      "term": "toe",
+      "category": "body_part"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "hay fever",
+      "category": "condition"
+    },
+    {
+      "term": "inhaler",
+      "category": "medicine"
+    },
+    {
+      "term": "antihistamine",
+      "category": "medicine"
+    },
+    {
+      "term": "blood test",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "bacterial infection",
+      "category": "condition"
+    },
+    {
+      "term": "lyme disease",
+      "category": "condition"
+    },
+    {
+      "term": "antibiotic",
+      "category": "medicine"
+    }
+  ],
+  "day5_consultation11": [
+    {
+      "term": "knee",
+      "category": "body_part"
+    },
+    {
+      "term": "toe",
+      "category": "body_part"
+    },
+    {
+      "term": "pain",
+      "category": "symptom"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "injury",
+      "category": "condition"
+    },
+    {
+      "term": "bruise",
+      "category": "condition"
+    },
+    {
+      "term": "clicking",
+      "category": "symptom"
+    },
+    {
+      "term": "swelling",
+      "category": "symptom"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "cold",
+      "category": "condition"
+    },
+    {
+      "term": "far-sighted",
+      "category": "condition"
+    },
+    {
+      "term": "lasik surgery",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "uti",
+      "category": "condition"
+    },
+    {
+      "term": "kidney stone",
+      "category": "condition"
+    },
+    {
+      "term": "morphine",
+      "category": "medicine"
+    },
+    {
+      "term": "vitamin d",
+      "category": "medicine"
+    },
+    {
+      "term": "melatonin",
+      "category": "medicine"
+    },
+    {
+      "term": "cramp",
+      "category": "symptom"
+    },
+    {
+      "term": "aleve",
+      "category": "medicine"
+    },
+    {
+      "term": "acetaminophen",
+      "category": "medicine"
+    },
+    {
+      "term": "xanax",
+      "category": "medicine"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "indigestion",
+      "category": "symptom"
+    },
+    {
+      "term": "acid reflux",
+      "category": "condition"
+    },
+    {
+      "term": "physiotherapy",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "cartilage",
+      "category": "body_part"
+    },
+    {
+      "term": "ligament",
+      "category": "body_part"
+    },
+    {
+      "term": "acl",
+      "category": "body_part"
+    }
+  ],
+  "day5_consultation12": [
+    {
+      "term": "headache",
+      "category": "symptom"
+    },
+    {
+      "term": "head",
+      "category": "body_part"
+    },
+    {
+      "term": "nausea",
+      "category": "symptom"
+    },
+    {
+      "term": "vomiting",
+      "category": "symptom"
+    },
+    {
+      "term": "tingling",
+      "category": "symptom"
+    },
+    {
+      "term": "numbness",
+      "category": "symptom"
+    },
+    {
+      "term": "weakness",
+      "category": "symptom"
+    },
+    {
+      "term": "blurred vision",
+      "category": "symptom"
+    },
+    {
+      "term": "eye",
+      "category": "body_part"
+    },
+    {
+      "term": "fever",
+      "category": "symptom"
+    },
+    {
+      "term": "rash",
+      "category": "symptom"
+    },
+    {
+      "term": "nurofen",
+      "category": "medicine"
+    },
+    {
+      "term": "ibuprofen",
+      "category": "medicine"
+    },
+    {
+      "term": "stomach",
+      "category": "body_part"
+    },
+    {
+      "term": "asthma",
+      "category": "condition"
+    },
+    {
+      "term": "hypertension",
+      "category": "condition"
+    },
+    {
+      "term": "migraine",
+      "category": "condition"
+    },
+    {
+      "term": "blood pressure",
+      "category": "test_or_procedure"
+    },
+    {
+      "term": "paracetamol",
+      "category": "medicine"
+    },
+    {
+      "term": "neck stiffness",
+      "category": "symptom"
+    }
+  ]
+}

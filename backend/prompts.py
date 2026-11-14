@@ -12,7 +12,15 @@ There are TWO versions, so we can measure what our medical layer adds:
 """
 
 import json
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Use AI-drafted (not yet checked) glossary translations as suggestions? (see _glossary_block)
+USE_UNVERIFIED_GLOSSARY = os.getenv("USE_UNVERIFIED_GLOSSARY", "true").lower() == "true"
 
 # Our 11 patient languages + English. Code -> English name.
 # Codes are ISO 639-1 (the standard 2-letter language codes).
@@ -90,7 +98,12 @@ def baseline_prompt(source_hint: str, target_lang: str) -> str:
 # ---------------------------------------------------------------- medical layer
 def medical_system_instruction() -> str:
     """Rules for interpreting in a UK GP appointment. Same for every turn."""
-    urgent_list = "\n".join(f"- {s}" for s in URGENT_SYMPTOMS)
+    # Our starter list + every term the glossary marks as urgent (no duplicates).
+    urgent = list(URGENT_SYMPTOMS)
+    for e in load_glossary():
+        if e.get("urgent") and e["term"] not in urgent:
+            urgent.append(e["term"])
+    urgent_list = "\n".join(f"- {s}" for s in urgent)
     return f"""You are a professional medical interpreter in a UK GP (family doctor) appointment.
 A patient with limited English and an English-speaking GP are talking through you.
 Lives may depend on accuracy. Follow these rules exactly:
@@ -132,22 +145,58 @@ not something that was denied (e.g. "no chest pain" is NOT urgent). Otherwise re
 {urgent_list}"""
 
 
-def _glossary_lines(target_lang: str) -> list[str]:
+_glossary_cache: dict = {"mtime": None, "entries": []}
+
+
+def load_glossary() -> list[dict]:
     """
-    Glossary terms for this target language, as "English term = translation" lines.
-    The glossary is built in step C1. Until then, it simply returns nothing.
+    The medical glossary (backend/glossary.json, built by tests/build_glossary.py).
+    Read once and kept in memory; re-read automatically if the file changes
+    (e.g. after a native speaker marks more translations as verified).
     """
     if not GLOSSARY_PATH.exists():
         return []
-    entries = json.loads(GLOSSARY_PATH.read_text(encoding="utf-8"))
-    lines = []
+    mtime = GLOSSARY_PATH.stat().st_mtime
+    if _glossary_cache["mtime"] != mtime:
+        _glossary_cache["entries"] = json.loads(GLOSSARY_PATH.read_text(encoding="utf-8"))
+        _glossary_cache["mtime"] = mtime
+    return _glossary_cache["entries"]
+
+
+def _glossary_block(target_lang: str) -> str:
+    """
+    Glossary terms for this target language.
+
+    - Translations a native speaker has CHECKED (verified=true) are given as rules.
+    - AI-drafted, unchecked translations are only given as SUGGESTIONS (Gemini
+      may use a better word if it's clearly more natural). Set
+      USE_UNVERIFIED_GLOSSARY=false in .env to leave them out completely.
+    - Translating INTO English: the list of standard English GP terms.
+    """
+    entries = load_glossary()
+    if not entries:
+        return ""
+    if target_lang == "en":
+        terms = ", ".join(e["term"] for e in entries)
+        return f"\n\nStandard UK GP terms to use in English when they fit what was said: {terms}."
+
+    checked, suggested = [], []
     for e in entries:
-        translation = e.get("translations", {}).get(target_lang)
-        if target_lang == "en":
-            lines.append(f"- {e['term']}")
-        elif translation:
-            lines.append(f"- {e['term']} = {translation}")
-    return lines
+        translation = e.get("translations", {}).get(target_lang, "").strip()
+        if not translation:
+            continue
+        line = f"- {e['term']} = {translation}"
+        (checked if e.get("verified", {}).get(target_lang) else suggested).append(line)
+
+    block = ""
+    if checked:
+        block += "\n\nChecked GP terms (verified by a native speaker). Use these translations:\n" + "\n".join(checked)
+    if suggested and USE_UNVERIFIED_GLOSSARY:
+        block += (
+            "\n\nSuggested GP terms (AI-drafted, not yet checked). Use them if they fit what was said, "
+            "unless a clearly more natural everyday word is better:\n" + "\n".join(suggested)
+        )
+    return block
 
 
 def _script_rule(source_hint: str, target_lang: str) -> str:
@@ -205,9 +254,5 @@ def medical_prompt(
             "unclear_words. If you can't make out the meaning, return [inaudible]."
         )
     prompt += _history_block(history)
-    glossary = _glossary_lines(target_lang)
-    if glossary:
-        prompt += (
-            "\n\nUse these checked GP terms whenever they fit what was said:\n" + "\n".join(glossary)
-        )
+    prompt += _glossary_block(target_lang)
     return prompt
