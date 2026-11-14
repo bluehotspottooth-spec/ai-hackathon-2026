@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>VoiceBridge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&display=swap" rel="stylesheet" />
+<!--
+  VoiceBridge premium prototype (design proposal for the frontend).
+  - Works in DEMO mode (USE_MOCK = true): a scripted Urdu consultation, no backend needed.
+  - Set USE_MOCK = false and serve it from the backend (save as frontend/index.html,
+    run uvicorn, open http://localhost:8000) to use the real API, mic and voices.
+  - Same API contract as CLAUDE.md section 6: /api/session, /api/turn, /api/summary, /api/end.
+  Fonts: Atkinson Hyperlegible (Braille Institute, OFL), Plus Jakarta Sans (OFL), Noto (OFL).
+-->
+<style>
+:root{
+  --ink:#0d1b2a; --ink-2:#3b4a5a; --ink-3:#6b7a89;
+  --bg:#f5f3ee; --surface:#ffffff; --surface-2:#faf9f6; --line:#e6e2d8; --line-2:#d6d1c4;
+  --brand:#0f6b6a; --brand-2:#0b5352; --brand-soft:#e3f1ef;
+  --doc:#2c4fbf; --doc-soft:#eaf0ff; --doc-line:#cbd8ff;
+  --pat:#0d7a5f; --pat-soft:#e5f4ee; --pat-line:#bfe3d4;
+  --urgent:#b4232b; --urgent-soft:#fdecec; --urgent-line:#f3c2c4;
+  --warn:#8a5a00; --warn-soft:#fff5dc; --warn-line:#f2dca6;
+  --rec:#d23b3b;
+  --radius:14px; --radius-lg:22px;
+  --shadow:0 1px 2px rgba(13,27,42,.05),0 8px 24px rgba(13,27,42,.06);
+  --shadow-lg:0 2px 4px rgba(13,27,42,.06),0 24px 48px rgba(13,27,42,.10);
+  --font:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --display:"Plus Jakarta Sans",var(--font);
+  --rtl:"Noto Nastaliq Urdu","Noto Sans Arabic",var(--font);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--ink);background:var(--bg);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid #f0a500;outline-offset:3px;border-radius:8px}
+[dir="rtl"],.rtl{font-family:var(--rtl);line-height:2}
+.icon{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.screen{display:none;min-height:100vh;min-height:100dvh}
+.screen.active{display:flex}
+
+/* ---------- shared bits ---------- */
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center}
+.logo-mark .icon{width:19px;height:19px;stroke-width:2.2}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:12px;font-weight:700;font-size:16px;transition:background .15s,transform .05s,box-shadow .15s}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.15) inset,0 6px 16px rgba(15,107,106,.25)}
+.btn-primary:hover{background:var(--brand-2)}
+.btn-primary[disabled]{opacity:.55;cursor:wait}
+.btn-ghost{background:var(--surface);border:1px solid var(--line-2);color:var(--ink)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-danger{background:var(--surface);border:1px solid var(--urgent-line);color:var(--urgent)}
+.btn-danger:hover{background:var(--urgent-soft)}
+.btn-sm{height:38px;padding:0 14px;font-size:14px;border-radius:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;white-space:nowrap;border-radius:999px;font-size:13px;font-weight:700;background:var(--surface);border:1px solid var(--line)}
+.field-error{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent);font-size:14px}
+.field-error.show{display:block}
+.demo-ribbon{position:fixed;bottom:12px;left:12px;z-index:50;background:var(--ink);color:#fff;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;opacity:.85}
+.footer-note{font-size:12.5px;color:var(--ink-3);text-align:center}
+
+/* ---------- screen 1: welcome ---------- */
+#s-welcome{align-items:stretch}
+.welcome{display:grid;grid-template-columns:1.05fr 1fr;width:100%}
+.welcome-hero{background:var(--ink);color:#fff;padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.welcome-hero::after{content:"";position:absolute;right:-120px;bottom:-120px;width:420px;height:420px;border-radius:50%;border:56px solid rgba(255,255,255,.04)}
+.welcome-hero .logo-mark{background:#fff;color:var(--ink)}
+.hero-title{font-family:var(--display);font-size:46px;line-height:1.08;letter-spacing:-.03em;font-weight:700;margin:40px 0 18px;max-width:520px}
+.hero-title span{color:#7fd6c9}
+.hero-sub{font-size:18px;color:#c4cfda;max-width:460px}
+.hello-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px;max-width:520px}
+.hello{font-size:15px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.07);color:#e6edf3}
+.trust{display:grid;gap:14px;margin-top:36px}
+.trust-item{display:flex;gap:12px;align-items:flex-start;color:#c4cfda;font-size:15px}
+.trust-item .icon{color:#7fd6c9;margin-top:2px}
+.trust-item b{color:#fff}
+.welcome-form{display:flex;flex-direction:column;justify-content:center;padding:56px;gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.form-card{max-width:420px;width:100%;margin:0 auto;padding:36px}
+.form-card h2{font-family:var(--display);font-size:26px;letter-spacing:-.02em;margin-bottom:6px}
+.muted{color:var(--ink-3)}
+.label{display:block;font-weight:700;font-size:14px;margin:24px 0 8px}
+.input-wrap{position:relative}
+.input-wrap .icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-3)}
+.input{width:100%;height:52px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--surface-2);padding:0 14px 0 44px;font:inherit;font-size:17px;letter-spacing:.08em;transition:border .15s,background .15s}
+.input:focus{outline:none;border-color:var(--brand);background:#fff;box-shadow:0 0 0 4px var(--brand-soft)}
+.form-card .btn{width:100%;margin-top:18px}
+
+/* ---------- screen 2: language ---------- */
+#s-language{flex-direction:column;align-items:center;padding:28px 20px 40px}
+.page-head{width:100%;max-width:980px;display:flex;align-items:center;justify-content:space-between;margin-bottom:36px}
+.step{font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.04em;text-transform:uppercase}
+.lang-wrap{width:100%;max-width:980px}
+.lang-wrap h1{font-family:var(--display);font-size:34px;letter-spacing:-.025em;line-height:1.15;margin:6px 0 8px}
+.lang-top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.search{position:relative;width:280px;max-width:100%}
+.search .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-3);width:18px;height:18px}
+.search input{width:100%;height:44px;border-radius:12px;border:1.5px solid var(--line-2);background:#fff;padding:0 12px 0 38px;font:inherit}
+.search input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.lang-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.lang{position:relative;text-align:left;padding:18px 18px 16px;border-radius:16px;background:#fff;border:1.5px solid var(--line);transition:border .15s,box-shadow .15s,transform .1s;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
+.lang:hover{border-color:var(--line-2);box-shadow:var(--shadow)}
+.lang .native{font-size:24px;font-weight:700;line-height:1.3}
+.lang .native[dir="rtl"]{font-size:22px}
+.lang .english{font-size:14px;color:var(--ink-3)}
+.lang .tick{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;background:var(--brand);color:#fff;display:none;place-items:center}
+.lang .tick .icon{width:14px;height:14px;stroke-width:3}
+.lang.selected{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft)}
+.lang.selected .tick{display:grid}
+.lang-foot{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;padding-top:24px;border-top:1px solid var(--line)}
+.pair{display:flex;align-items:center;gap:10px;font-weight:700}
+.pair .side{padding:8px 14px;border-radius:12px;background:#fff;border:1px solid var(--line)}
+.pair .side.doc{color:var(--doc)}
+.pair .side.pat{color:var(--pat)}
+
+/* ---------- screen 3: consultation ---------- */
+#s-consult{flex-direction:column;height:100vh;height:100dvh}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;background:rgba(255,255,255,.85);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);position:relative;z-index:5}
+.topbar-mid{display:flex;align-items:center;gap:8px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.turns{font-variant-numeric:tabular-nums}
+.turns.low{color:var(--warn);border-color:var(--warn-line);background:var(--warn-soft)}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#1f9d6b;box-shadow:0 0 0 4px rgba(31,157,107,.15)}
+.urgent-banner{display:none;align-items:flex-start;gap:12px;margin:12px auto 0;width:calc(100% - 32px);max-width:860px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent);padding:12px 14px;border-radius:14px;box-shadow:var(--shadow);animation:drop .25s ease-out}
+.urgent-banner.show{display:flex}
+.urgent-banner b{display:block}
+.urgent-banner .x{margin-left:auto;width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--urgent)}
+.urgent-banner .x:hover{background:rgba(180,35,43,.08)}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.thread{flex:1;overflow-y:auto;padding:20px 16px 28px}
+.thread-inner{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.empty{margin:auto;text-align:center;max-width:440px;padding:48px 16px;color:var(--ink-2)}
+.empty-art{width:84px;height:84px;margin:0 auto 18px;border-radius:24px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.empty-art .icon{width:40px;height:40px;stroke-width:1.6}
+.empty h3{font-family:var(--display);font-size:22px;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em}
+.empty-steps{display:grid;gap:8px;margin-top:18px;text-align:left}
+.empty-steps div{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px}
+.num{width:22px;height:22px;flex:none;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700;display:grid;place-items:center}
+
+.msg{display:flex;flex-direction:column;max-width:min(640px,88%);animation:rise .28s ease-out}
+.msg.doctor{align-self:flex-start}
+.msg.patient{align-self:flex-end;align-items:flex-end}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-3);margin:0 6px 6px}
+.who{font-weight:700}
+.doctor .who{color:var(--doc)}
+.patient .who{color:var(--pat)}
+.bubble{padding:14px 16px 12px;border-radius:18px;border:1px solid;box-shadow:0 1px 2px rgba(13,27,42,.04);width:100%}
+.doctor .bubble{background:#fff;border-color:var(--doc-line);border-top-left-radius:6px}
+.patient .bubble{background:var(--pat-soft);border-color:var(--pat-line);border-top-right-radius:6px}
+.translation{font-size:19px;line-height:1.5;font-weight:700;color:var(--ink)}
+.translation[dir="rtl"]{font-size:21px;line-height:2.1;font-weight:600}
+.original{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line-2);font-size:14.5px;color:var(--ink-2)}
+.original-label{display:block;font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:2px;font-family:var(--font)}
+.unclear{background:var(--warn-soft);text-decoration:underline dotted var(--warn) 2px;text-underline-offset:4px;border-radius:4px;padding:0 2px}
+.flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.flag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;border:1px solid}
+.flag .icon{width:14px;height:14px;stroke-width:2.2}
+.flag.urgent{background:var(--urgent-soft);border-color:var(--urgent-line);color:var(--urgent)}
+.flag.warn{background:var(--warn-soft);border-color:var(--warn-line);color:var(--warn)}
+.msg-actions{display:flex;gap:4px;margin:6px 2px 0}
+.link-btn{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border-radius:8px;font-size:13px;font-weight:700;color:var(--ink-2)}
+.link-btn:hover{background:rgba(13,27,42,.05)}
+.link-btn .icon{width:16px;height:16px}
+.typing{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:18px;background:#fff;border:1px solid var(--line);font-size:14px;color:var(--ink-3)}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:bounce 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+.system-note{align-self:center;font-size:13.5px;color:var(--ink-2);background:#fff;border:1px solid var(--line);padding:8px 14px;border-radius:999px;display:flex;gap:8px;align-items:center;text-align:center}
+.system-note.error{color:var(--urgent);border-color:var(--urgent-line);background:var(--urgent-soft)}
+
+.dock{border-top:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:14px 16px calc(14px + env(safe-area-inset-bottom))}
+.dock-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.speak{position:relative;display:flex;align-items:center;gap:14px;padding:12px 16px 12px 12px;border-radius:20px;border:1.5px solid;text-align:left;min-height:84px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:background .15s,border-color .15s,box-shadow .15s,opacity .15s}
+.speak.doctor{background:var(--doc-soft);border-color:var(--doc-line)}
+.speak.patient{background:var(--pat-soft);border-color:var(--pat-line);flex-direction:row-reverse;text-align:right;padding:12px 12px 12px 16px}
+.speak:hover:not([disabled]){box-shadow:var(--shadow)}
+.speak[disabled]{opacity:.45;cursor:not-allowed}
+.mic{position:relative;width:60px;height:60px;flex:none;border-radius:50%;display:grid;place-items:center;color:#fff;transition:transform .15s,background .15s}
+.doctor .mic{background:var(--doc)}
+.patient .mic{background:var(--pat)}
+.mic .icon{width:26px;height:26px;stroke-width:2}
+.speak-text{min-width:0;flex:1;display:flex;flex-direction:column}
+.speak-who,.speak-hint{display:block}
+.speak-who{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.25}
+.speak-who .lang-tag{font-family:var(--font);font-weight:400;color:var(--ink-3);font-size:14px}
+.speak-hint{font-size:13.5px;color:var(--ink-2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.speak-hint[dir="rtl"]{font-size:14px;line-height:1.9}
+.meter{display:none;align-items:center;gap:3px;height:22px;margin-top:4px}
+.patient .meter{justify-content:flex-end}
+.patient .speak-text{align-items:flex-end}
+.meter i{width:4px;height:4px;border-radius:2px;background:var(--rec);transition:height .08s}
+.speak.recording{background:#fff;border-color:var(--rec);box-shadow:0 0 0 5px rgba(210,59,59,.12)}
+.speak.recording .mic{background:var(--rec);transform:scale(1.05)}
+.speak.recording .mic::before,.speak.recording .mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rec);animation:ring 1.5s ease-out infinite}
+.speak.recording .mic::after{animation-delay:.75s}
+.speak.recording .meter{display:flex}
+.speak.recording .speak-hint{color:var(--rec);font-weight:700}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
+
+/* ---------- screen 4: summary ---------- */
+#s-summary{flex-direction:column;align-items:center;padding:28px 20px 48px}
+.sum-wrap{width:100%;max-width:1040px}
+.sum-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:8px 0 22px}
+.sum-head h1{font-family:var(--display);font-size:32px;letter-spacing:-.025em}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.stat{padding:16px 18px;border-radius:16px;background:#fff;border:1px solid var(--line)}
+.stat small{display:block;font-size:13px;color:var(--ink-3);margin-bottom:2px}
+.stat strong{font-family:var(--display);font-size:24px}
+.stat.urgent strong{color:var(--urgent);font-size:16px;line-height:1.4}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sum-card{padding:22px;display:flex;flex-direction:column;gap:14px}
+.sum-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.sum-card h2{font-family:var(--display);font-size:18px;display:flex;align-items:center;gap:8px}
+.sum-badge{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px}
+.for-doc{background:var(--doc-soft);color:var(--doc)}
+.for-pat{background:var(--pat-soft);color:var(--pat)}
+.sum-body{white-space:pre-wrap;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:16px;font-size:16px;line-height:1.7;min-height:180px}
+.sum-body[dir="rtl"]{line-height:2.2}
+.sum-actions{display:flex;gap:8px;flex-wrap:wrap}
+.privacy{display:flex;align-items:center;gap:10px;margin-top:18px;padding:12px 16px;border-radius:12px;background:var(--brand-soft);color:var(--brand-2);font-size:14px}
+.skeleton{background:linear-gradient(90deg,#efece5 0%,#f8f6f1 50%,#efece5 100%);background-size:200% 100%;animation:shimmer 1.2s infinite;border-radius:6px;height:14px;margin:8px 0}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+
+/* ---------- phones ---------- */
+@media (max-width:860px){
+  .welcome{grid-template-columns:1fr}
+  .welcome-hero{padding:32px 24px 36px}
+  .hero-title{font-size:34px;margin:28px 0 12px}
+  .trust{display:none}
+  .welcome-form{padding:24px 16px 32px}
+  .form-card{padding:24px}
+  .sum-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .topbar{padding:10px 12px}
+  .topbar .chip.pair-chip .pair-full{display:none}
+  .topbar .btn-danger .end-label{display:none}
+  .topbar .chip{font-size:12px;padding:0 9px;gap:5px}
+  .topbar .tl{display:none}
+  .lang-wrap h1{font-size:28px}
+  .dock{padding:10px 10px calc(10px + env(safe-area-inset-bottom))}
+  .dock-inner{gap:10px}
+  .speak,.speak.patient{flex-direction:column;align-items:center;text-align:center;padding:12px 8px;gap:8px;min-height:auto}
+  .mic{width:64px;height:64px}
+  .speak-hint{white-space:normal}
+  .patient .meter{justify-content:center}
+  .meter{justify-content:center}
+  .translation{font-size:17px}
+  .msg{max-width:92%}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- Icons (Lucide-style line icons, drawn once and reused) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13-8z"/></symbol>
+  <symbol id="i-redo" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+  <symbol id="i-end" viewBox="0 0 24 24"><path d="M9 4h6v6H9z" stroke="none"/><rect x="5" y="5" width="14" height="14" rx="3"/></symbol>
+  <symbol id="i-steth" viewBox="0 0 24 24"><path d="M6 3v6a5 5 0 0 0 10 0V3"/><path d="M11 14v2a5 5 0 0 0 10 0v-1"/><circle cx="21" cy="13" r="1.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20l1.1-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-noise" viewBox="0 0 24 24"><path d="M2 12h2"/><path d="M6 8v8"/><path d="M10 5v14"/><path d="M14 9v6"/><path d="M18 7v10"/><path d="M22 12h-2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+</svg>
+
+<div class="demo-ribbon" id="demo-ribbon" hidden>Demo mode</div>
+
+<!-- ================= SCREEN 1: WELCOME ================= -->
+<section class="screen active" id="s-welcome" aria-labelledby="welcome-title">
+  <div class="welcome">
+    <div class="welcome-hero">
+      <div>
+        <div class="logo"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span>VoiceBridge</div>
+        <h1 class="hero-title" id="welcome-title">Your GP appointment, <span>in your language.</span></h1>
+        <p class="hero-sub">Speak naturally. VoiceBridge translates between you and your doctor in seconds, out loud and on screen.</p>
+        <div class="hello-row" aria-hidden="true">
+          <span class="hello">Dzień dobry</span><span class="hello rtl" dir="rtl">السلام علیکم</span><span class="hello">ਸਤ ਸ੍ਰੀ ਅਕਾਲ</span><span class="hello">Olá</span><span class="hello">Bună ziua</span><span class="hello rtl" dir="rtl">مرحبا</span><span class="hello">নমস্কার</span><span class="hello rtl" dir="rtl">سلام</span>
+        </div>
+      </div>
+      <div class="trust">
+        <div class="trust-item"><svg class="icon"><use href="#i-globe"/></svg><div><b>11 languages</b> spoken in UK communities, from Polish to Persian</div></div>
+        <div class="trust-item"><svg class="icon"><use href="#i-bell"/></svg><div><b>Urgent symptoms flagged</b> to the doctor straight away</div></div>
+        <div class="trust-item"><svg class="icon"><use href="#i-shield"/></svg><div><b>Nothing is kept</b>. The conversation is deleted when the appointment ends</div></div>
+      </div>
+    </div>
+    <div class="welcome-form">
+      <form class="card form-card" id="access-form" novalidate>
+        <h2>Start an appointment</h2>
+        <p class="muted">Enter the access code from your clinic.</p>
+        <label class="label" for="access-code">Access code</label>
+        <div class="input-wrap">
+          <svg class="icon"><use href="#i-lock"/></svg>
+          <input class="input" id="access-code" type="password" autocomplete="off" placeholder="Enter code" />
+        </div>
+        <div class="field-error" id="access-error" role="alert"></div>
+        <button class="btn btn-primary" type="submit">Continue <svg class="icon"><use href="#i-arrow"/></svg></button>
+      </form>
+      <p class="footer-note">Student prototype. This project is a prototype and is not medical advice.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 2: LANGUAGE ================= -->
+<section class="screen" id="s-language" aria-labelledby="lang-title">
+  <div class="page-head">
+    <div class="logo"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span>VoiceBridge</div>
+    <button class="btn btn-ghost btn-sm" onclick="go('s-welcome')"><svg class="icon"><use href="#i-back"/></svg>Back</button>
+  </div>
+  <div class="lang-wrap">
+    <div class="lang-top">
+      <div>
+        <div class="step">Step 2 of 2</div>
+        <h1 id="lang-title">Which language does the patient speak?</h1>
+        <p class="muted">The doctor speaks English. Choose the patient's language.</p>
+      </div>
+      <label class="search"><span class="sr-only">Search languages</span><svg class="icon"><use href="#i-search"/></svg><input id="lang-search" type="search" placeholder="Search languages" /></label>
+    </div>
+    <div class="lang-grid" id="lang-grid" role="radiogroup" aria-label="Patient language"></div>
+    <div class="lang-foot">
+      <div class="pair" aria-live="polite">
+        <span class="side doc">English</span><svg class="icon"><use href="#i-arrow"/></svg><span class="side pat" id="pair-pat">اردو · Urdu</span>
+      </div>
+      <button class="btn btn-primary" id="begin-btn" onclick="beginAppointment()">Begin appointment <svg class="icon"><use href="#i-arrow"/></svg></button>
+    </div>
+    <div class="field-error" id="setup-error" role="alert"></div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 3: CONSULTATION ================= -->
+<section class="screen" id="s-consult" aria-label="Appointment">
+  <header class="topbar">
+    <div class="logo"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span><span class="sr-only">VoiceBridge</span></div>
+    <div class="topbar-mid">
+      <span class="chip pair-chip"><span class="live-dot" aria-hidden="true"></span><span class="pair-full">Live · </span>English ⇄ <span id="top-lang">Urdu</span></span>
+    </div>
+    <div class="topbar-right">
+      <span class="chip turns" id="turns" aria-live="polite">20 turns left</span>
+      <button class="btn btn-danger btn-sm" onclick="endAppointment()"><svg class="icon"><use href="#i-end"/></svg><span class="end-label">End</span></button>
+    </div>
+  </header>
+
+  <div class="urgent-banner" id="urgent-banner" role="alert">
+    <svg class="icon"><use href="#i-alert"/></svg>
+    <div><b>Urgent symptoms reported</b><span id="urgent-list"></span></div>
+    <button class="x" aria-label="Dismiss urgent alert" onclick="dismissUrgent()"><svg class="icon"><use href="#i-x"/></svg></button>
+  </div>
+
+  <div class="thread" id="thread">
+    <div class="thread-inner" id="thread-inner" aria-live="polite"></div>
+  </div>
+
+  <footer class="dock">
+    <div class="dock-inner">
+      <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold to speak English">
+        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="speak-text">
+          <span class="speak-who">Doctor <span class="lang-tag">English</span></span>
+          <span class="speak-hint" id="hint-doctor">Hold to speak</span>
+          <span class="meter" id="meter-doctor" aria-hidden="true"></span>
+        </span>
+      </button>
+      <button class="speak patient" id="btn-patient" aria-label="Patient: hold to speak">
+        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="speak-text">
+          <span class="speak-who"><span id="pat-word">Patient</span> <span class="lang-tag" id="pat-lang-tag">Urdu</span></span>
+          <span class="speak-hint" id="hint-patient">Hold to speak</span>
+          <span class="meter" id="meter-patient" aria-hidden="true"></span>
+        </span>
+      </button>
+    </div>
+  </footer>
+</section>
+
+<!-- ================= SCREEN 4: SUMMARY ================= -->
+<section class="screen" id="s-summary" aria-labelledby="sum-title">
+  <div class="page-head" style="max-width:1040px">
+    <div class="logo"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span>VoiceBridge</div>
+    <button class="btn btn-primary btn-sm" onclick="newAppointment()"><svg class="icon"><use href="#i-plus"/></svg>New appointment</button>
+  </div>
+  <div class="sum-wrap">
+    <div class="sum-head">
+      <div><div class="step">Appointment ended</div><h1 id="sum-title">Summary</h1></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><small>Languages</small><strong id="st-lang">English ⇄ Urdu</strong></div>
+      <div class="stat"><small>Turns</small><strong id="st-turns">0</strong></div>
+      <div class="stat"><small>Duration</small><strong id="st-time">0 min</strong></div>
+      <div class="stat urgent"><small>Urgent symptoms</small><strong id="st-urgent">None</strong></div>
+    </div>
+    <div class="sum-grid">
+      <article class="card sum-card">
+        <div class="sum-card-head"><h2><svg class="icon"><use href="#i-steth"/></svg>For the GP</h2><span class="sum-badge for-doc">English</span></div>
+        <div class="sum-body" id="sum-en"></div>
+        <div class="sum-actions">
+          <button class="btn btn-ghost btn-sm" onclick="copySummary('sum-en',this)"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
+          <button class="btn btn-ghost btn-sm" onclick="downloadSummary('sum-en','summary-english.txt')"><svg class="icon"><use href="#i-download"/></svg>Download</button>
+        </div>
+      </article>
+      <article class="card sum-card">
+        <div class="sum-card-head"><h2><svg class="icon"><use href="#i-chat"/></svg>For the patient</h2><span class="sum-badge for-pat" id="sum-pat-badge">Urdu</span></div>
+        <div class="sum-body" id="sum-pat" dir="auto"></div>
+        <div class="sum-actions">
+          <button class="btn btn-ghost btn-sm" onclick="copySummary('sum-pat',this)"><svg class="icon"><use href="#i-copy"/></svg>Copy</button>
+          <button class="btn btn-ghost btn-sm" onclick="downloadSummary('sum-pat','summary-patient.txt')"><svg class="icon"><use href="#i-download"/></svg>Download</button>
+        </div>
+      </article>
+    </div>
+    <div class="privacy"><svg class="icon"><use href="#i-shield"/></svg>This appointment has been deleted from the server. Copy or download the summaries now if you need them.</div>
+    <p class="footer-note" style="margin-top:18px">This project is a prototype and is not medical advice.</p>
+  </div>
+</section>
+
+<script>
+/* =====================================================================
+   SETTINGS
+   USE_MOCK = true  -> demo mode: scripted conversation, no backend, no mic needed
+   USE_MOCK = false -> real backend (serve this file as frontend/index.html)
+   ===================================================================== */
+const USE_MOCK = true;
+const MAX_SECONDS = 60, MIN_SECONDS = 0.5;
+
+const LANGS = [
+  { code:"pl", native:"Polski",     english:"Polish",     word:"Pacjent",  hint:"Przytrzymaj, aby mówić" },
+  { code:"ro", native:"Română",     english:"Romanian",   word:"Pacient",  hint:"Ține apăsat ca să vorbești" },
+  { code:"pa", native:"ਪੰਜਾਬੀ",      english:"Panjabi",    word:"ਮਰੀਜ਼",     hint:"ਬੋਲਣ ਲਈ ਦਬਾ ਕੇ ਰੱਖੋ" },
+  { code:"ur", native:"اردو",       english:"Urdu",       word:"مریض",     hint:"بولنے کے لیے دبائے رکھیں", rtl:true },
+  { code:"pt", native:"Português",  english:"Portuguese", word:"Paciente", hint:"Mantenha premido para falar" },
+  { code:"es", native:"Español",    english:"Spanish",    word:"Paciente", hint:"Mantén pulsado para hablar" },
+  { code:"ar", native:"العربية",    english:"Arabic",     word:"المريض",   hint:"اضغط مع الاستمرار للتحدث", rtl:true },
+  { code:"bn", native:"বাংলা",       english:"Bengali",    word:"রোগী",      hint:"কথা বলতে চেপে ধরে রাখুন" },
+  { code:"gu", native:"ગુજરાતી",     english:"Gujarati",   word:"દર્દી",      hint:"બોલવા માટે દબાવી રાખો" },
+  { code:"it", native:"Italiano",   english:"Italian",    word:"Paziente", hint:"Tieni premuto per parlare" },
+  { code:"fa", native:"فارسی",      english:"Persian",    word:"بیمار",    hint:"برای صحبت کردن نگه دارید", rtl:true },
+];
+const LANG_NAME = Object.fromEntries([["en","English"],["hi","Hindi"],...LANGS.map(l=>[l.code,l.english])]);
+const RTL = new Set(["ur","ar","fa"]);
+
+/* =====================================================================
+   API: the only part that talks to the backend (same contract as /docs)
+   ===================================================================== */
+class ApiError extends Error { constructor(m,s){ super(m); this.status=s; } }
+async function readJson(res){
+  let data={}; try{ data=await res.json(); }catch(e){}
+  if(!res.ok) throw new ApiError(data.error||(data.detail&&data.detail[0]&&data.detail[0].msg)||`Something went wrong (${res.status}).`,res.status);
+  return data;
+}
+async function call(path,opts){
+  try{ return await readJson(await fetch(path,opts)); }
+  catch(e){ if(e instanceof ApiError) throw e; throw new ApiError("Can't reach VoiceBridge. Check your connection and try again.",0); }
+}
+const realApi = {
+  createSession:(code,lang)=>call("/api/session",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({access_code:code,doctor_lang:"en",patient_lang:lang})}),
+  sendTurn:(sid,speaker,blob,name)=>{ const f=new FormData(); f.append("session_id",sid); f.append("speaker",speaker); f.append("audio",blob,name); return call("/api/turn",{method:"POST",body:f}); },
+  getSummary:(sid)=>call("/api/summary",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:sid})}),
+  endSession:(sid)=>call("/api/end",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({session_id:sid})}),
+};
+
+/* Demo script: a realistic Urdu consultation (answers in the exact backend format) */
+const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
+const DEMO = {
+  doctor:[
+    {o:"Hello, what brings you in today?", t:"السلام علیکم، آج آپ کس وجہ سے آئے ہیں؟"},
+    {o:"Do you have a fever, and are you taking any medicines?", t:"کیا آپ کو بخار ہے، اور کیا آپ کوئی دوائی لے رہے ہیں؟"},
+    {o:"Thank you. I'd like to check your heart with an ECG today, just to be safe.", t:"شکریہ۔ احتیاط کے طور پر میں آج ای سی جی سے آپ کا دل چیک کرنا چاہوں گا۔"},
+  ],
+  patient:[
+    {o:"ڈاکٹر صاحب، مجھے تین دن سے سینے میں درد ہے اور سیڑھیاں چڑھتے وقت سانس پھول جاتی ہے۔", t:"Doctor, I've had chest pain for three days, and I get short of breath when I climb the stairs.", urgent:["chest pain","shortness of breath"]},
+    {o:"نہیں، بخار نہیں ہے۔ میں دن میں دو بار پانچ سو ملی گرام میٹفارمن لیتا ہوں۔", t:"No, I don't have a fever. I take 500 milligrams of metformin twice a day.", unclear:["میٹفارمن"]},
+    {o:"ٹھیک ہے، شکریہ ڈاکٹر صاحب۔", t:"Okay, thank you doctor.", noisy:true},
+  ],
+};
+const demo={turns:20,i:{doctor:0,patient:0}};
+const mockApi={
+  async createSession(code,lang){ await wait(600); if(code.trim().toLowerCase()==="wrong") throw new ApiError("That code didn't work. Check with the clinic staff.",401); demo.turns=20; demo.i={doctor:0,patient:0}; return {session_id:"demo",turns_left:20}; },
+  async sendTurn(sid,speaker){
+    await wait(1800);
+    if(demo.turns<=0) throw new ApiError("This appointment has reached its 20-turn limit. Please end it and start a new one.",429);
+    const list=DEMO[speaker], line=list[demo.i[speaker]++ % list.length];
+    demo.turns--;
+    return { original_text:line.o, detected_language: speaker==="doctor"?"en":"ur", target_language: speaker==="doctor"?state.lang.code:"en",
+      translation:line.t, urgent_terms:line.urgent||[], unclear_words:line.unclear||[], speech_clarity: line.unclear?"partly_unclear":"clear",
+      noisy:!!line.noisy, audio_base64:"", timings:{convert:.07,translate:3.2,speak:.9,total:4.2}, turns_left:demo.turns };
+  },
+  async getSummary(){ await wait(1400); return {
+    summary_en:"• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).\n• No fever.\n• Takes metformin 500 mg twice a day.\n• The GP plans an ECG today as a precaution.",
+    summary_patient_lang:"• تین دن سے سینے میں درد، سیڑھیاں چڑھتے وقت سانس پھولنا۔\n• بخار نہیں ہے۔\n• دن میں دو بار میٹفارمن 500 ملی گرام۔\n• ڈاکٹر احتیاطاً آج ای سی جی کریں گے۔" }; },
+  async endSession(){ await wait(200); return {ended:true}; },
+};
+const api = USE_MOCK ? mockApi : realApi;
+
+/* =====================================================================
+   STATE + HELPERS
+   ===================================================================== */
+const state={ code:"", lang:LANGS[3], sid:null, turnsLeft:20, busy:false, rec:null, startedAt:0, urgent:new Set(), turnCount:0 };
+const $=(id)=>document.getElementById(id);
+const player=new Audio();
+function go(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active")); $(id).classList.add("active"); window.scrollTo(0,0);
+  if(USE_MOCK) $("demo-ribbon").hidden = id==="s-consult"; // on the appointment screen the label sits in the top bar instead
+}
+function icon(name){ return `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`; }
+function el(tag,cls,text){ const n=document.createElement(tag); if(cls) n.className=cls; if(text!==undefined) n.textContent=text; return n; }
+function setDir(node,lang){ if(RTL.has(lang)){ node.dir="rtl"; } else { node.dir="ltr"; } }
+
+/* =====================================================================
+   SCREEN 1 + 2
+   ===================================================================== */
+$("access-form").addEventListener("submit",(e)=>{
+  e.preventDefault();
+  const code=$("access-code").value.trim(), err=$("access-error");
+  if(!code){ err.textContent="Enter the access code to continue."; err.classList.add("show"); return; }
+  state.code=code; err.classList.remove("show"); go("s-language"); $("lang-search").focus();
+});
+
+function renderLangs(filter=""){
+  const grid=$("lang-grid"); grid.innerHTML="";
+  const f=filter.trim().toLowerCase();
+  LANGS.filter(l=>!f||l.english.toLowerCase().includes(f)||l.native.toLowerCase().includes(f)).forEach(l=>{
+    const b=el("button","lang"+(l.code===state.lang.code?" selected":""));
+    b.setAttribute("role","radio"); b.setAttribute("aria-checked",l.code===state.lang.code);
+    b.innerHTML=`<span class="tick">${icon("check")}</span>`;
+    const n=el("span","native",l.native); if(l.rtl) n.dir="rtl"; b.append(n, el("span","english",l.english));
+    b.onclick=()=>{ state.lang=l; renderLangs($("lang-search").value); updatePair(); };
+    grid.append(b);
+  });
+}
+function updatePair(){ $("pair-pat").textContent=`${state.lang.native} · ${state.lang.english}`; }
+$("lang-search").addEventListener("input",(e)=>renderLangs(e.target.value));
+
+async function beginAppointment(){
+  const btn=$("begin-btn"), err=$("setup-error");
+  btn.disabled=true; btn.innerHTML="Starting…"; err.classList.remove("show");
+  try{
+    const s=await api.createSession(state.code,state.lang.code);
+    state.sid=s.session_id; state.turnsLeft=s.turns_left; state.urgent=new Set(); state.turnCount=0; state.started=Date.now();
+    $("top-lang").textContent=state.lang.english;
+    $("pat-word").textContent=state.lang.word; $("pat-lang-tag").textContent=state.lang.english;
+    const hint=$("hint-patient"); hint.textContent=state.lang.hint; setDir(hint,state.lang.code);
+    $("btn-patient").setAttribute("aria-label",`Patient: hold to speak ${state.lang.english}`);
+    $("urgent-banner").classList.remove("show");
+    showEmpty(); updateTurns(); go("s-consult");
+  }catch(e){
+    if(e.status===401){ $("access-error").textContent=e.message; $("access-error").classList.add("show"); go("s-welcome"); }
+    else { err.textContent=e.message; err.classList.add("show"); }
+  }finally{ btn.disabled=false; btn.innerHTML=`Begin appointment ${icon("arrow")}`; }
+}
+
+/* =====================================================================
+   SCREEN 3: THREAD
+   ===================================================================== */
+function showEmpty(){
+  const t=$("thread-inner"); t.innerHTML="";
+  const e=el("div","empty"); e.id="empty";
+  e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h3>Ready when you are</h3><p>Press and hold a button below, speak, then let go. The translation is spoken aloud and appears here.</p>
+  <div class="empty-steps"><div><span class="num">1</span>The doctor or patient holds their own button</div><div><span class="num">2</span>Speak normally, one person at a time</div><div><span class="num">3</span>Let go and listen to the translation</div></div>`;
+  t.append(e);
+}
+function updateTurns(){
+  const c=$("turns"); c.innerHTML=`${Number(state.turnsLeft)} <span class="tl">turn${state.turnsLeft===1?"":"s"} </span>left`;
+  c.classList.toggle("low",state.turnsLeft<=5);
+}
+function scrollDown(){ const th=$("thread"); th.scrollTo({top:th.scrollHeight,behavior:"smooth"}); }
+function note(text,isError){
+  const n=el("div","system-note"+(isError?" error":"")); n.innerHTML=icon(isError?"alert":"chat"); n.append(document.createTextNode(text));
+  $("thread-inner").append(n); scrollDown(); return n;
+}
+function typing(role){
+  $("empty")?.remove();
+  const m=el("div",`msg ${role}`); m.id="typing";
+  m.innerHTML=`<div class="typing"><span class="dots"><i></i><i></i><i></i></span>Translating</div>`;
+  $("thread-inner").append(m); scrollDown();
+}
+function highlight(container,text,words){
+  if(!words.length){ container.append(document.createTextNode(text)); return; }
+  const esc=words.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  text.split(new RegExp(`(${esc.join("|")})`,"g")).forEach(p=>{ if(words.includes(p)) container.append(el("mark","unclear",p)); else if(p) container.append(document.createTextNode(p)); });
+}
+function addMessage(role,d){
+  $("typing")?.remove(); $("empty")?.remove();
+  const expected=role==="doctor"?"en":state.lang.code;
+  const m=el("article",`msg ${role}`);
+  const meta=el("div","msg-meta");
+  meta.append(el("span","who",role==="doctor"?"Doctor":`Patient · ${state.lang.english}`));
+  meta.append(el("span","",new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})));
+  meta.append(el("span","",`${d.timings.total.toFixed(1)} s`));
+  m.append(meta);
+
+  const b=el("div","bubble");
+  const tr=el("div","translation",d.translation); setDir(tr,d.target_language); b.append(tr);
+  const orig=el("div","original"); setDir(orig,d.detected_language);
+  const lab=el("span","original-label",`Said in ${LANG_NAME[d.detected_language]||d.detected_language}`); lab.dir="ltr";
+  orig.append(lab); highlight(orig,d.original_text,d.unclear_words||[]); b.append(orig);
+
+  const flags=el("div","flags");
+  (d.urgent_terms||[]).forEach(u=>{ const f=el("span","flag urgent"); f.innerHTML=icon("alert"); f.append(document.createTextNode(u)); flags.append(f); });
+  if(d.detected_language!==expected){ const f=el("span","flag warn"); f.innerHTML=icon("globe"); f.append(document.createTextNode(`Heard ${LANG_NAME[d.detected_language]||d.detected_language}, not ${LANG_NAME[expected]}`)); flags.append(f); }
+  if((d.unclear_words||[]).length||d.speech_clarity==="partly_unclear"){ const f=el("span","flag warn"); f.innerHTML=icon("alert"); f.append(document.createTextNode("Some words may be misheard")); flags.append(f); }
+  if(d.noisy){ const f=el("span","flag warn"); f.innerHTML=icon("noise"); f.append(document.createTextNode("Background noise")); flags.append(f); }
+  if(flags.childElementCount) b.append(flags);
+  m.append(b);
+
+  const acts=el("div","msg-actions");
+  if(d.audio_base64){ const p=el("button","link-btn"); p.innerHTML=`${icon("play")}Replay`; p.onclick=()=>play(d.audio_base64); acts.append(p); }
+  const r=el("button","link-btn"); r.innerHTML=`${icon("redo")}Not what I said`;
+  r.onclick=()=>{ note(role==="doctor"?"Doctor: please hold your button and say it again.":"Patient: please hold your button and say it again."); $(role==="doctor"?"btn-doctor":"btn-patient").focus(); };
+  acts.append(r); m.append(acts);
+
+  $("thread-inner").append(m); scrollDown();
+  if((d.urgent_terms||[]).length){ d.urgent_terms.forEach(u=>state.urgent.add(u)); showUrgent(); }
+}
+function showUrgent(){ $("urgent-list").textContent=" "+[...state.urgent].join(" · "); $("urgent-banner").classList.add("show"); }
+function dismissUrgent(){ $("urgent-banner").classList.remove("show"); }
+
+/* =====================================================================
+   SCREEN 3: RECORDING (hold to speak: mouse, touch, keyboard)
+   ===================================================================== */
+const recorder={ stream:null, mr:null, chunks:[], ctx:null, analyser:null };
+function buildMeter(id){ const m=$(id); m.innerHTML=""; for(let i=0;i<14;i++) m.append(el("i")); }
+buildMeter("meter-doctor"); buildMeter("meter-patient");
+
+let meterTimer=null;
+function animateMeter(role){
+  const bars=[...$(`meter-${role}`).children]; const data=recorder.analyser?new Uint8Array(recorder.analyser.frequencyBinCount):null;
+  meterTimer=setInterval(()=>{
+    let level;
+    if(recorder.analyser){ recorder.analyser.getByteFrequencyData(data); level=data.slice(2,40).reduce((a,b)=>a+b,0)/38/255; }
+    bars.forEach((b,i)=>{ const v=recorder.analyser? Math.min(1,level*2.2*(0.6+Math.random()*0.8)) : (0.25+Math.random()*0.75); b.style.height=`${4+v*18}px`; });
+    const s=Math.floor((performance.now()-state.startedAt)/1000);
+    $(`hint-${role}`).textContent=`0:${String(s).padStart(2,"0")} · Listening, let go to send`; $(`hint-${role}`).dir="ltr";
+    if(s>=MAX_SECONDS) stopRec(role);
+  },90);
+}
+
+async function startRec(role){
+  if(state.busy||state.rec||state.turnsLeft<=0) return;
+  player.src="data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAABhgC7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7u7//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAAAAAAAAAAAAYYoRBqpAAAAAAD/+xDEAAPAAAGkAAAAIAAANIAAAARMQU1FMy4xMDBVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV";
+  player.play().catch(()=>{}); // unlock audio on iPhones (first tap)
+  state.rec=role;
+  const other=role==="doctor"?"patient":"doctor"; $(`btn-${other}`).disabled=true;
+  if(!USE_MOCK){
+    try{
+      if(!recorder.stream){
+        recorder.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+        recorder.ctx=new (window.AudioContext||window.webkitAudioContext)();
+        recorder.analyser=recorder.ctx.createAnalyser(); recorder.analyser.fftSize=256;
+        recorder.ctx.createMediaStreamSource(recorder.stream).connect(recorder.analyser);
+      }
+      const type=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
+      recorder.mr=new MediaRecorder(recorder.stream,type?{mimeType:type}:undefined); recorder.chunks=[];
+      recorder.mr.ondataavailable=(e)=>{ if(e.data.size) recorder.chunks.push(e.data); };
+      recorder.mr.start();
+    }catch(e){
+      state.rec=null; $(`btn-${other}`).disabled=false;
+      note(e.name==="NotAllowedError"?"Microphone is blocked. Allow it in the browser's address bar, then try again.":"Couldn't start the microphone. Check it's plugged in and try again.",true);
+      return;
+    }
+  }
+  if(state.rec!==role) return; // released while starting
+  state.startedAt=performance.now();
+  $(`btn-${role}`).classList.add("recording"); player.pause();
+  animateMeter(role);
+}
+
+async function stopRec(role){
+  if(state.rec!==role) return;
+  state.rec=null; clearInterval(meterTimer);
+  $(`btn-${role}`).classList.remove("recording");
+  resetHints();
+  const secs=(performance.now()-state.startedAt)/1000;
+  let blob=null, name="turn.webm";
+  if(!USE_MOCK && recorder.mr){
+    blob=await new Promise(res=>{ recorder.mr.onstop=()=>res(new Blob(recorder.chunks,{type:recorder.mr.mimeType||"audio/webm"})); recorder.mr.stop(); });
+    name=blob.type.includes("mp4")?"turn.m4a":blob.type.includes("ogg")?"turn.ogg":"turn.webm";
+  }
+  if(secs<MIN_SECONDS){ setBusy(false); note("Hold the button down while you speak."); return; }
+  await sendTurn(role,blob||new Blob(["demo"]),name);
+}
+
+function resetHints(){
+  $("hint-doctor").textContent="Hold to speak"; $("hint-doctor").dir="ltr";
+  const h=$("hint-patient"); h.textContent=state.lang.hint; setDir(h,state.lang.code);
+}
+function setBusy(b){ state.busy=b; const off=b||state.turnsLeft<=0; $("btn-doctor").disabled=off; $("btn-patient").disabled=off; }
+
+async function sendTurn(role,blob,name){
+  setBusy(true); typing(role);
+  try{
+    const d=await api.sendTurn(state.sid,role,blob,name);
+    state.turnsLeft=d.turns_left; updateTurns();
+    if(d.speech_clarity==="inaudible"||!d.translation){ $("typing")?.remove(); note("We couldn't hear that clearly. Please say it again."); return; }
+    state.turnCount++; addMessage(role,d);
+    if(d.audio_base64) play(d.audio_base64);
+  }catch(e){
+    $("typing")?.remove(); note(e.message,true);
+    if(e.status===429&&/limit/i.test(e.message)){ state.turnsLeft=0; updateTurns(); }
+  }finally{ setBusy(false); }
+}
+function play(b64){ player.src="data:audio/mpeg;base64,"+b64; player.play().catch(()=>note("Tap Replay to hear the translation.")); }
+
+function wire(role){
+  const b=$(`btn-${role}`);
+  b.addEventListener("pointerdown",(e)=>{ e.preventDefault(); b.setPointerCapture?.(e.pointerId); startRec(role); });
+  ["pointerup","pointercancel"].forEach(ev=>b.addEventListener(ev,()=>stopRec(role)));
+  b.addEventListener("contextmenu",(e)=>e.preventDefault());
+  b.addEventListener("keydown",(e)=>{ if((e.key===" "||e.key==="Enter")&&!e.repeat){ e.preventDefault(); startRec(role); } });
+  b.addEventListener("keyup",(e)=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); stopRec(role); } });
+}
+wire("doctor"); wire("patient");
+
+/* =====================================================================
+   SCREEN 4: SUMMARY
+   ===================================================================== */
+async function endAppointment(){
+  if(!confirm("End the appointment? You'll see a summary, then the conversation is deleted.")) return;
+  player.pause();
+  $("st-lang").textContent=`English ⇄ ${state.lang.english}`;
+  $("st-turns").textContent=state.turnCount;
+  $("st-time").textContent=`${Math.max(1,Math.round((Date.now()-state.started)/60000))} min`;
+  $("st-urgent").textContent=state.urgent.size?[...state.urgent].join(", "):"None";
+  $("sum-pat-badge").textContent=state.lang.english;
+  const sk='<div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:75%"></div><div class="skeleton" style="width:82%"></div>';
+  $("sum-en").innerHTML=sk; $("sum-pat").innerHTML=sk;
+  go("s-summary");
+  try{ const s=await api.getSummary(state.sid); $("sum-en").textContent=s.summary_en; $("sum-pat").textContent=s.summary_patient_lang; setDir($("sum-pat"),state.lang.code); }
+  catch(e){ $("sum-en").textContent=e.message; $("sum-pat").textContent=""; }
+  try{ await api.endSession(state.sid); }catch(e){}
+  state.sid=null;
+}
+function newAppointment(){ state.code=""; $("access-code").value=""; $("access-error").classList.remove("show"); go("s-welcome"); }
+function copySummary(id,btn){ navigator.clipboard.writeText($(id).innerText).then(()=>{ const h=btn.innerHTML; btn.innerHTML=`${icon("check")}Copied`; setTimeout(()=>btn.innerHTML=h,1500); }); }
+function downloadSummary(id,file){ const a=el("a"); a.href=URL.createObjectURL(new Blob([$(id).innerText],{type:"text/plain;charset=utf-8"})); a.download=file; a.click(); }
+
+/* start-up */
+renderLangs(); updatePair(); resetHints();
+if(USE_MOCK){ $("demo-ribbon").hidden=false; document.querySelector(".pair-full").textContent="Demo · "; }
+</script>
+</body>
+</html>

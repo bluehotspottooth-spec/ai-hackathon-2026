@@ -115,6 +115,16 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **`Dockerfile` + `.dockerignore` prepared, NOT deployed.** **Decision (Ahmed): don't publish the backend on its own.** Without the frontend there's nothing useful for users to see, so we deploy once the frontend is ready. The Dockerfile installs Python 3.12 + ffmpeg, runs as a normal user, listens on port 7860 (Hugging Face's standard), and takes keys from Space Secrets, never from a file. **Not build-tested** (Docker isn't installed locally), but a simulation with only the files Docker copies (`backend/` + `frontend/`, keys as environment variables) started, created a session and loaded all 106 glossary terms.
 - **README:** how one turn works, how to run and test locally (`/docs`), and the **full credits table** (APIs, datasets, libraries, AI tools, with links and licences).
 
+### ~18:00 · Premium design proposal (`docs/design/voicebridge_premium_mockup.html`)
+- On Ahmed's request: a sleeker, clickable redesign of the frontend that matches the backend's API exactly. It runs in **demo mode** (a scripted Urdu consultation) and switches to the real API with `USE_MOCK = false`.
+- **Design decisions:**
+  - **One layout for laptop and phone:** the conversation as chat bubbles in the middle, and a **bottom dock with two big hold-to-speak buttons**. This fixes the phone problem found in the mockup test (the mic bar squashed the text and covered "End appointment").
+  - **The translation is the big text** in each bubble (it's what the *listener* reads); the original is smaller underneath.
+  - A **pinned urgent banner** that doesn't scroll away; **live sound bars** while recording; **"Translating" dots**.
+  - **Real line icons instead of emojis**; the **Atkinson Hyperlegible** font (designed by the Braille Institute for readability); a calm palette (ink, teal, warm off-white); **no NHS branding**.
+  - **The patient's button hint is in their own language** (e.g. Urdu: بولنے کے لیے دبائے رکھیں). These 11 hints are AI-translated and not yet checked by native speakers.
+- **Checked in the browser** at laptop (1024 px) and phone (375 px) sizes: welcome → wrong code → language search → appointment (5 turns: urgent banner, unclear-word highlight, background-noise badge, too-short press) → summary. No sideways scrolling on phones. Two layout bugs were fixed along the way (the speak-button text ran onto one line; the demo label covered the End button).
+
 ---
 
 ## Next
