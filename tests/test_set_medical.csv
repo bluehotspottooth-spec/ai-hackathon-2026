@@ -1,0 +1,94 @@
+id,consultation_id,speaker,direction,text_en,glossary_terms
+M001,day1_consultation07,doctor,en->patient_lang,"Yeah, I can certainly hear you've got the sniffles. So, bit of a runny , bit of a runny nose, you mentioned.",runny nose
+M002,day1_consultation07,doctor,en->patient_lang,OK. And how's your appetite? Are you eating and drinking OK?,appetite
+M003,day1_consultation07,doctor,en->patient_lang,"A script for antibiotics, which maybe use in next, twenty four to forty eight hours, if your symptoms don't get better.",antibiotic
+M004,day1_consultation07,patient,patient_lang->en,"Uh, the, the first, the first day I had, you know a wee bit, of uh, , you know uh, you know the rot like, a wee bit of diarrhoea.",diarrhoea
+M005,day1_consultation07,patient,patient_lang->en,"and, and there's another one, , Lisinopril? Is that? Yeah, . I mean that's those two, I had, I've got them written down a wee bit of paper so.",lisinopril
+M006,day1_consultation07,patient,patient_lang->en,"Uh, give me, I'm just gonna check. It's, it's, let me know if I'm pronouncing this correctly 'cause I haven't got, I haven't got my glasses with me. So, it's , Metformin?",metformin
+M007,day1_consultation08,doctor,en->patient_lang,"Um, uh, uh, painkillers wouldn't be helpful , on this occasion, but let's, let's, let's see how the next few days go.",painkiller
+M008,day1_consultation08,doctor,en->patient_lang,"OK. And um, that's probably what I recommend. Paracetamol on this occasion, wouldn't be helpful.",paracetamol
+M009,day1_consultation08,doctor,en->patient_lang,"Um, but no other symptoms, you're feeling otherwise, well, no fevers, no bleeding or discharge from skin.",fever
+M010,day1_consultation08,patient,patient_lang->en,"Um, yeah, so um, my dad has asthma, and, my mum has hayfever.",asthma
+M011,day1_consultation08,patient,patient_lang->en,"I don't have any spots, and no fever , and I'm not sweating either.",sweating; fever
+M012,day1_consultation15,doctor,en->patient_lang,"OK. I'm just going to ask you some very brief yes or no questions, if that's OK. With your symptoms, have you, have you had any other symptoms, such as fever, or temperatures?",fever
+M013,day1_consultation15,doctor,en->patient_lang,"Diabetes as well. OK. Again, any skin problems?",diabetes
+M014,day1_consultation15,doctor,en->patient_lang,"Any history of asthma, or bowel problems?",asthma
+M015,day1_consultation15,patient,patient_lang->en,"I also tried an antihistamine, antihistamine. Uh but it didn't",antihistamine
+M016,day2_consultation01,doctor,en->patient_lang,"whether there's physical blockage or whether there's something else going on, OK? Um, can I just double check, the dizziness that you've been getting, um, how severe is it?",dizziness
+M017,day2_consultation01,doctor,en->patient_lang,"Right, OK, OK. And, um, in this six week period, have you had anything else happen? Have you had any other ear symptoms at all?",period
+M018,day2_consultation01,doctor,en->patient_lang,"OK. Any discharge coming out of the ear? No, OK. Um, have, have you been experiencing any fever?",fever
+M019,day2_consultation01,patient,patient_lang->en,"Uh, not specifically apart from the dizziness so much.",dizziness
+M020,day2_consultation06,doctor,en->patient_lang,"So you can buy them over the counter. You can get Piriton or Chlorphenamine, and you can take one tablet, four milligrams, um, up to about six times a day. OK.",piriton
+M021,day2_consultation06,doctor,en->patient_lang,"What we're worried about, is when someone has, um, compromise of their breathing. So you mentioned, breathing difficulties and you mentioned swelling of your lip. Thankfully I can't see any of that right now.",swelling
+M022,day2_consultation06,doctor,en->patient_lang,All right. And you've got a rash there. Can I have a look?,rash
+M023,day2_consultation06,patient,patient_lang->en,"Um, I've, I've had eczema before. Um.",eczema
+M024,day2_consultation06,patient,patient_lang->en,"Not particularly. I, I guess it's just a bit kind of blotchy, uh, and a bit of a rash. It doesn't feel like, particularly swollen. Um.",rash
+M025,day2_consultation06,patient,patient_lang->en,"Um, and, I've, kind of. But yeah, as I say, I've got this difficulty breathing and potentially, um, there's a bit of swelling in my lips. My tongue feels a bit weird.",difficulty breathing; swelling
+M026,day3_consultation02,doctor,en->patient_lang,"OK, and do you have a cough?",cough
+M027,day3_consultation02,doctor,en->patient_lang,"How would you describe , how would you describe the rash?",rash
+M028,day3_consultation02,doctor,en->patient_lang,"OK, so there's no cough or cold, yeah?",cough; cold
+M029,day3_consultation02,patient,patient_lang->en,"Um, it's uh, the rash is kind of all over my body. Like it's not, it's not, it's not really localised.",rash
+M030,day3_consultation02,patient,patient_lang->en,"Uh no. I mean I've got a bit of a rash, but nothing like, uh no, no, no, no bleeding.",rash
+M031,day3_consultation02,patient,patient_lang->en,"I haven't measured it but um, think I've, yeah, I think I've got a fever.",fever
+M032,day3_consultation04,doctor,en->patient_lang,"But uh, the brown your Clenil. The brown inhaler.",inhaler
+M033,day3_consultation04,doctor,en->patient_lang,Righty-ho . When was the last time you had an asthma attack?,asthma
+M034,day3_consultation04,doctor,en->patient_lang,"Yeah. So, um, at the moment you are having shortness of breath. So, are you using it every day at the moment?",shortness of breath
+M035,day3_consultation04,patient,patient_lang->en,"Erm, I have a fever.",fever
+M036,day3_consultation04,patient,patient_lang->en,"Sorry, I have hay fever.",hay fever; fever
+M037,day3_consultation04,patient,patient_lang->en,"Um, I think I'm using that every day and the Salbutamol just like as and when",salbutamol
+M038,day3_consultation07,doctor,en->patient_lang,"Right, fine. Otherwise, other than those rash, you're feeling well in yourself. There's no temperature, no joint pains, yeah? No fever?",fever; rash
+M039,day3_consultation07,doctor,en->patient_lang,"No allergies, OK. And you don't, other than eczema you don't have any other medical condition.",eczema
+M040,day3_consultation07,doctor,en->patient_lang,"OK. Have you ever used steroids in the past, for your eczema?",eczema
+M041,day3_consultation07,patient,patient_lang->en,"I, I have asthma, and, uh, in my family, uh, there's hypothyroidism and migraine. My mother has migraine.",migraine; asthma
+M042,day3_consultation08,doctor,en->patient_lang,"OK. So, you've mentioned on our notes that you're having a bit of a cough and a cold. Is that correct?",cough; cold
+M043,day3_consultation08,doctor,en->patient_lang,"Paracetamol, OK. Any Ibuprofen at all?",paracetamol; ibuprofen
+M044,day3_consultation08,doctor,en->patient_lang,"And, so about your cough, are you bringing up any phlegm at all?",phlegm; cough
+M045,day3_consultation08,patient,patient_lang->en,"Yeah, so I take, um, uh, what's it called, it's like metformin . I'm a diabetic, so. And, um, I also, like have, uh, lisinopril .",lisinopril; metformin
+M046,day3_consultation08,patient,patient_lang->en,"Yeah, but the like slight blood pressure.",blood pressure; blood
+M047,day3_consultation08,patient,patient_lang->en,"Yeah, yeah, it's just it's been going on for, like a few days now. Um, sort of like, coughing, and like, general runny nose, and stuff, and, like",runny nose
+M048,day4_consultation01,doctor,en->patient_lang,"So, they will give you lots of things to breathe through, and attach things to your arms. Just to check, things like your blood pressure, and your heart rate. So, don't be worried.",blood pressure; blood
+M049,day4_consultation01,doctor,en->patient_lang,"It's nothing to worry about at the moment, but, given that you've got high blood pressure and high cholesterol, and you've got some chest pain. I'm always worried about the heart first, before anything else.",high blood pressure; blood pressure; chest pain; blood
+M050,day4_consultation01,doctor,en->patient_lang,"OK. So, let me confirm. You have the pressure at the moment, and you have shortness of breath, is that correct?",shortness of breath
+M051,day4_consultation01,patient,patient_lang->en,"Um, high cholesterol, and, I've had hypertension, hypertension .",hypertension
+M052,day4_consultation01,patient,patient_lang->en,"Um, nothing, else unusual. Um, I'm not sure if I spoke to you about nausea?",nausea
+M053,day4_consultation01,patient,patient_lang->en,"Um, no pain as such, but there's often calf pain and, leg swellings .",swelling
+M054,day4_consultation02,doctor,en->patient_lang,"And probably do some blood tests, for your thyroxine .",blood test; thyroxine; blood
+M055,day4_consultation02,doctor,en->patient_lang,"Great . And, another thing that you also mentioned. Is that you noticed tingling in your hand.",tingling
+M056,day4_consultation02,doctor,en->patient_lang,"So, you mentioned your headaches. You also mentioned your reduced appetite. So, you don't want to eat as much.",appetite; headache
+M057,day4_consultation02,patient,patient_lang->en,", the headache? No, it's mostly in the front, and then yeah, it just kind of stays there.",headache
+M058,day4_consultation02,patient,patient_lang->en,"Also. Uh, one thing that's kinda weird is, I just sometimes also get like some, tingling in my arms.",tingling
+M059,day4_consultation02,patient,patient_lang->en,"Uh, I kind of, feel like, uh, it's, it's hard 'cause I, I , kinda lose my appetite.",appetite
+M060,day4_consultation03,doctor,en->patient_lang,"So, your heart is running slightly fast at the moment, which is probably because of the shortness of breath and some of the pain that you're under.",shortness of breath
+M061,day4_consultation03,doctor,en->patient_lang,"OK. And, apart from the C-section and the shortness of breath, have you got any other medical problems I should know about?",shortness of breath
+M062,day4_consultation03,doctor,en->patient_lang,"And, what happens when you take Ibuprofen?",ibuprofen
+M063,day4_consultation03,patient,patient_lang->en,"tell you, I'm allergic to Ibuprofen, though.",ibuprofen
+M064,day4_consultation03,patient,patient_lang->en,"Um, so, I , I started with a cough yesterday.",cough
+M065,day4_consultation03,patient,patient_lang->en,"Um, no. Just some painkillers.",painkiller
+M066,day4_consultation04,doctor,en->patient_lang,"But, you don't see your doctor regularly for asthma?",asthma
+M067,day4_consultation04,doctor,en->patient_lang,"OK. So, do you still have your inhalers?",inhaler
+M068,day4_consultation04,doctor,en->patient_lang,"And, when you get hay fever, do you take any medications for it?",hay fever; fever
+M069,day4_consultation04,patient,patient_lang->en,"I have, before, taken steroids for asthma. Um, I don't know if that's relevant.",asthma
+M070,day4_consultation04,patient,patient_lang->en,"Uh, no. No dizziness. Uh, none of that.",dizziness
+M071,day4_consultation04,patient,patient_lang->en,"Um, and, also in the summer I sometimes get, um, hay fever.",hay fever; fever
+M072,day4_consultation05,doctor,en->patient_lang,"So, what it sounds like to me is that you might have eaten something bad, and it's causing your tummy pain. And it's , this is normally called gastroenteritis, so, an infection of the tummy.",gastroenteritis; tummy pain; infection
+M073,day4_consultation05,doctor,en->patient_lang,Did you notice any blood when you vomit?,blood
+M074,day4_consultation05,doctor,en->patient_lang,"OK. And, um, did you eat anything that you think might of been bad, or anything that could have caused the tummy pain?",tummy pain
+M075,day4_consultation05,patient,patient_lang->en,"Uh, so I have, I have, I have a , asthma, and I take some uh, some uh, um, inhaler.",inhaler; asthma
+M076,day4_consultation05,patient,patient_lang->en,", no, I haven't , I haven't noticed any chest pain.",chest pain
+M077,day4_consultation05,patient,patient_lang->en,"Uh, I have a bit of uh, pain, abdominal pain. And I, had a bit of vomiting.",abdominal pain; vomiting
+M078,day4_consultation07,doctor,en->patient_lang,"You are short of breath. And, uh, do you have any wheeze? Or chest pain?",chest pain
+M079,day4_consultation07,doctor,en->patient_lang,"Um, good. And, uh, are you feeling feverish, hot, cold, sweaty?",cold
+M080,day4_consultation07,doctor,en->patient_lang,"Um, do, do you have, uh, and you don't, you say you don't have any chest pain, as such?",chest pain
+M081,day4_consultation07,patient,patient_lang->en,"Yeah, I was just gonna say, also had a bit of a headache. But like, headaches that come and go rather, but like, right now it's fine.",headache
+M082,day4_consultation07,patient,patient_lang->en,"Cough was Saturday or Sunday. So the, so the, shortness of breath was I think, shortly after the cough. So maybe a day or two later. So, three, four days ago.",shortness of breath; cough
+M083,day4_consultation07,patient,patient_lang->en,". So, so the sore throat, so today's Friday , sore throat was about, last week, Friday or Thursday.",sore throat
+M084,day5_consultation03,doctor,en->patient_lang,"So if you call the support line you can arrange the, to have the blood test done.",blood test; blood
+M085,day5_consultation03,doctor,en->patient_lang,OK. Any chest pain with that?,chest pain
+M086,day5_consultation03,doctor,en->patient_lang,"OK . And, you told me about the palpitations, just tell me a bit more about that.",palpitations
+M087,day5_consultation03,patient,patient_lang->en,"I wouldn't, no I wouldn't say that I've had, I haven't had any suicidal thoughts or any, thoughts that have been that extreme like, I haven't.",suicidal thoughts
+M088,day5_consultation10,doctor,en->patient_lang,"Um. So, uh, I mean it's obviously the first time you've had such a bad headache. And you said you'd had some altered light in front of your eyes as well?",headache
+M089,day5_consultation10,doctor,en->patient_lang,"OK. Um, I mean it, it, it could possibly be a migraine type headache.",migraine; headache
+M090,day5_consultation10,doctor,en->patient_lang,"Um, and, in the past, when you've had headaches, what have they been like?",headache
+M091,day5_consultation10,patient,patient_lang->en,"Um, I was sick but I had no more headache, it's just um, a bit of a pressure, in between my eyes, um.",headache
+M092,day5_consultation10,patient,patient_lang->en,"Um, no I think that's it, but I know that my mum like, she has quite bad migraines, she's like, has the vomiting and everything, .",migraine; vomiting
+M093,day5_consultation10,patient,patient_lang->en,"Um, I've been having this, blinding headache for a few days. Um, and it's like, really bothering me and , I find it very hard to focus or, like I can't even go to work.",headache

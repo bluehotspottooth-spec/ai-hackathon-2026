@@ -96,10 +96,11 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - `tests/build_glossary.py`:
   - `split`: **40 BUILD / 17 TEST**, shuffled with fixed seed 2026 → `data/split.json`.
   - `extract`: Gemini listed the medical terms in each of the 40 BUILD consultations → **388 different terms**, counted by how many consultations mention them → `data/term_counts.csv`. Top: fever (24), nausea (20), vomiting (18), paracetamol (16), diarrhoea (15), headache (15).
-  - `build`: chose ~80–100 terms (frequent clinical terms, medicines, NHS urgent warning signs) and drafted translations into all 11 languages → `backend/glossary.json`.
+  - `build`: chose **106 terms** (48 frequent clinical terms, 35 medicines, 23 NHS urgent warning signs) and drafted **1,166 translations** into all 11 languages → `backend/glossary.json`. Automatic check (script, slashes, gaps): 0 problems.
   - **Decision: a stronger model (gemini-4-hydrogen) drafts the glossary.** It runs once, offline, so quality matters more than speed (the live app keeps the fast model).
   - **Decision: `verified=false` everywhere and SNOMED IDs left empty.** Only a real speaker can verify a translation, and only a person should confirm an NHS code.
-- `tests/make_medical_test_set.py`: sentences containing glossary terms, **only from the 17 TEST consultations** → `tests/test_set_medical.csv` (input for C3).
+- `tests/make_medical_test_set.py`: **93 sentences** (51 doctor, 42 patient) containing glossary terms, **only from the 17 TEST consultations** → `tests/test_set_medical.csv` (input for C3).
+- Translation time limit lowered from 20 s to 12 s after one 36 s turn (normal turns: 3–4 s, with or without the glossary).
 
 ### ~15:45 · A5 + A6: sessions, service and the API (Milestone 3)
 - `backend/sessions.py`: the access code (compared safely with `secrets.compare_digest`), the 20-turn limit (only successful turns count), stored turns that feed the **conversation history**, and appointments deleted on "end" or after 2 hours. **Decision: in memory, not a database.** Simpler, and nothing is kept after the appointment, which is good for privacy.

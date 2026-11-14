@@ -1,0 +1,3932 @@
+[
+  {
+    "term": "fever",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 24,
+    "urgent": false,
+    "translations": {
+      "pl": "gorączka",
+      "ro": "febră",
+      "pa": "ਬੁਖ਼ਾਰ",
+      "ur": "بخار",
+      "pt": "febre",
+      "es": "fiebre",
+      "ar": "حمى",
+      "bn": "জ্বর",
+      "gu": "તાવ",
+      "it": "febbre",
+      "fa": "تب"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "nausea",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 20,
+    "urgent": false,
+    "translations": {
+      "pl": "mdłości",
+      "ro": "greață",
+      "pa": "ਜੀ ਕੱਚਾ ਹੋਣਾ",
+      "ur": "متلی",
+      "pt": "enjoo",
+      "es": "náuseas",
+      "ar": "غثيان",
+      "bn": "বমি বমি ভাব",
+      "gu": "ઉબકા",
+      "it": "nausea",
+      "fa": "حالت تهوع"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "vomiting",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 18,
+    "urgent": false,
+    "translations": {
+      "pl": "wymioty",
+      "ro": "vărsături",
+      "pa": "ਉਲਟੀਆਂ",
+      "ur": "الٹیاں",
+      "pt": "vómitos",
+      "es": "vómitos",
+      "ar": "تقيؤ",
+      "bn": "বমি",
+      "gu": "ઉલટી",
+      "it": "vomito",
+      "fa": "استفراغ"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "diarrhoea",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 15,
+    "urgent": false,
+    "translations": {
+      "pl": "biegunka",
+      "ro": "diaree",
+      "pa": "ਦਸਤ",
+      "ur": "دست",
+      "pt": "diarreia",
+      "es": "diarrea",
+      "ar": "إسهال",
+      "bn": "পাতলা পায়খানা",
+      "gu": "ઝાડા",
+      "it": "diarrea",
+      "fa": "اسهال"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "headache",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 15,
+    "urgent": false,
+    "translations": {
+      "pl": "ból głowy",
+      "ro": "durere de cap",
+      "pa": "ਸਿਰ ਦਰਦ",
+      "ur": "سر درد",
+      "pt": "dor de cabeça",
+      "es": "dolor de cabeza",
+      "ar": "صداع",
+      "bn": "মাথা ব্যথা",
+      "gu": "માથાનો દુખાવો",
+      "it": "mal di testa",
+      "fa": "سردرد"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "cough",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 13,
+    "urgent": false,
+    "translations": {
+      "pl": "kaszel",
+      "ro": "tuse",
+      "pa": "ਖੰਘ",
+      "ur": "کھانسی",
+      "pt": "tosse",
+      "es": "tos",
+      "ar": "سعال",
+      "bn": "কাশি",
+      "gu": "ઉધરસ",
+      "it": "tosse",
+      "fa": "سرفه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "shortness of breath",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 12,
+    "urgent": true,
+    "translations": {
+      "pl": "duszność",
+      "ro": "lipsă de aer",
+      "pa": "ਸਾਹ ਚੜ੍ਹਨਾ",
+      "ur": "سانس پھولنا",
+      "pt": "falta de ar",
+      "es": "falta de aire",
+      "ar": "ضيق في التنفس",
+      "bn": "শ্বাসকষ্ট",
+      "gu": "શ્વાસ ચડવો",
+      "it": "mancanza di respiro",
+      "fa": "تنگی نفس"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "asthma",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 11,
+    "urgent": false,
+    "translations": {
+      "pl": "astma",
+      "ro": "astm",
+      "pa": "ਦਮਾ",
+      "ur": "دمہ",
+      "pt": "asma",
+      "es": "asma",
+      "ar": "ربو",
+      "bn": "হাঁপানি",
+      "gu": "દમ",
+      "it": "asma",
+      "fa": "آسم"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "rash",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 10,
+    "urgent": false,
+    "translations": {
+      "pl": "wysypka",
+      "ro": "erupție pe piele",
+      "pa": "ਧੱਫੜ",
+      "ur": "دانے",
+      "pt": "erupção cutânea",
+      "es": "sarpullido",
+      "ar": "طفح جلدي",
+      "bn": "ফুসকুড়ি",
+      "gu": "ચામડી પર ફોલ્લીઓ",
+      "it": "eruzione cutanea",
+      "fa": "جوش پوستی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "blood test",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 9,
+    "urgent": false,
+    "translations": {
+      "pl": "badanie krwi",
+      "ro": "analiză de sânge",
+      "pa": "ਖ਼ੂਨ ਦੀ ਜਾਂਚ",
+      "ur": "خون کا ٹیسٹ",
+      "pt": "análise ao sangue",
+      "es": "análisis de sangre",
+      "ar": "تحليل دم",
+      "bn": "রক্ত পরীক্ষা",
+      "gu": "લોહીની તપાસ",
+      "it": "esame del sangue",
+      "fa": "آزمایش خون"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "numbness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 7,
+    "urgent": false,
+    "translations": {
+      "pl": "drętwienie",
+      "ro": "amorțeală",
+      "pa": "ਸੁੰਨ ਹੋਣਾ",
+      "ur": "سن ہونا",
+      "pt": "dormência",
+      "es": "entumecimiento",
+      "ar": "خدر",
+      "bn": "অবশ ভাব",
+      "gu": "ખોટું પડી જવું",
+      "it": "intorpidimento",
+      "fa": "بی‌حسی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "migraine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 7,
+    "urgent": false,
+    "translations": {
+      "pl": "migrena",
+      "ro": "migrenă",
+      "pa": "ਮਾਈਗ੍ਰੇਨ",
+      "ur": "آدھے سر کا درد",
+      "pt": "enxaqueca",
+      "es": "migraña",
+      "ar": "صداع نصفي",
+      "bn": "মাইগ্রেন",
+      "gu": "આધાશીશી",
+      "it": "emicrania",
+      "fa": "میگرن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "cold",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 7,
+    "urgent": false,
+    "translations": {
+      "pl": "przeziębienie",
+      "ro": "răceală",
+      "pa": "ਜ਼ੁਕਾਮ",
+      "ur": "زکام",
+      "pt": "constipação",
+      "es": "resfriado",
+      "ar": "زكام",
+      "bn": "সর্দি",
+      "gu": "શરદી",
+      "it": "raffreddore",
+      "fa": "سرماخوردگی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "weakness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "osłabienie",
+      "ro": "slăbiciune",
+      "pa": "ਕਮਜ਼ੋਰੀ",
+      "ur": "کمزوری",
+      "pt": "fraqueza",
+      "es": "debilidad",
+      "ar": "ضعف",
+      "bn": "দুর্বলতা",
+      "gu": "નબળાઈ",
+      "it": "debolezza",
+      "fa": "ضعف"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "eczema",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "egzema",
+      "ro": "eczemă",
+      "pa": "ਚੰਬਲ",
+      "ur": "ایگزیما",
+      "pt": "eczema",
+      "es": "eccema",
+      "ar": "إكزيما",
+      "bn": "একজিমা",
+      "gu": "ખરજવું",
+      "it": "eczema",
+      "fa": "اگزما"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "period",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "miesiączka",
+      "ro": "menstruație",
+      "pa": "ਮਾਹਵਾਰੀ",
+      "ur": "ماہواری",
+      "pt": "período",
+      "es": "regla",
+      "ar": "دورة شهرية",
+      "bn": "মাসিক",
+      "gu": "માસિક",
+      "it": "ciclo",
+      "fa": "پریود"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "hypertension",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "wysokie ciśnienie",
+      "ro": "tensiune mare",
+      "pa": "ਹਾਈ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ",
+      "ur": "ہائی بلڈ پریشر",
+      "pt": "tensão alta",
+      "es": "tensión alta",
+      "ar": "ضغط دم مرتفع",
+      "bn": "উচ্চ রক্তচাপ",
+      "gu": "હાઈ બ્લડ પ્રેશર",
+      "it": "pressione alta",
+      "fa": "فشار خون بالا"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "tingling",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "mrowienie",
+      "ro": "furnicături",
+      "pa": "ਝੁਣਝੁਣੀ",
+      "ur": "جھنجھناہٹ",
+      "pt": "formigueiro",
+      "es": "hormigueo",
+      "ar": "تنميل",
+      "bn": "ঝিনঝিন করা",
+      "gu": "ઝણઝણાટી",
+      "it": "formicolio",
+      "fa": "سوزن‌سوزن شدن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "abdominal pain",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 6,
+    "urgent": false,
+    "translations": {
+      "pl": "ból brzucha",
+      "ro": "durere de burtă",
+      "pa": "ਪੇਟ ਦਰਦ",
+      "ur": "پیٹ درد",
+      "pt": "dor de barriga",
+      "es": "dolor de barriga",
+      "ar": "ألم في البطن",
+      "bn": "পেটে ব্যথা",
+      "gu": "પેટમાં દુખાવો",
+      "it": "mal di pancia",
+      "fa": "درد شکم"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "diabetes",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "cukrzyca",
+      "ro": "diabet",
+      "pa": "ਸ਼ੂਗਰ",
+      "ur": "شوگر",
+      "pt": "diabetes",
+      "es": "diabetes",
+      "ar": "سكري",
+      "bn": "ডায়াবেটিস",
+      "gu": "ડાયાબિટીસ",
+      "it": "diabete",
+      "fa": "دیابت"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "chest pain",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 5,
+    "urgent": true,
+    "translations": {
+      "pl": "ból w klatce piersiowej",
+      "ro": "durere în piept",
+      "pa": "ਛਾਤੀ ਵਿੱਚ ਦਰਦ",
+      "ur": "سینے میں درد",
+      "pt": "dor no peito",
+      "es": "dolor en el pecho",
+      "ar": "ألم في الصدر",
+      "bn": "বুকে ব্যথা",
+      "gu": "છાતીમાં દુખાવો",
+      "it": "dolore al petto",
+      "fa": "درد قفسه سینه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "tiredness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "zmęczenie",
+      "ro": "oboseală",
+      "pa": "ਥਕਾਵਟ",
+      "ur": "تھکاوٹ",
+      "pt": "cansaço",
+      "es": "cansancio",
+      "ar": "تعب",
+      "bn": "ক্লান্তি",
+      "gu": "થાક",
+      "it": "stanchezza",
+      "fa": "خستگی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "palpitations",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "kołatanie serca",
+      "ro": "palpitații",
+      "pa": "ਦਿਲ ਦਾ ਤੇਜ਼ ਧੜਕਣਾ",
+      "ur": "دل کی دھڑکن تیز ہونا",
+      "pt": "palpitações",
+      "es": "palpitaciones",
+      "ar": "خفقان القلب",
+      "bn": "বুক ধড়ফড় করা",
+      "gu": "હૃદયના ધબકારા વધી જવા",
+      "it": "palpitazioni",
+      "fa": "تپش قلب"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "constipation",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "zaparcie",
+      "ro": "constipație",
+      "pa": "ਕਬਜ਼",
+      "ur": "قبض",
+      "pt": "prisão de ventre",
+      "es": "estreñimiento",
+      "ar": "إمساك",
+      "bn": "কোষ্ঠকাঠিন্য",
+      "gu": "કબજિયાત",
+      "it": "stitichezza",
+      "fa": "یبوست"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "gastroenteritis",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "grypa żołądkowa",
+      "ro": "infecție la stomac",
+      "pa": "ਪੇਟ ਦੀ ਇਨਫੈਕਸ਼ਨ",
+      "ur": "پیٹ کا انفیکشن",
+      "pt": "infecção intestinal",
+      "es": "infección de estómago",
+      "ar": "التهاب المعدة والأمعاء",
+      "bn": "পেটের সংক্রমণ",
+      "gu": "પેટનો ચેપ",
+      "it": "influenza intestinale",
+      "fa": "عفونت معده و روده"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "runny nose",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "katar",
+      "ro": "nas care curge",
+      "pa": "ਨੱਕ ਵਗਣਾ",
+      "ur": "ناک بہنا",
+      "pt": "nariz escorrendo",
+      "es": "moqueo",
+      "ar": "سيلان الأنف",
+      "bn": "নাক দিয়ে জল পড়া",
+      "gu": "નાક વહેવું",
+      "it": "naso che cola",
+      "fa": "آبریزش بینی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "sore throat",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "ból gardła",
+      "ro": "durere în gât",
+      "pa": "ਗਲਾ ਖਰਾਬ",
+      "ur": "گلے میں خراش",
+      "pt": "dor de garganta",
+      "es": "dolor de garganta",
+      "ar": "التهاب الحلق",
+      "bn": "গলা ব্যথা",
+      "gu": "ગળામાં દુખાવો",
+      "it": "mal di gola",
+      "fa": "گلودرد"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "heart attack",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "zawał serca",
+      "ro": "atac de cord",
+      "pa": "ਦਿਲ ਦਾ ਦੌਰਾ",
+      "ur": "دل کا دورہ",
+      "pt": "ataque cardíaco",
+      "es": "ataque al corazón",
+      "ar": "نوبة قلبية",
+      "bn": "হার্ট অ্যাটাক",
+      "gu": "હૃદયરોગનો હુમલો",
+      "it": "infarto",
+      "fa": "سکته قلبی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "blood",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "krew",
+      "ro": "sânge",
+      "pa": "ਖੂਨ",
+      "ur": "خون",
+      "pt": "sangue",
+      "es": "sangre",
+      "ar": "دم",
+      "bn": "রক্ত",
+      "gu": "લોહી",
+      "it": "sangue",
+      "fa": "خون"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "dehydration",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "odwodnienie",
+      "ro": "deshidratare",
+      "pa": "ਪਾਣੀ ਦੀ ਕਮੀ",
+      "ur": "پانی کی کمی",
+      "pt": "desidratação",
+      "es": "deshidratación",
+      "ar": "جفاف",
+      "bn": "পানিশূন্যতা",
+      "gu": "પાણીની ઉણપ",
+      "it": "disidratazione",
+      "fa": "کم‌آبی بدن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "high blood pressure",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "wysokie ciśnienie krwi",
+      "ro": "tensiune arterială mare",
+      "pa": "ਹਾਈ ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ",
+      "ur": "ہائی بلڈ پریشر",
+      "pt": "pressão alta",
+      "es": "presión arterial alta",
+      "ar": "ارتفاع ضغط الدم",
+      "bn": "উচ্চ রক্তচাপ",
+      "gu": "હાઈ બ્લડ પ્રેશર",
+      "it": "pressione alta",
+      "fa": "فشار خون بالا"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "infection",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "infekcja",
+      "ro": "infecție",
+      "pa": "ਇਨਫੈਕਸ਼ਨ",
+      "ur": "انفیکشن",
+      "pt": "infecção",
+      "es": "infección",
+      "ar": "عدوى",
+      "bn": "সংক্রমণ",
+      "gu": "ચેપ",
+      "it": "infezione",
+      "fa": "عفونت"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "dizziness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "zawroty głowy",
+      "ro": "amețeală",
+      "pa": "ਚੱਕਰ ਆਉਣਾ",
+      "ur": "چکر آنا",
+      "pt": "tontura",
+      "es": "mareo",
+      "ar": "دوخة",
+      "bn": "মাথা ঘোরা",
+      "gu": "ચક્કર આવવા",
+      "it": "vertigini",
+      "fa": "سرگیجه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "fatigue",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "wyczerpanie",
+      "ro": "extenuare",
+      "pa": "ਬਹੁਤ ਜ਼ਿਆਦਾ ਥਕਾਵਟ",
+      "ur": "شدید تھکاوٹ",
+      "pt": "fadiga",
+      "es": "fatiga",
+      "ar": "إرهاق",
+      "bn": "অবসাদ",
+      "gu": "અતિશય થાક",
+      "it": "affaticamento",
+      "fa": "خستگی مفرط"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "blood pressure",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "ciśnienie krwi",
+      "ro": "tensiune arterială",
+      "pa": "ਬਲੱਡ ਪ੍ਰੈਸ਼ਰ",
+      "ur": "بلڈ پریشر",
+      "pt": "pressão arterial",
+      "es": "presión arterial",
+      "ar": "ضغط الدم",
+      "bn": "রক্তচাপ",
+      "gu": "બ્લડ પ્રેશર",
+      "it": "pressione sanguigna",
+      "fa": "فشار خون"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "hay fever",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "katar sienny",
+      "ro": "alergie la polen",
+      "pa": "ਪਰਾਗ ਤੋਂ ਐਲਰਜੀ",
+      "ur": "موسمی الرجی",
+      "pt": "rinite alérgica",
+      "es": "alergia al polen",
+      "ar": "حمى القش",
+      "bn": "পরাগজনিত অ্যালার্জি",
+      "gu": "પરાગની એલર્જી",
+      "it": "febbre da fieno",
+      "fa": "آلرژی فصلی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "stool sample",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "próbka kału",
+      "ro": "probă de scaun",
+      "pa": "ਟੱਟੀ ਦਾ ਨਮੂਨਾ",
+      "ur": "پاخانے کا نمونہ",
+      "pt": "amostra de fezes",
+      "es": "muestra de heces",
+      "ar": "عينة براز",
+      "bn": "মলের নমুনা",
+      "gu": "મળનો નમૂનો",
+      "it": "campione di feci",
+      "fa": "نمونه مدفوع"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "cramp",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "skurcz",
+      "ro": "cârcel",
+      "pa": "ਮਰੋੜ",
+      "ur": "اکڑن",
+      "pt": "cãibra",
+      "es": "calambre",
+      "ar": "تقلص عضلي",
+      "bn": "পেশীতে টান",
+      "gu": "ખેંચ",
+      "it": "crampo",
+      "fa": "گرفتگی عضله"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "sweating",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "pocenie się",
+      "ro": "transpirație",
+      "pa": "ਪਸੀਨਾ ਆਉਣਾ",
+      "ur": "پسینہ آنا",
+      "pt": "suor",
+      "es": "sudoración",
+      "ar": "تعرق",
+      "bn": "ঘাম হওয়া",
+      "gu": "પરસેવો થવો",
+      "it": "sudorazione",
+      "fa": "تعریق"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "tummy pain",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "ból brzucha",
+      "ro": "durere de burtă",
+      "pa": "ਪੇਟ ਵਿੱਚ ਦਰਦ",
+      "ur": "پیٹ میں درد",
+      "pt": "dor de barriga",
+      "es": "dolor de barriga",
+      "ar": "ألم في البطن",
+      "bn": "পেটে ব্যথা",
+      "gu": "પેટમાં દુખાવો",
+      "it": "mal di pancia",
+      "fa": "دل‌درد"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "pregnancy test",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "test ciążowy",
+      "ro": "test de sarcină",
+      "pa": "ਗਰਭ ਅਵਸਥਾ ਦਾ ਟੈਸਟ",
+      "ur": "حمل کا ٹیسٹ",
+      "pt": "teste de gravidez",
+      "es": "prueba de embarazo",
+      "ar": "اختبار الحمل",
+      "bn": "গর্ভাবস্থার পরীক্ষা",
+      "gu": "ગર્ભાવસ્થાની તપાસ",
+      "it": "test di gravidanza",
+      "fa": "آزمایش بارداری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "irritable bowel syndrome",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "zespół jelita drażliwego",
+      "ro": "sindromul de intestin iritabil",
+      "pa": "ਅੰਤੜੀਆਂ ਦੀ ਖਰਾਬੀ",
+      "ur": "آنتوں کی خرابی",
+      "pt": "síndrome do intestino irritável",
+      "es": "síndrome del intestino irritable",
+      "ar": "متلازمة القولون العصبي",
+      "bn": "অন্ত্রের সমস্যা",
+      "gu": "આંતરડાની તકલીફ",
+      "it": "sindrome dell'intestino irritabile",
+      "fa": "سندرم روده تحریک‌پذیر"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "swelling",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "opuchlizna",
+      "ro": "umflătură",
+      "pa": "ਸੋਜ",
+      "ur": "سوجن",
+      "pt": "inchaço",
+      "es": "hinchazón",
+      "ar": "تورم",
+      "bn": "ফোলা",
+      "gu": "સોજો",
+      "it": "gonfiore",
+      "fa": "تورم"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "urinary tract infection",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "infekcja dróg moczowych",
+      "ro": "infecție urinară",
+      "pa": "ਪਿਸ਼ਾਬ ਦੀ ਇਨਫੈਕਸ਼ਨ",
+      "ur": "پیشاب کی نالی کا انفیکشن",
+      "pt": "infeção urinária",
+      "es": "infección de orina",
+      "ar": "التهاب المسالك البولية",
+      "bn": "প্রস্রাবের সংক্রমণ",
+      "gu": "પેશાબનો ચેપ",
+      "it": "infezione delle vie urinarie",
+      "fa": "عفونت ادراری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "dysuria",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "ból przy oddawaniu moczu",
+      "ro": "durere la urinare",
+      "pa": "ਪਿਸ਼ਾਬ ਕਰਨ ਵੇਲੇ ਦਰਦ",
+      "ur": "پیشاب کرتے وقت درد",
+      "pt": "dor ao urinar",
+      "es": "dolor al orinar",
+      "ar": "ألم عند التبول",
+      "bn": "প্রস্রাব করার সময় ব্যথা",
+      "gu": "પેશાબ કરતી વખતે દુખાવો",
+      "it": "dolore a urinare",
+      "fa": "درد هنگام ادرار کردن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "appetite",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "apetyt",
+      "ro": "poftă de mâncare",
+      "pa": "ਭੁੱਖ",
+      "ur": "بھوک",
+      "pt": "apetite",
+      "es": "apetito",
+      "ar": "الشهية",
+      "bn": "ক্ষুধা",
+      "gu": "ભૂખ",
+      "it": "appetito",
+      "fa": "اشتها"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "phlegm",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "flegma",
+      "ro": "flegmă",
+      "pa": "ਬਲਗਮ",
+      "ur": "بلغم",
+      "pt": "expetoração",
+      "es": "flema",
+      "ar": "بلغم",
+      "bn": "কফ",
+      "gu": "કફ",
+      "it": "catarro",
+      "fa": "خلط"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "chest infection",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "infekcja klatki piersiowej",
+      "ro": "infecție la piept",
+      "pa": "ਛਾਤੀ ਦੀ ਇਨਫੈਕਸ਼ਨ",
+      "ur": "سینے کا انفیکشن",
+      "pt": "infeção no peito",
+      "es": "infección de pecho",
+      "ar": "التهاب الصدر",
+      "bn": "বুকের সংক্রমণ",
+      "gu": "છાતીનો ચેપ",
+      "it": "infezione al petto",
+      "fa": "عفونت سینه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "stroke",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "udar mózgu",
+      "ro": "accident vascular cerebral",
+      "pa": "ਅਧਰੰਗ",
+      "ur": "فالج",
+      "pt": "AVC",
+      "es": "derrame cerebral",
+      "ar": "سكتة دماغية",
+      "bn": "স্ট্রোক",
+      "gu": "લકવો",
+      "it": "ictus",
+      "fa": "سکته مغزی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "neck stiffness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "frequent",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "sztywność karku",
+      "ro": "înțepenirea gâtului",
+      "pa": "ਗਰਦਨ ਦਾ ਆਕੜਨਾ",
+      "ur": "گردن کا اکڑاؤ",
+      "pt": "rigidez no pescoço",
+      "es": "rigidez en el cuello",
+      "ar": "تصلب الرقبة",
+      "bn": "ঘাড় শক্ত হয়ে যাওয়া",
+      "gu": "ગરદન જકડાઈ જવી",
+      "it": "rigidità del collo",
+      "fa": "سفتی گردن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "paracetamol",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 16,
+    "urgent": false,
+    "translations": {
+      "pl": "paracetamol",
+      "ro": "paracetamol",
+      "pa": "ਪੈਰਾਸੀਟਾਮੋਲ",
+      "ur": "پیراسیٹامول",
+      "pt": "paracetamol",
+      "es": "paracetamol",
+      "ar": "باراسيتامول",
+      "bn": "প্যারাসিটামল",
+      "gu": "પેરાસિટામોલ",
+      "it": "paracetamolo",
+      "fa": "پاراستامول"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "ibuprofen",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 12,
+    "urgent": false,
+    "translations": {
+      "pl": "ibuprofen",
+      "ro": "ibuprofen",
+      "pa": "ਆਈਬਿਊਪਰੋਫ਼ੈਨ",
+      "ur": "آئیبوپروفین",
+      "pt": "ibuprofeno",
+      "es": "ibuprofeno",
+      "ar": "إيبوبروفين",
+      "bn": "আইবুপ্রোফেন",
+      "gu": "આઇબુપ્રોફેન",
+      "it": "ibuprofene",
+      "fa": "ایبوپروفن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "antibiotic",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 9,
+    "urgent": false,
+    "translations": {
+      "pl": "antybiotyk",
+      "ro": "antibiotic",
+      "pa": "ਐਂਟੀਬਾਇਓਟਿਕ",
+      "ur": "اینٹی بائیوٹک",
+      "pt": "antibiótico",
+      "es": "antibiótico",
+      "ar": "مضاد حيوي",
+      "bn": "অ্যান্টিবায়োটিক",
+      "gu": "એન્ટિબાયોટિક",
+      "it": "antibiotico",
+      "fa": "آنتی‌بیوتیک"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "antihistamine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "lek przeciwhistaminowy",
+      "ro": "antihistaminic",
+      "pa": "ਐਲਰਜੀ ਦੀ ਦਵਾਈ",
+      "ur": "الرجی کی دوا",
+      "pt": "anti-histamínico",
+      "es": "antihistamínico",
+      "ar": "مضاد للحساسية",
+      "bn": "অ্যান্টিহিস্টামিন",
+      "gu": "એલર્જીની દવા",
+      "it": "antistaminico",
+      "fa": "آنتی‌هیستامین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "aspirin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 5,
+    "urgent": false,
+    "translations": {
+      "pl": "aspiryna",
+      "ro": "aspirină",
+      "pa": "ਐਸਪਰੀਨ",
+      "ur": "اسپرین",
+      "pt": "aspirina",
+      "es": "aspirina",
+      "ar": "أسبرين",
+      "bn": "অ্যাসপিরিন",
+      "gu": "એસ્પિરિન",
+      "it": "aspirina",
+      "fa": "آسپرین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "dioralyte",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "elektrolity do picia",
+      "ro": "săruri de rehidratare",
+      "pa": "ਨਮਕ-ਖੰਡ ਦਾ ਘੋਲ",
+      "ur": "نمکول",
+      "pt": "sais de reidratação",
+      "es": "suero oral",
+      "ar": "محلول معالجة الجفاف",
+      "bn": "ওরাল স্যালাইন",
+      "gu": "ઓઆરએસ",
+      "it": "sali reidratanti",
+      "fa": "پودر او آر اس"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "salbutamol",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 4,
+    "urgent": false,
+    "translations": {
+      "pl": "salbutamol",
+      "ro": "salbutamol",
+      "pa": "ਸਾਲਬਿਊਟਾਮੋਲ",
+      "ur": "سالبوٹامول",
+      "pt": "salbutamol",
+      "es": "salbutamol",
+      "ar": "سالبوتامول",
+      "bn": "সালবুটামল",
+      "gu": "સાલ્બુટામોલ",
+      "it": "salbutamolo",
+      "fa": "سالبوتامول"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "inhaler",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "inhalator",
+      "ro": "inhalator",
+      "pa": "ਪੰਪ",
+      "ur": "انہیلر",
+      "pt": "inalador",
+      "es": "inhalador",
+      "ar": "بخاخ الربو",
+      "bn": "ইনহেলার",
+      "gu": "ઇન્હેલર",
+      "it": "inalatore",
+      "fa": "اسپری تنفسی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "naproxen",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "naproksen",
+      "ro": "naproxen",
+      "pa": "ਨੈਪਰੋਕਸੈਨ",
+      "ur": "نیپروکسین",
+      "pt": "naproxeno",
+      "es": "naproxeno",
+      "ar": "نابروكسين",
+      "bn": "ন্যাপ্রোক্সেন",
+      "gu": "નેપ્રોક્સેન",
+      "it": "naprossene",
+      "fa": "ناپروکسن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "painkiller",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "środek przeciwbólowy",
+      "ro": "calmant",
+      "pa": "ਦਰਦ ਦੀ ਦਵਾਈ",
+      "ur": "درد کی دوا",
+      "pt": "analgésico",
+      "es": "analgésico",
+      "ar": "مسكن للألم",
+      "bn": "ব্যথার ওষুধ",
+      "gu": "દુખાવાની દવા",
+      "it": "antidolorifico",
+      "fa": "مسکن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "trimethoprim",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "trimetoprym",
+      "ro": "trimetoprim",
+      "pa": "ਟ੍ਰਾਈਮੇਥੋਪ੍ਰਿਮ",
+      "ur": "ٹرائی میتھوپرم",
+      "pt": "trimetoprima",
+      "es": "trimetoprima",
+      "ar": "تريميثوبريم",
+      "bn": "ট্রাইমেথোপ্রিম",
+      "gu": "ટ્રાઇમેથોપ્રિમ",
+      "it": "trimetoprim",
+      "fa": "تریمتوپریم"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "implanon",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "implant antykoncepcyjny",
+      "ro": "implant contraceptiv",
+      "pa": "ਗਰਭ-ਨਿਰੋਧਕ ਇਮਪਲਾਂਟ",
+      "ur": "حمل روکنے والا امپلانٹ",
+      "pt": "implante contracetivo",
+      "es": "implante anticonceptivo",
+      "ar": "غرسة منع الحمل",
+      "bn": "গর্ভনিরোধক ইমপ্লান্ট",
+      "gu": "ગર્ભનિરોધક ઇમ્પ્લાન્ટ",
+      "it": "impianto contraccettivo",
+      "fa": "ایمپلنت ضد بارداری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "clindamycin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "klindamycyna",
+      "ro": "clindamicină",
+      "pa": "ਕਲਿੰਡਾਮਾਈਸਿਨ",
+      "ur": "کلنڈامائسن",
+      "pt": "clindamicina",
+      "es": "clindamicina",
+      "ar": "كليندامايسين",
+      "bn": "ক্লিন্ডামাইসিন",
+      "gu": "ક્લિન્ડામાયસિન",
+      "it": "clindamicina",
+      "fa": "کلیندامایسین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "metformin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "metformina",
+      "ro": "metformină",
+      "pa": "ਮੈਟਫੋਰਮਿਨ",
+      "ur": "میٹفارمن",
+      "pt": "metformina",
+      "es": "metformina",
+      "ar": "ميتفورمين",
+      "bn": "মেটফর্মিন",
+      "gu": "મેટફોર્મિન",
+      "it": "metformina",
+      "fa": "متفورمین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "penicillin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "penicylina",
+      "ro": "penicilină",
+      "pa": "ਪੈਨਿਸਿਲਿਨ",
+      "ur": "پینسلین",
+      "pt": "penicilina",
+      "es": "penicilina",
+      "ar": "بنسلين",
+      "bn": "পেনিসিলিন",
+      "gu": "પેનિસિલિન",
+      "it": "penicillina",
+      "fa": "پنی‌سیلین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "vitamin d",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 3,
+    "urgent": false,
+    "translations": {
+      "pl": "witamina D",
+      "ro": "vitamina D",
+      "pa": "ਵਿਟਾਮਿਨ ਡੀ",
+      "ur": "وٹامن ڈی",
+      "pt": "vitamina D",
+      "es": "vitamina D",
+      "ar": "فيتامين د",
+      "bn": "ভিটামিন ডি",
+      "gu": "વિટામિન ડી",
+      "it": "vitamina D",
+      "fa": "ویتامین دی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "loratadine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "loratadyna",
+      "ro": "loratadină",
+      "pa": "ਲੋਰਾਟਾਡੀਨ",
+      "ur": "لوراٹاڈین",
+      "pt": "loratadina",
+      "es": "loratadina",
+      "ar": "لوراتادين",
+      "bn": "লোরাটাডিন",
+      "gu": "લોરાટાડિન",
+      "it": "loratadina",
+      "fa": "لوراتادین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "piriton",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "piriton",
+      "ro": "piriton",
+      "pa": "ਪਿਰੀਟੋਨ",
+      "ur": "پائریٹن",
+      "pt": "piriton",
+      "es": "piriton",
+      "ar": "بيريتون",
+      "bn": "পিরিটন",
+      "gu": "પિરિટોન",
+      "it": "piriton",
+      "fa": "پیریتون"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "microgynon",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "mikrogynon",
+      "ro": "microgynon",
+      "pa": "ਮਾਈਕ੍ਰੋਗਾਈਨੋਨ",
+      "ur": "مائیکروگائنون",
+      "pt": "microgynon",
+      "es": "microgynon",
+      "ar": "ميكروجينون",
+      "bn": "মাইক্রোগাইনন",
+      "gu": "માઇક્રોગાયનોન",
+      "it": "microgynon",
+      "fa": "میکروژینون"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "nitrofurantoin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "nitrofurantoina",
+      "ro": "nitrofurantoină",
+      "pa": "ਨਾਈਟ੍ਰੋਫਿਊਰੈਂਟੋਇਨ",
+      "ur": "نائٹروفیورینٹوئن",
+      "pt": "nitrofurantoína",
+      "es": "nitrofurantoína",
+      "ar": "نيتروفورانتوين",
+      "bn": "নাইট্রোফুরানটোইন",
+      "gu": "નાઇટ્રોફ્યુરાન્ટોઇન",
+      "it": "nitrofurantoina",
+      "fa": "نیتروفورانتوئین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "mebeverine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "mebeweryna",
+      "ro": "mebeverină",
+      "pa": "ਮੇਬੇਵੇਰੀਨ",
+      "ur": "میبیویرین",
+      "pt": "mebeverina",
+      "es": "mebeverina",
+      "ar": "ميبيفيرين",
+      "bn": "মেবেভেরিন",
+      "gu": "મેબેવેરિન",
+      "it": "mebeverina",
+      "fa": "مبورین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "lisinopril",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "lizynopryl",
+      "ro": "lisinopril",
+      "pa": "ਲਿਸਿਨੋਪ੍ਰਿਲ",
+      "ur": "لیسیناپرل",
+      "pt": "lisinopril",
+      "es": "lisinopril",
+      "ar": "ليسينوبريل",
+      "bn": "লিসিনোপ্রিল",
+      "gu": "લિસિનોપ્રિલ",
+      "it": "lisinopril",
+      "fa": "لیزینوپریل"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "thyroxine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "tyroksyna",
+      "ro": "tiroxină",
+      "pa": "ਥਾਈਰੋਕਸਿਨ",
+      "ur": "تھائراکسن",
+      "pt": "tiroxina",
+      "es": "tiroxina",
+      "ar": "ثيروكسين",
+      "bn": "থাইরক্সিন",
+      "gu": "થાયરોક્સિન",
+      "it": "tiroxina",
+      "fa": "تیروکسین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "melatonin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "melatonina",
+      "ro": "melatonină",
+      "pa": "ਮੇਲਾਟੋਨਿਨ",
+      "ur": "میلاٹونن",
+      "pt": "melatonina",
+      "es": "melatonina",
+      "ar": "ميلاتونين",
+      "bn": "মেলাটোনিন",
+      "gu": "મેલાટોનિન",
+      "it": "melatonina",
+      "fa": "ملاتونین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "amoxicillin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "amoksycylina",
+      "ro": "amoxicilină",
+      "pa": "ਅਮੋਕਸੀਸਿਲਿਨ",
+      "ur": "اموکسیسلن",
+      "pt": "amoxicilina",
+      "es": "amoxicilina",
+      "ar": "أموكسيسيلين",
+      "bn": "অ্যামোক্সিসিলিন",
+      "gu": "એમોક્સિસિલિન",
+      "it": "amoxicillina",
+      "fa": "آموکسی‌سیلین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)",
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "contraception",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 2,
+    "urgent": false,
+    "translations": {
+      "pl": "antykoncepcja",
+      "ro": "contracepție",
+      "pa": "ਗਰਭ ਨਿਰੋਧ",
+      "ur": "حمل روکنے کا طریقہ",
+      "pt": "contraceção",
+      "es": "anticoncepción",
+      "ar": "منع الحمل",
+      "bn": "গর্ভনিরোধ",
+      "gu": "ગર્ભનિરોધ",
+      "it": "contraccezione",
+      "fa": "پیشگیری از بارداری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "PriMock57 BUILD set (frequency)"
+    ]
+  },
+  {
+    "term": "codeine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 1,
+    "urgent": false,
+    "translations": {
+      "pl": "kodeina",
+      "ro": "codeină",
+      "pa": "ਕੋਡੀਨ",
+      "ur": "کوڈین",
+      "pt": "codeína",
+      "es": "codeína",
+      "ar": "كودين",
+      "bn": "কোডেইন",
+      "gu": "કોડીન",
+      "it": "codeina",
+      "fa": "کدئین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "omeprazole",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "omeprazol",
+      "ro": "omeprazol",
+      "pa": "ਓਮੇਪ੍ਰਾਜ਼ੋਲ",
+      "ur": "اومیپرازول",
+      "pt": "omeprazol",
+      "es": "omeprazol",
+      "ar": "أوميبرازول",
+      "bn": "ওমিপ্রাজল",
+      "gu": "ઓમેપ્રાઝોલ",
+      "it": "omeprazolo",
+      "fa": "امپرازول"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "salbutamol inhaler",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "inhalator z salbutamolem",
+      "ro": "inhalator cu salbutamol",
+      "pa": "ਸਾਲਬਿਊਟਾਮੋਲ ਇਨਹੇਲਰ",
+      "ur": "سالبیوٹامول انہیلر",
+      "pt": "inalador de salbutamol",
+      "es": "inhalador de salbutamol",
+      "ar": "بخاخ سالبوتامول",
+      "bn": "সালবুটামল ইনহেলার",
+      "gu": "સાલ્બ્યુટામોલ ઇન્હેલર",
+      "it": "inalatore di salbutamolo",
+      "fa": "اسپری سالبوتامول"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "insulin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "insulina",
+      "ro": "insulină",
+      "pa": "ਇਨਸੁਲਿਨ",
+      "ur": "انسولین",
+      "pt": "insulina",
+      "es": "insulina",
+      "ar": "أنسولين",
+      "bn": "ইনসুলিন",
+      "gu": "ઇન્સ્યુલિન",
+      "it": "insulina",
+      "fa": "انسولین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "amlodipine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 1,
+    "urgent": false,
+    "translations": {
+      "pl": "amlodypina",
+      "ro": "amlodipină",
+      "pa": "ਐਮਲੋਡੀਪੀਨ",
+      "ur": "ایملوڈیپین",
+      "pt": "amlodipina",
+      "es": "amlodipino",
+      "ar": "أملوديبين",
+      "bn": "অ্যামলোডিপিন",
+      "gu": "એમ્લોડિપિન",
+      "it": "amlodipina",
+      "fa": "آملودیپین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "ramipril",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "ramipryl",
+      "ro": "ramipril",
+      "pa": "ਰੈਮੀਪ੍ਰਿਲ",
+      "ur": "ریمیپرل",
+      "pt": "ramipril",
+      "es": "ramipril",
+      "ar": "راميبريل",
+      "bn": "র‍্যামিপ্রিল",
+      "gu": "રેમિપ્રિલ",
+      "it": "ramipril",
+      "fa": "رامیپریل"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "atorvastatin",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "atorwastatyna",
+      "ro": "atorvastatină",
+      "pa": "ਐਟੋਰਵਾਸਟੈਟਿਨ",
+      "ur": "ایٹورواسٹیٹن",
+      "pt": "atorvastatina",
+      "es": "atorvastatina",
+      "ar": "أتورفاستاتين",
+      "bn": "অ্যাটোরভাস্ট্যাটিন",
+      "gu": "એટોર્વાસ્ટેટિન",
+      "it": "atorvastatina",
+      "fa": "آتورواستاتین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "sertraline",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 1,
+    "urgent": false,
+    "translations": {
+      "pl": "sertralina",
+      "ro": "sertralină",
+      "pa": "ਸਰਟਰਾਲਿਨ",
+      "ur": "سرٹرالین",
+      "pt": "sertralina",
+      "es": "sertralina",
+      "ar": "سيرترالين",
+      "bn": "সার্ট্রালিন",
+      "gu": "સર્ટ્રાલિન",
+      "it": "sertralina",
+      "fa": "سرترالین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "levothyroxine",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "medicine",
+    "frequency": 0,
+    "urgent": false,
+    "translations": {
+      "pl": "lewotyroksyna",
+      "ro": "levotiroxină",
+      "pa": "ਲੇਵੋਥਾਈਰੋਕਸਿਨ",
+      "ur": "لیووتھائروکسین",
+      "pt": "levotiroxina",
+      "es": "levotiroxina",
+      "ar": "ليفوثيروكسين",
+      "bn": "লেভোথাইরক্সিন",
+      "gu": "લેવોથાયરોક્સિન",
+      "it": "levotiroxina",
+      "fa": "لووتیروکسین"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "Common UK GP medicines"
+    ]
+  },
+  {
+    "term": "chest tightness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 2,
+    "urgent": true,
+    "translations": {
+      "pl": "ucisk w klatce piersiowej",
+      "ro": "senzație de strângere în piept",
+      "pa": "ਛਾਤੀ ਵਿੱਚ ਜਕੜਨ",
+      "ur": "سینے میں جکڑن",
+      "pt": "aperto no peito",
+      "es": "opresión en el pecho",
+      "ar": "ضيق في الصدر",
+      "bn": "বুকে চাপ ধরা",
+      "gu": "છાતીમાં ભીંસ લાગવી",
+      "it": "senso di oppressione al petto",
+      "fa": "احساس تنگی در قفسه سینه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "difficulty breathing",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 1,
+    "urgent": true,
+    "translations": {
+      "pl": "trudności z oddychaniem",
+      "ro": "dificultate la respirație",
+      "pa": "ਸਾਹ ਲੈਣ ਵਿੱਚ ਮੁਸ਼ਕਲ",
+      "ur": "سانس لینے میں دشواری",
+      "pt": "dificuldade para respirar",
+      "es": "dificultad para respirar",
+      "ar": "صعوبة في التنفس",
+      "bn": "শ্বাস নিতে কষ্ট হওয়া",
+      "gu": "શ્વાસ લેવામાં તકલીફ",
+      "it": "difficoltà a respirare",
+      "fa": "تنگی نفس"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "coughing up blood",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "kaszel z krwią",
+      "ro": "tuse cu sânge",
+      "pa": "ਖੰਘ ਵਿੱਚ ਖੂਨ ਆਉਣਾ",
+      "ur": "کھانسی میں خون آنا",
+      "pt": "tossir sangue",
+      "es": "toser sangre",
+      "ar": "سعال مصحوب بدم",
+      "bn": "কাশির সাথে রক্ত ওঠা",
+      "gu": "ઉધરસમાં લોહી આવવું",
+      "it": "tossire sangue",
+      "fa": "سرفه خونی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "vomiting blood",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "wymioty z krwią",
+      "ro": "vărsături cu sânge",
+      "pa": "ਉਲਟੀ ਵਿੱਚ ਖੂਨ ਆਉਣਾ",
+      "ur": "الٹی میں خون آنا",
+      "pt": "vomitar sangue",
+      "es": "vomitar sangre",
+      "ar": "تقيؤ الدم",
+      "bn": "বমির সাথে রক্ত ওঠা",
+      "gu": "ઊલટીમાં લોહી આવવું",
+      "it": "vomitare sangue",
+      "fa": "استفراغ خونی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "black stools",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "czarny stolec",
+      "ro": "scaun negru",
+      "pa": "ਕਾਲਾ ਟੱਟੀ ਆਉਣਾ",
+      "ur": "کالا پاخانہ",
+      "pt": "fezes pretas",
+      "es": "heces negras",
+      "ar": "براز أسود",
+      "bn": "কালো পায়খানা",
+      "gu": "કાળો ઝાડો",
+      "it": "feci nere",
+      "fa": "مدفوع سیاه"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "severe bleeding",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "silne krwawienie",
+      "ro": "sângerare abundentă",
+      "pa": "ਬਹੁਤ ਜ਼ਿਆਦਾ ਖੂਨ ਵਗਣਾ",
+      "ur": "شدید خون بہنا",
+      "pt": "sangramento intenso",
+      "es": "sangrado abundante",
+      "ar": "نزيف حاد",
+      "bn": "অতিরিক্ত রক্তপাত",
+      "gu": "ભારે રક્તસ્ત્રાવ",
+      "it": "emorragia grave",
+      "fa": "خونریزی شدید"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "face drooping",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "opadanie kącika ust lub twarzy",
+      "ro": "căderea unei părți a feței",
+      "pa": "ਚਿਹਰੇ ਦਾ ਇੱਕ ਪਾਸਾ ਲਟਕਣਾ",
+      "ur": "چہرے کا ایک طرف لٹک جانا",
+      "pt": "rosto caído",
+      "es": "caída de un lado de la cara",
+      "ar": "تدلي الوجه",
+      "bn": "মুখের একপাশ ঝুলে পড়া",
+      "gu": "ચહેરાનો એક ભાગ લટકી જવો",
+      "it": "abbassamento di un lato del viso",
+      "fa": "افتادگی صورت"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "arm weakness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 1,
+    "urgent": true,
+    "translations": {
+      "pl": "osłabienie ręki",
+      "ro": "slăbiciune în braț",
+      "pa": "ਬਾਂਹ ਵਿੱਚ ਕਮਜ਼ੋਰੀ",
+      "ur": "بازو میں کمزوری",
+      "pt": "fraqueza no braço",
+      "es": "debilidad en el brazo",
+      "ar": "ضعف في الذراع",
+      "bn": "হাতে দুর্বলতা",
+      "gu": "હાથમાં નબળાઈ",
+      "it": "debolezza al braccio",
+      "fa": "ضعف در بازو"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "slurred speech",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "niewyraźna mowa",
+      "ro": "vorbire neclară",
+      "pa": "ਬੋਲਣ ਵਿੱਚ ਥਥਲਾਹਟ",
+      "ur": "لڑکھڑاتی ہوئی آواز",
+      "pt": "fala arrastada",
+      "es": "habla arrastrada",
+      "ar": "تلعثم في الكلام",
+      "bn": "জড়ানো কথা",
+      "gu": "બોલવામાં થોથવાટ",
+      "it": "linguaggio impastato",
+      "fa": "لکنت زبان ناگهانی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "sudden severe headache",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "nagły, silny ból głowy",
+      "ro": "durere de cap bruscă și severă",
+      "pa": "ਅਚਾਨਕ ਤੇਜ਼ ਸਿਰ ਦਰਦ",
+      "ur": "اچانک شدید سر درد",
+      "pt": "dor de cabeça súbita e forte",
+      "es": "dolor de cabeza repentino y fuerte",
+      "ar": "صداع شديد مفاجئ",
+      "bn": "হঠাৎ তীব্র মাথাব্যথা",
+      "gu": "અચાનક સખત માથાનો દુખાવો",
+      "it": "mal di testa improvviso e forte",
+      "fa": "سردرد شدید ناگهانی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "fainting",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "omdlenie",
+      "ro": "leșin",
+      "pa": "ਬੇਹੋਸ਼ ਹੋਣਾ",
+      "ur": "بے ہوش ہو جانا",
+      "pt": "desmaio",
+      "es": "desmayo",
+      "ar": "إغماء",
+      "bn": "অজ্ঞান হয়ে যাওয়া",
+      "gu": "બેભાન થવું",
+      "it": "svenimento",
+      "fa": "غش کردن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "loss of consciousness",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "utrata przytomności",
+      "ro": "pierderea cunoștinței",
+      "pa": "ਹੋਸ਼ ਗੁਆ ਬੈਠਣਾ",
+      "ur": "ہوش کھو دینا",
+      "pt": "perda de consciência",
+      "es": "pérdida del conocimiento",
+      "ar": "فقدان الوعي",
+      "bn": "জ্ঞান হারানো",
+      "gu": "ભાન ગુમાવવું",
+      "it": "perdita di coscienza",
+      "fa": "از دست دادن هوشیاری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "seizure",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 1,
+    "urgent": true,
+    "translations": {
+      "pl": "napad drgawkowy",
+      "ro": "convulsie",
+      "pa": "ਦੌਰਾ ਪੈਣਾ",
+      "ur": "دورہ پڑنا",
+      "pt": "convulsão",
+      "es": "convulsión",
+      "ar": "نوبة صرع",
+      "bn": "খিঁচুনি",
+      "gu": "ખેંચ આવવી",
+      "it": "crisi convulsiva",
+      "fa": "تشنج"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "stiff neck",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "sztywność karku",
+      "ro": "gât înțepenit",
+      "pa": "ਗਰਦਨ ਵਿੱਚ ਅਕੜਾਅ",
+      "ur": "گردن میں اکڑاؤ",
+      "pt": "rigidez no pescoço",
+      "es": "rigidez en el cuello",
+      "ar": "تيبس الرقبة",
+      "bn": "ঘাড় শক্ত হয়ে যাওয়া",
+      "gu": "ગરદન જકડાઈ જવી",
+      "it": "rigidità del collo",
+      "fa": "سفتی گردن"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "rash that does not fade when pressed",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "wysypka, która nie blednie pod naciskiem",
+      "ro": "erupție pe piele care nu dispare la apăsare",
+      "pa": "ਧੱਫੜ ਜੋ ਦਬਾਉਣ ਤੇ ਫਿੱਕੇ ਨਹੀਂ ਪੈਂਦੇ",
+      "ur": "دانے جو دبانے سے مدھم نہیں ہوتے",
+      "pt": "manchas na pele que não desaparecem ao pressionar",
+      "es": "sarpullido que no desaparece al presionarlo",
+      "ar": "طفح جلدي لا يختفي عند الضغط عليه",
+      "bn": "চামড়ার ফুসকুড়ি যা চাপ দিলে মিলিয়ে যায় না",
+      "gu": "ચામડી પરના ચકામા જે દબાવવાથી ઝાંખા પડતા નથી",
+      "it": "eruzione cutanea che non scompare alla pressione",
+      "fa": "بثورات پوستی که با فشار دادن محو نمی‌شوند"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "confusion",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "dezorientacja",
+      "ro": "confuzie",
+      "pa": "ਉਲਝਣ",
+      "ur": "الجھن",
+      "pt": "confusão",
+      "es": "confusión",
+      "ar": "ارتباك",
+      "bn": "বিভ্রান্তি",
+      "gu": "મૂંઝવણ",
+      "it": "confusione",
+      "fa": "گیجی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "swollen lips or tongue",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "spuchnięte wargi lub język",
+      "ro": "buze sau limbă umflate",
+      "pa": "ਸੁੱਜੇ ਹੋਏ ਬੁੱਲ੍ਹ ਜਾਂ ਜੀਭ",
+      "ur": "سوجے ہوئے ہونٹ یا زبان",
+      "pt": "lábios ou língua inchados",
+      "es": "labios o lengua hinchados",
+      "ar": "تورم الشفتين أو اللسان",
+      "bn": "ফোলা ঠোঁট বা জিভ",
+      "gu": "સૂજેલા હોઠ અથવા જીભ",
+      "it": "labbra o lingua gonfie",
+      "fa": "تورم لب‌ها یا زبان"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "suicidal thoughts",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "myśli samobójcze",
+      "ro": "gânduri de sinucidere",
+      "pa": "ਖੁਦਕੁਸ਼ੀ ਦੇ ਵਿਚਾਰ",
+      "ur": "خودکشی کے خیالات",
+      "pt": "pensamentos suicidas",
+      "es": "pensamientos suicidas",
+      "ar": "أفكار انتحارية",
+      "bn": "আত্মহত্যার চিন্তা",
+      "gu": "આત્મહત્યાના વિચારો",
+      "it": "pensieri suicidi",
+      "fa": "افکار خودکشی"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "self-harm",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "samookaleczenie",
+      "ro": "autovătămare",
+      "pa": "ਆਪਣੇ ਆਪ ਨੂੰ ਨੁਕਸਾਨ ਪਹੁੰਚਾਉਣਾ",
+      "ur": "خود کو نقصان پہنچانا",
+      "pt": "automutilação",
+      "es": "autolesión",
+      "ar": "إيذاء النفس",
+      "bn": "নিজেকে আঘাত করা",
+      "gu": "પોતાને નુકસાન પહોંચાડવું",
+      "it": "autolesionismo",
+      "fa": "آسیب به خود"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "severe abdominal pain",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "silny ból brzucha",
+      "ro": "durere puternică de burtă",
+      "pa": "ਪੇਟ ਵਿੱਚ ਤੇਜ਼ ਦਰਦ",
+      "ur": "پیٹ میں شدید درد",
+      "pt": "dor abdominal forte",
+      "es": "dolor abdominal intenso",
+      "ar": "ألم شديد في البطن",
+      "bn": "পেটে তীব্র ব্যথা",
+      "gu": "પેટમાં તીવ્ર દુખાવો",
+      "it": "forte dolore addominale",
+      "fa": "درد شدید شکم"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  },
+  {
+    "term": "bleeding in pregnancy",
+    "snomed_id": "",
+    "snomed_name": "",
+    "category": "urgent",
+    "frequency": 0,
+    "urgent": true,
+    "translations": {
+      "pl": "krwawienie w ciąży",
+      "ro": "sângerare în sarcină",
+      "pa": "ਗਰਭ ਅਵਸਥਾ ਵਿੱਚ ਖੂਨ ਵਗਣਾ",
+      "ur": "حمل کے دوران خون آنا",
+      "pt": "sangramento na gravidez",
+      "es": "sangrado en el embarazo",
+      "ar": "نزيف أثناء الحمل",
+      "bn": "গর্ভাবস্থায় রক্তপাত",
+      "gu": "ગર્ભાવસ્થામાં રક્તસ્રાવ",
+      "it": "sanguinamento in gravidanza",
+      "fa": "خونریزی در بارداری"
+    },
+    "verified": {
+      "pl": false,
+      "ro": false,
+      "pa": false,
+      "ur": false,
+      "pt": false,
+      "es": false,
+      "ar": false,
+      "bn": false,
+      "gu": false,
+      "it": false,
+      "fa": false
+    },
+    "sources": [
+      "NHS urgent warning signs"
+    ]
+  }
+]

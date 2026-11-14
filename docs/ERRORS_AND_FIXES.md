@@ -37,7 +37,7 @@ Times are London time, Sat 14 Nov 2026 unless stated.
 | K15 | **Frontend choice (HTML vs Gradio) not decided** | 🟠 Medium (timeline) | Team decision needed today | — |
 | K16 | **Real phones/mics not tested yet**: noise thresholds were set on artificial noise | 🟠 Medium | Test on real devices after deploy; adjust `NOISE_BLOCK_DB` / `NOISE_WARN_DB` | #23 |
 | K17 | **Translation sometimes exaggerates**: "tight chest pain" → Urdu "severe pressure pain" | 🟠 Medium | Rule 3 already forbids it; measure how often in C3; native speakers check | #30 |
-| K18 | **Glossary translations are AI-drafted**: none checked by a native speaker yet; SNOMED IDs not looked up yet | 🟠 Medium | Used only as *suggestions* until verified; testing teammate checks them | #31 |
+| K18 | **Glossary translations are AI-drafted**: none checked by a native speaker yet; SNOMED IDs not looked up yet | 🟠 Medium | Used only as *suggestions* until verified; automatic check passed (#32); testing teammate checks them | #31, #32 |
 | K19 | **Summary assumes the patient reports symptoms**, so it may attribute the doctor's words to the patient | 🟡 Low | Seen in an artificial test (the doctor read out symptoms). Check with real conversations in C4 | #30 |
 
 ---
@@ -258,7 +258,15 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix:** `prompts.py` now sends **checked** translations as rules, and **AI-drafted** ones as *suggestions* ("use them if they fit, unless a more natural word is better"). Switch the suggestions off with `USE_UNVERIFIED_GLOSSARY=false`, e.g. to measure their effect in C3.
 - Glossary terms marked `urgent` are now also added to the urgent-symptom list automatically.
 
-### 32. ✅ Small setup slips
+### 32. ✅ Glossary built: automatic checks + first run with it switched on
+- **Glossary:** 106 terms (48 frequent, 23 urgent, 35 medicines). Slightly over the 80–100 target because of the medicines. 1,166 translations.
+- **Automatic check of every translation:** right script for the language, no empty entries, no slashes or brackets, no Persian-only letters in Arabic. **0 problems.** (This only catches obvious mistakes; meaning must still be checked by native speakers.)
+- **Speed with the glossary in every request** (+106 lines, about 3,600 characters): runs 2 and 3 took **3.3 s and 3.6 s**, the same as without. Run 1 took **36.5 s**: Google's random slowness again (the first attempt hit the 20 s limit, then the retry answered).
+- **Fix:** lowered the translation time limit from **20 s to 12 s**. Normal turns take 3–4 s, so this only cuts off stuck requests. The worst case is now about 25 s instead of about 42 s.
+- **Side note:** with the glossary on, *"tight pain in my chest"* was translated correctly (جکڑن, "tightness") in 3/3 runs, with no added "severe" (compare #30). These are only 3 runs on a robot-voice clip, not a test result.
+- **Medical test file:** `tests/test_set_medical.csv`, **93 sentences** (51 doctor, 42 patient) containing glossary terms, taken **only from the 17 TEST consultations**.
+
+### 33. ✅ Small setup slips
 - The server launch file was first put in the wrong folder (`voicebridge/.claude/`); the app looks for it in `hackathon/.claude/`. Moved.
 - The medicine list said "antibiotics" while the data said "antibiotic", which would have created a duplicate term. Fixed before building.
 

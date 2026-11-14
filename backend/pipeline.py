@@ -53,8 +53,9 @@ USE_MEDICAL_LAYER = os.getenv("USE_MEDICAL_LAYER", "true").lower() == "true"
 MAX_ATTEMPTS = 2
 RETRY_WAIT_SECONDS = 1.5
 # Stop waiting after this many seconds. A normal turn takes 3-4 s, but we saw
-# random slow answers of 11, 22 and 54 s. Retrying is usually faster than waiting.
-TIMEOUT_SECONDS = 20
+# random slow answers of 11, 22, 36 and 54 s. Retrying is usually faster than waiting.
+# (Was 20 s; lowered to 12 s after a 36 s turn: worst case is now ~25 s instead of ~42 s.)
+TIMEOUT_SECONDS = 12
 
 # One shared client (it reuses the connection, which is faster).
 _client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
