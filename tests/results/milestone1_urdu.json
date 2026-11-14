@@ -1,0 +1,58 @@
+[
+  {
+    "original_text": "कल पानीफोटो ग्राफरो के साथ छह अफगान शुदगान को जल्द रहा कर दिया गया था जिनमे बच्चे और बूढ़े शामिल थे",
+    "detected_language": "ur",
+    "target_language": "en",
+    "translation": "Yesterday, six Afghan martyrs, including children and the elderly, were released soon along with photographers.",
+    "urgent_terms": [],
+    "translate_seconds": 4.08,
+    "model": "gemini-3.5-flash-lite",
+    "medical_layer": true,
+    "fleurs_id": 1930,
+    "convert_seconds": 0.07,
+    "urdu_reference": "فلپائنی فوٹوگرافروں کے ساتھ چھےاغوا شدگان کو جلد رہا کر دیا گیا تھا، جِن میں بچّے اور بُوڑھے شامل تھے۔",
+    "english_reference": null
+  },
+  {
+    "original_text": "kal pani photographron ke sath che agwa shudgan ko jala kar kar diya gaya tha jin mein bachche aur budhe shamil the",
+    "detected_language": "ur",
+    "target_language": "en",
+    "translation": "Yesterday, near Pani Photographer, six kidnapped people, including children and the elderly, were burnt to death.",
+    "urgent_terms": [],
+    "translate_seconds": 2.95,
+    "model": "gemini-3.5-flash-lite",
+    "medical_layer": false,
+    "fleurs_id": 1930,
+    "convert_seconds": 0.07,
+    "urdu_reference": "فلپائنی فوٹوگرافروں کے ساتھ چھےاغوا شدگان کو جلد رہا کر دیا گیا تھا، جِن میں بچّے اور بُوڑھے شامل تھے۔",
+    "english_reference": null
+  },
+  {
+    "original_text": "ان کے دور میں خفیف تلویس ایسا مسئلہ نہیں تھا جیسا کہ وہ آج ہے ان کی سکونت ایسے شہروں یا حوضات میں ہے جہاں تک باسانی پہنچا جا سکتا ہے بنسبت ان مقامات کے جو ماڈرن زمانے میں تعمیر کیے گئے",
+    "detected_language": "ur",
+    "target_language": "en",
+    "translation": "During their time, mild flooding was not as much of an issue as it is today. Their settlements are in cities or basins that are easily accessible, compared to those locations built in modern times.",
+    "urgent_terms": [],
+    "translate_seconds": 3.66,
+    "model": "gemini-3.5-flash-lite",
+    "medical_layer": true,
+    "fleurs_id": 1806,
+    "convert_seconds": 0.06,
+    "urdu_reference": "ان کے دور میں خفیف تلوُّث ایزا مسئلہ نہیں تھا جیسا کہ وہ آج ہے۔ ان کی سکونت ایسے شہروں یا حوزات میں ہے جہا ں تک بآسانی پہنچا جا سکتا ہے بہ نسبت ان مقامات کے جو ماڈرن زمانے میں تعمیر کئے گئے۔",
+    "english_reference": null
+  },
+  {
+    "original_text": "ان کے دور میں خفیف تلوّث ایسا مسئلہ نہیں تھا جیسا کہ وہ آج ہے ان کی سکونت ایسے شہروں یا حوزات میں ہے جہاں تک باآسانی پہنچا جاسکتا ہے بنسبت ان مقامات کے جو ماڈرن زمانے میں تعمیر کیے گئے",
+    "detected_language": "ur",
+    "target_language": "en",
+    "translation": "In their time, mild pollution was not as much of an issue as it is today; their habitation is in cities or settlements that are easily accessible, compared to those locations which were built in modern times.",
+    "urgent_terms": [],
+    "translate_seconds": 3.49,
+    "model": "gemini-3.5-flash-lite",
+    "medical_layer": false,
+    "fleurs_id": 1806,
+    "convert_seconds": 0.06,
+    "urdu_reference": "ان کے دور میں خفیف تلوُّث ایزا مسئلہ نہیں تھا جیسا کہ وہ آج ہے۔ ان کی سکونت ایسے شہروں یا حوزات میں ہے جہا ں تک بآسانی پہنچا جا سکتا ہے بہ نسبت ان مقامات کے جو ماڈرن زمانے میں تعمیر کئے گئے۔",
+    "english_reference": null
+  }
+]
