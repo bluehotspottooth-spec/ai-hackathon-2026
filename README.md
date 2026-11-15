@@ -34,17 +34,22 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 ## Folder map
 
 ```
-backend/        Ahmed: FastAPI + Gemini + ElevenLabs
-frontend/       Benet: the app's screens (voicebridge_FINAL.html + README.md)
-  voicebridge_FINAL.html   the frontend (our refined version)
-  old_mockup/   OLD first Gemini Canvas design (credited, reference only)
-tests/          Testing teammate: evaluation scripts
-  clips/        test audio (not uploaded: too big / personal)
-  results/      result CSVs and charts
-data/           Testing teammate: datasets and term counts
-docs/           Briefs, write-up (Submission for Hackathon.docx), dev log, errors + known issues
-docs/PROJECT_BRIEF.md   Full project brief (single source of truth)
-Dockerfile      Recipe for running the app online (Render)
+backend/        The server: FastAPI + Gemini + ElevenLabs (+ glossary.json)
+frontend/       The app's screens
+  voicebridge_FINAL.html   the whole frontend (one file)
+  demo_audio/   pre-recorded demo lines (the demo uses no API credits)
+  logo.svg      the logo
+  old_mockup/   first Gemini Canvas design (credited, reference only)
+tests/          How we tested it (start with tests/README.md)
+  evaluate_medical.py      the medical test: baseline vs VoiceBridge, 11 languages
+  test_set_medical.csv     the 93 test sentences (from the 17 kept-aside consultations)
+  results/medical/         medical test results (tables + examples)
+  results/early_checks/    first checks while building (Urdu clip, voices in all languages)
+  clips/recording/         native-speaker recordings, one folder per language
+data/           PriMock57 split (40 build / 17 test), term counts
+docs/           Project brief, dev log, errors + fixes, frontend changes, explainer, write-up
+  design/       the untouched AI-made original frontend (for comparison)
+Dockerfile, requirements.txt   how Render builds and runs the app
 ```
 
 ## How VoiceBridge works (one turn)
