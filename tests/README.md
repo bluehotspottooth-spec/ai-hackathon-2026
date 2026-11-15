@@ -1,6 +1,6 @@
 # `tests/`: how we tested VoiceBridge
 
-**Owner:** testing teammate (with help from Ahmed and Claude Code). Results live in `tests/results/`.
+**Written by:** Ahmed. Results live in `tests/results/`.
 
 ## What's in this folder
 
