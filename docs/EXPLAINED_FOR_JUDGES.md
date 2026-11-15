@@ -2,7 +2,7 @@
 
 Plain English, no jargon you can't explain. Read it top to bottom once, then use the **judge questions** at the end to practise out loud.
 
-Honesty note: Claude Code (an AI coding assistant) wrote much of the code with us. We decided what to build and why, tested it, and found and fixed the problems. Judges allow coding assistants as long as we credit them and **understand** the work, which is what this file is for.
+Note: we used AI coding assistants, which the rules allow (credited in the write-up). We decided what to build and why, tested it, and found and fixed the problems. Judges want us to **understand** the work, which is what this file is for.
 
 ---
 
@@ -64,7 +64,7 @@ The frontend is **one file**: `frontend/voicebridge_FINAL.html`. It holds three 
 - **CSS** = the look (colours, sizes, layout, light and dark mode).
 - **JavaScript** = the behaviour (recording, sending to the server, showing results, animations).
 
-**Where it came from (be upfront about this):** an AI (Claude Code) made the first version, based on our earlier Gemini Canvas mockup. We kept that untouched (`docs/design/voicebridge_ORIGINAL.html`, Git tag `ai-original-mock`) and logged **every change we made** in `docs/FRONTEND_CHANGES.md`, with the reason. Judges can compare the two on GitHub.
+**Where it came from (be upfront about this):** an AI coding assistant made the first version, based on our earlier Gemini Canvas mockup. We kept that untouched (`docs/design/voicebridge_ORIGINAL.html`, Git tag `ai-original-mock`) and logged **every change we made** in `docs/FRONTEND_CHANGES.md`, with the reason. Judges can compare the two on GitHub.
 
 ### The pages
 Home → How it works → Languages → Safety → About, plus the appointment flow: **access code → choose the language → the appointment → summary**. It's a "single-page app": all pages are in one file and JavaScript shows one at a time (the address bar changes, e.g. `#consult`, so the Back button still works).

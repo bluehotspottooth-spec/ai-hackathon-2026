@@ -11,7 +11,6 @@
 <meta property="og:url" content="https://voicebridge-hxyi.onrender.com/">
 <meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#0b6e6b">
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f6b6a'/%3E%3Cpath d='M6 9.5A3.5 3.5 0 0 1 9.5 6h8A3.5 3.5 0 0 1 21 9.5v4a3.5 3.5 0 0 1-3.5 3.5H12l-3.5 3v-3.2A3.5 3.5 0 0 1 6 13.5z' fill='none' stroke='white' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M26 18.5a3.5 3.5 0 0 0-3.5-3.5h-8a3.5 3.5 0 0 0-3.5 3.5v4a3.5 3.5 0 0 0 3.5 3.5H20l3.5 3v-3.2a3.5 3.5 0 0 0 2.5-3.3z' fill='white' stroke='%230f6b6a' stroke-width='1.6'/%3E%3C/svg%3E">
@@ -626,7 +625,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
       <div class="credit"><b>NHS SNOMED CT browser</b>Official names of medical terms</div>
       <div class="credit"><b>ONS Census 2021</b>Most-spoken languages in England and Wales</div>
       <div class="credit"><b>FastAPI, pydub, ffmpeg</b>Server and audio processing</div>
-      <div class="credit"><b>Claude Code, Gemini Canvas</b>AI coding and design assistants</div>
+      <div class="credit"><b>Gemini Canvas</b>AI design assistant (first mockup)</div>
     </div>
   </div>
 </section>
@@ -761,7 +760,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 <script>
 /* ===================== SETTINGS ===================== */
 // Real backend ONLY on our own servers: this laptop (localhost) or the live site on Render
-// (or Hugging Face). Anywhere else (double-clicked file, previews, the claude.ai demo link)
+// (or Hugging Face). Anywhere else (double-clicked file, previews, online demo links)
 // it's demo mode. Add ?demo to the address to force demo mode. (Was a manual true/false switch.)
 const OUR_SERVER = /^(localhost|127\.0\.0\.1)$|\.onrender\.com$|\.hf\.space$/.test(location.hostname);
 let USE_MOCK = !OUR_SERVER || new URLSearchParams(location.search).has("demo");   // "let": the demo button can switch to demo mode

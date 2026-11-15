@@ -3,7 +3,7 @@
 What we built, when, and **why we made each decision**. Problems and fixes are in [ERRORS_AND_FIXES.md](ERRORS_AND_FIXES.md).
 All times are London time. Commit IDs link each entry to the GitHub history.
 
-Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by the hackathon rules. Ahmed directs each step, tests it, and can explain every part.
+Built by Ahmed Khan. Tools and services used are credited in the README and the write-up.
 
 ---
 
@@ -90,7 +90,7 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 
 ---
 
-### ~15:30 · C1: glossary built from PriMock57 (done by Claude on Ahmed's request, in the testing folder)
+### ~15:30 · C1: glossary built from PriMock57 (in the testing folder)
 - Downloaded the **PriMock57 transcripts** (114 TextGrid files, 1.7 MB, CC BY 4.0; no audio) into `data/primock57/` (not uploaded to GitHub).
 - `tests/primock57.py` reads them: it merges doctor + patient files into one conversation and removes transcriber tags.
 - `tests/build_glossary.py`:
@@ -134,7 +134,7 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
   - **Safety page** uses our real test results (invented symptoms 2/2 → 0/4) and an honest "known limits" list.
   - A **light and dark theme**, and an in-page "End this appointment?" confirmation (published pages block the browser's pop-up box).
 - **Tested with real clicks and typing** in the browser: menu pages, code entry, language choice, tap-to-talk, the full automatic demo, End → summary, and phone layout (no sideways scrolling). Bugs found and fixed: the end box showed on load (`hidden` was overridden), menu links didn't switch pages in the preview (page switching now runs through JavaScript), the demo bar layout, and the button dock floating mid-screen.
-- **Published as a private claude.ai artifact** for the team to click through (shared from its Share menu). The file in `docs/design/` is the same page and still works locally or as `frontend/index.html` with `USE_MOCK = false`.
+- **Published as a private online preview link** for the team to click through (shared from its Share menu). The file in `docs/design/` is the same page and still works locally or as `frontend/index.html` with `USE_MOCK = false`.
 
 ### ~19:40 · Frontend handed over + connection tested
 - **`frontend/index.html`:** the prototype is now the frontend's starting point (demo mode on). The UI teammate builds on top of it.

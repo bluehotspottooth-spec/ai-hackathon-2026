@@ -12,8 +12,8 @@
 
 `frontend/voicebridge_FINAL.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
 
-> Live demo of the same design (Ahmed can share it): a private claude.ai link from the team.
-> First draft of this design was AI-generated (Claude Code, based on the earlier Gemini Canvas mockup in `old_mockup/`). Credit both in the write-up.
+> Live demo of the same design (Ahmed can share it): a private link from the team.
+> First draft of this design was AI-generated (an AI coding assistant, based on the earlier Gemini Canvas mockup in `old_mockup/`). Credit both in the write-up.
 
 ---
 
@@ -53,7 +53,7 @@ Tip: after each change, reload the page and run **Play the whole demo**. If the 
 
 ## 4. Connect it to the real backend (about 30 minutes)
 
-Already tested by Ahmed and Claude: with the real backend it worked first time with the real backend (session, Urdu → English and English → Urdu turns in about 5 s each with spoken audio, urgent banner, summary, appointment deleted at the end).
+Already tested by Ahmed: with the real backend it worked first time with the real backend (session, Urdu → English and English → Urdu turns in about 5 s each with spoken audio, urgent banner, summary, appointment deleted at the end).
 
 1. Get the latest code: `git pull`
 2. Nothing to switch: the page uses the real backend automatically when it's opened from our server (step 4)

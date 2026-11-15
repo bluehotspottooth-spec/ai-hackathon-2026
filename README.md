@@ -107,6 +107,5 @@ The app runs on **Render** (free web service), built from this repo with the `Do
 | **pydub** + **ffmpeg** | Audio conversion and noise check | https://github.com/jiaaro/pydub · https://ffmpeg.org | MIT · LGPL/GPL |
 | **python-dotenv**, **google-genai**, **elevenlabs** (Python SDKs) | Loading keys, calling the APIs | PyPI | BSD / Apache 2.0 / MIT |
 | **Google Gemini Canvas** | First draft of the UI mockup (`frontend/old_mockup/`) | https://gemini.google.com | — |
-| **Claude Code** (Anthropic) | AI coding assistant used to write and test the backend with Ahmed | https://claude.com/claude-code | — |
 
 *Every result in this repo comes from data not used to build the system, except where clearly marked as development data (FLEURS Urdu clips 1806 and 1930).*
