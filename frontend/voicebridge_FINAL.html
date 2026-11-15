@@ -890,7 +890,13 @@ LANGS.forEach(l=>{
   b.onclick=()=>{ if(!sayDemo(l.phrase,l.voice)) toast(`No ${l.english} voice in this browser. The real app uses ElevenLabs.`); };
   c.append(b); $("lang-cards").append(c);
 });
-$("hero-demo").onclick=()=>{ state.code="demo"; startSession(true); };
+/* "Watch a demo consultation": on the live site (real mode) the scripted demo must NOT call the real
+   server (it would refuse the code "demo"), so we reload the page in demo mode (?demo) and start it there.
+   Demo mode uses no API credits. */
+$("hero-demo").onclick=()=>{
+  if(!USE_MOCK){ location.href=location.pathname+"?demo&play"; return; }
+  state.code="demo"; startSession(true);
+};
 
 /* ===================== START + CHOOSE ===================== */
 $("demo-code-hint").hidden=!USE_MOCK;
@@ -1249,6 +1255,11 @@ async function heroLoop(){
 /* ===================== START-UP ===================== */
 renderLangGrid(); updatePair(); resetHints(); updateTurns(); route();
 heroLoop();
+// Arrived from "Watch a demo consultation" on the live site (?demo&play): play the demo straight away.
+if(USE_MOCK&&new URLSearchParams(location.search).has("play")){
+  history.replaceState(null,"",location.pathname+"?demo");   // so refreshing doesn't restart it
+  state.code="demo"; startSession(true);
+}
 </script>
 </body>
 </html>

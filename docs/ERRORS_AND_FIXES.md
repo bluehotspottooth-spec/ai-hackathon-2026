@@ -331,6 +331,12 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **https://voicebridge-hxyi.onrender.com**: health check ✅, page + logo ✅, wrong access code → 401 ✅, full English → Urdu turn with both urgent flags and spoken audio ✅, appointment deleted ✅.
 - **Slower than the laptop:** 10.2 s total (convert 1.5 s on Render's 0.1-CPU free machine; Gemini 7.9 s, which varies between calls). Laptop: ~5 s. Worth re-measuring a few turns and reporting honestly.
 
+### 45. ✅ "Watch a demo consultation" didn't work on the live site
+- **Found by Ahmed** on the live link: the home page's demo button did nothing useful; it sent him back to the access-code page.
+- **Cause (our own change, #42):** on the live site the page is in real mode, so the demo button tried to start a **real** appointment with the code "demo", which the server correctly refused (401). The "Play the whole demo" button is hidden in real mode, so there was no way to see the demo.
+- **Fix:** in real mode the button reloads the page as `?demo&play`, which switches to demo mode and starts the scripted conversation straight away (no API calls, no credits). In demo mode it works as before.
+- **Verified:** on the local server (real mode) the button opened the demo and the server log showed **no** `/api/` calls; the double-clicked file still works.
+
 ---
 
 ## ⚠️ Important note for testing (C2)
