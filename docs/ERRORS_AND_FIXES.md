@@ -294,12 +294,23 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Found:** the first cloning test (with a synthetic sample made from the stock voice "Daniel", so no real person's voice was copied) got **401: The API key you used is missing the permission voices_write**. Our key was made on Saturday with only the permissions needed for speech.
 - **What the app did:** exactly what we designed. The clone failed quietly, `/api/clone` answered `cloned: false`, and the appointment kept the standard voice. Nothing crashed.
 - **Fix (Ahmed, on the ElevenLabs website):** edit the API key and switch **Voices** to **Write**. Also, ElevenLabs' pricing page (checked 15 Nov) shows Instant Voice Cloning **only on Starter and above** (Starter: $1 first month, then $6/month, 10 custom voice slots), not on Free.
-- **Status:** waiting for the key and plan change, then re-test.
+- **Status:** ✅ fixed by Ahmed (Starter plan + "Voices: write"). The next test got past the permission check (see #39, #40).
 
 ### 38. ✅ Small slips while adding cloning
 - FastAPI warned that `@app.on_event("startup")` is **deprecated** (old style). Switched to the recommended `lifespan` function.
 - Testing "too short" with a 3-second test tone was caught by the **noise check** instead (a steady tone has no speech, so its speech-vs-background contrast is 0 dB). That's correct behaviour; re-tested "too short" with 5 s of real (synthetic) speech: *"Please talk for at least 10 seconds…"* ✅.
 - My first version of `/api/clone` also returned a `message` field, which is **not in the API contract**. Removed it so the contract stays exactly as agreed; the page writes its own messages.
+
+### 39. ✅ "Labels must be serialized dictionary object" (a bug in the ElevenLabs library)
+- **Found:** after the permission fix, cloning failed with **400: Labels must be serialized dictionary object**. We never sent labels.
+- **Cause:** in the `elevenlabs` Python library (version 2.78.0), if `labels` is left out it still sends a "labels" field, filled with an invalid value instead of a dictionary (we read the library's code: `json.dumps(jsonable_encoder(labels))`).
+- **Fix (`voice.py`):** always send `labels={}` (an empty dictionary). **Verified:** the clone was created in 2.6 s and deleted afterwards ✅.
+
+### 40. ⚠️ ElevenLabs blocked our test clone: "This voice requires verification"
+- **Found:** the clone was created, but speaking with it returned **401 voice_access_denied: This voice requires verification** (`detected_captcha_voice`).
+- **Why:** to avoid copying a real person, our test sample was made with ElevenLabs' **own stock voice "Daniel"**. ElevenLabs' anti-misuse system recognised it as an existing voice and blocked it. That's their safety system working, not a bug in our code.
+- **What the app did:** fell back to the stock voice automatically (the Urdu sentence was still spoken), and the clone was deleted. ✅
+- **Next:** test with a **team member's own voice** (with consent), which is what the feature is for.
 
 ---
 

@@ -178,6 +178,9 @@ def clone_voice(wav: bytes, label: str) -> str:
             name=f"{CLONE_PREFIX} {label}",
             files=[("sample.wav", wav, "audio/wav")],
             description="Temporary clone for one VoiceBridge appointment, made with consent. Auto-deleted.",
+            # Must be sent: if left out, this SDK version sends an invalid value and
+            # ElevenLabs answers "Labels must be serialized dictionary object" (ERRORS_AND_FIXES #39).
+            labels={},
         )
         return r.voice_id
     except Exception as e:

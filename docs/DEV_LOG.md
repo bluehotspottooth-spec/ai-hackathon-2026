@@ -159,6 +159,7 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Privacy:** clones are deleted when the appointment **ends**, when it **expires** (2 h), and any **leftovers at server start-up**. We only delete voices named "VoiceBridge temp…", never other voices on the account. **Team voices only**, consent box required (nothing is recorded without it).
 - **Frontend:** change #12 in FRONTEND_CHANGES.md ("Use your own voice (optional)" pop-up).
 - **Tested:** demo mode at laptop and phone size; backend: no consent, too-short sample, ending. **Not yet:** a real clone, because the API key needs the "Voices: write" permission and the Starter plan (ERRORS_AND_FIXES #37).
+- **Later:** Ahmed upgraded to ElevenLabs Starter and gave the key "Voices: write". Fixed a library bug (#39); clone creation (2.6 s) and deletion now verified. Speaking with a clone of a *stock* voice was blocked by ElevenLabs' anti-misuse check (#40), so the final check needs a team member's own voice. Added "Your voice is not kept" to the Home page warning (FRONTEND_CHANGES #13).
 - **Why a decision was needed:** the brief's feature freeze was Sun 1 PM. The team chose to add it because it's listed as optional in the brief and the API contract already had `/api/clone`.
 
 ---
