@@ -168,6 +168,12 @@ Built by Ahmed Khan. Tools and services used are credited in the README and the 
 - **Steps:** the page now picks demo/real mode by itself; the Dockerfile uses Render's `PORT`; the repo was made public by its owner (no keys in the history, checked); Render web service created from the public repo (Docker, Frankfurt, free plan, health check `/api/health`); Ahmed typed the 3 secret values into Render's Environment Variables himself.
 - **Tested live:** wrong code refused, a full English → Urdu turn with urgent flags and audio in 10.2 s, appointment deleted. **Still to test:** phones (iPhone + Android), the voice cloning flow online.
 
+### Evening · Medical test (C3): baseline vs VoiceBridge, 11 languages
+- **What:** `tests/evaluate_medical.py` translates held-out PriMock57 sentences (from the 17 TEST consultations) into all 11 languages with plain Gemini (baseline) and with VoiceBridge (GP rules + glossary); a blind AI judge (`gemini-3.1-flash-lite`) scores each pair. Guide: `tests/README.md`; results: `tests/results/medical/README.md`.
+- **Run:** Google's rate limits made the full 93-sentence run 2-3 hours, so we report the **first 7 sentences in all 11 languages (77 pairs)**. A stronger judge (`gemini-4-hydrogen`) was tried first but needed ~55 s per pair.
+- **Result:** both got the medical term right almost always (baseline 99%, VoiceBridge 100%: the baseline misspelled *lisinopril* in Bengali). VoiceBridge slightly more accurate overall (4.81 vs 4.74 out of 5; judge preferred it 27% vs 18%, 55% ties) and used glossary words more consistently (91% vs 71%), but it was **worse in Urdu, Gujarati and Persian** (left out a word, changed a tense, loose wording).
+- **Also:** repo tidied for submission (brief moved to `docs/PROJECT_BRIEF.md`, early checks in `tests/results/early_checks/`, unused files removed).
+
 ---
 
 ## Next
