@@ -363,6 +363,12 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix:** a **fresh microphone for every recording**, released straight after (also for the voice-cloning sample). Bonus: with the mic released, iPhones play the translation at full volume through the loudspeaker instead of quietly.
 - **Verified (laptop, fake microphone because the test browser blocks real mics):** 3 recordings → 3 separate microphones, each closed afterwards, each recording non-empty. **Needs Ahmed's phone to confirm.**
 
+### 50. ✅ The summary showed things nobody said (demo)
+- **Found by Ahmed:** ending an appointment without recording anything still showed the demo summary (chest pain, metformin, ECG).
+- **Cause:** the demo's summary was one fixed, pre-written text. (The real server already refuses: "Nothing has been said yet…".)
+- **Fix:** no turns → "Nothing was said in this appointment, so there's no summary" (the page doesn't even ask the server). Demo summaries are now built only from the lines that were played.
+- **Verified:** nothing said ✅, greeting only ✅, 2 turns → only the chest-pain bullet (English + Urdu) ✅, full Arabic demo → all 4 bullets ✅, no errors.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

@@ -828,21 +828,33 @@ const DEMO_SUMMARY={
 };
 const demoLang=()=>SCRIPTS[state.lang.code]?state.lang.code:"ur";   // other languages use the Urdu demo
 const demoScript=()=>SCRIPTS[demoLang()];
-const demo={turns:20,next:{doctor:0,patient:0}};
+const demo={turns:20,next:{doctor:0,patient:0},said:[]};
+/* The demo summary only covers what was actually said (FRONTEND_CHANGES #18). Script line number ->
+   which summary bullets it adds (same bullet order in English, Urdu and Arabic). Greetings, questions
+   and "thank you" add nothing. */
+const DEMO_BULLETS_EN=["• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).","• No fever.","• Takes metformin 500 mg twice a day.","• The GP plans an ECG today as a precaution."];
+const DEMO_LINE_BULLETS={1:[0],3:[1,2],4:[3]};
+const DEMO_ONLY_GREETINGS={en:"• Only greetings and questions so far: no symptoms, answers or advice to summarise yet.",ur:"• ابھی تک صرف سلام اور سوالات ہوئے ہیں: خلاصہ کرنے کے لیے کوئی علامات، جوابات یا مشورہ نہیں۔",ar:"• حتى الآن تحيات وأسئلة فقط: لا توجد أعراض أو إجابات أو نصائح لتلخيصها."};
 const mockApi={
-  async createSession(code){ await wait(500); if(code.trim().toLowerCase()==="wrong") throw new ApiError("That code didn't work. Check with the clinic staff.",401); demo.turns=20; demo.next={doctor:0,patient:0}; return {session_id:"demo",turns_left:20}; },
+  async createSession(code){ await wait(500); if(code.trim().toLowerCase()==="wrong") throw new ApiError("That code didn't work. Check with the clinic staff.",401); demo.turns=20; demo.next={doctor:0,patient:0}; demo.said=[]; return {session_id:"demo",turns_left:20}; },
   async sendTurn(sid,speaker){
     await wait(1500);
     if(demo.turns<=0) throw new ApiError("This appointment has reached its 20-turn limit. End it and start a new one.",429);
     const lines=demoScript().filter(s=>s.role===speaker); const line=lines[demo.next[speaker]++ % lines.length];
-    demo.turns--;
+    demo.turns--; demo.said.push(demoScript().indexOf(line));
     return {original_text:line.o,detected_language:speaker==="doctor"?"en":demoLang(),target_language:speaker==="doctor"?demoLang():"en",translation:line.t,
       urgent_terms:line.urgent||[],unclear_words:line.unclear||[],speech_clarity:line.unclear?"partly_unclear":"clear",noisy:!!line.noisy,audio_base64:"",demo_audio:line.a,
       timings:{convert:.07,translate:3.1,speak:.9,total:4.1},turns_left:demo.turns};
   },
-  async getSummary(){ await wait(1200); return {
-    summary_en:"• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).\n• No fever.\n• Takes metformin 500 mg twice a day.\n• The GP plans an ECG today as a precaution.",
-    summary_patient_lang:DEMO_SUMMARY[demoLang()]}; },
+  async getSummary(){
+    await wait(1200);
+    // Same rule as the real server: nothing said = nothing to summarise
+    if(!demo.said.length) throw new ApiError("Nothing has been said yet, so there's nothing to summarise.",400);
+    const idx=[...new Set(demo.said.flatMap(i=>DEMO_LINE_BULLETS[i]||[]))].sort((a,b)=>a-b);
+    if(!idx.length) return {summary_en:DEMO_ONLY_GREETINGS.en, summary_patient_lang:DEMO_ONLY_GREETINGS[demoLang()]};
+    const pat=DEMO_SUMMARY[demoLang()].split("\n");
+    return {summary_en:idx.map(i=>DEMO_BULLETS_EN[i]).join("\n"), summary_patient_lang:idx.map(i=>pat[i]).join("\n")};
+  },
   async endSession(){ await wait(150); return {ended:true}; },
   async cloneVoice(){ await wait(1800); return {voice_ready:true,cloned:true}; },
 };
@@ -1299,7 +1311,9 @@ $("end-confirm").onclick=async()=>{
   const sk='<div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:72%"></div><div class="skeleton" style="width:84%"></div>';
   $("sum-en").innerHTML=sk; $("sum-pat").innerHTML=sk; setDir($("sum-pat"),state.lang.code);
   const sid=state.sid; state.sid=null; go("summary");
-  try{ const s=await api.getSummary(sid); $("sum-en").textContent=s.summary_en; $("sum-pat").textContent=s.summary_patient_lang; }
+  // Nothing was translated in this appointment: say so, and don't ask the server (or the AI) for a summary.
+  if(!state.turnCount){ $("sum-en").textContent="Nothing was said in this appointment, so there's no summary."; $("sum-pat").textContent=""; }
+  else try{ const s=await api.getSummary(sid); $("sum-en").textContent=s.summary_en; $("sum-pat").textContent=s.summary_patient_lang; }
   catch(e){ $("sum-en").textContent=e.message; $("sum-pat").textContent=""; }
   try{ await api.endSession(sid); }catch(e){}
 };
