@@ -5,6 +5,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230f6b6a'/%3E%3Cpath d='M6 9.5A3.5 3.5 0 0 1 9.5 6h8A3.5 3.5 0 0 1 21 9.5v4a3.5 3.5 0 0 1-3.5 3.5H12l-3.5 3v-3.2A3.5 3.5 0 0 1 6 13.5z' fill='none' stroke='white' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='M26 18.5a3.5 3.5 0 0 0-3.5-3.5h-8a3.5 3.5 0 0 0-3.5 3.5v4a3.5 3.5 0 0 0 3.5 3.5H20l3.5 3v-3.2a3.5 3.5 0 0 0 2.5-3.3z' fill='white' stroke='%230f6b6a' stroke-width='1.6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600&family=Noto+Sans+Arabic:wght@400;600&display=swap">
@@ -87,9 +88,12 @@ a{color:var(--brand)}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
 .site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
 .site-head .wrap{display:flex;align-items:center;gap:16px;height:64px}
-.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
-.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center}
-.logo-mark .icon{width:19px;height:19px;stroke-width:2.2}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:19px;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.logo b{color:var(--brand);font-weight:800}
+.logo-mark{width:36px;height:36px;border-radius:11px;background:var(--brand);color:var(--on-brand);display:grid;place-items:center;box-shadow:0 4px 12px rgba(15,107,106,.25)}
+.logo-mark svg{width:24px;height:24px}
+body[data-view="consult"] .nav,body[data-view="consult"] .head-actions{display:none}
+body[data-view="consult"] .logo{pointer-events:none}
 .nav{display:flex;gap:4px;margin-left:12px}
 .nav a{padding:8px 12px;border-radius:10px;color:var(--ink-2);text-decoration:none;font-weight:700;font-size:15px}
 .nav a:hover{background:var(--surface-2);color:var(--ink)}
@@ -116,7 +120,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:700;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 
 /* home */
-.hero{background:var(--hero);color:var(--hero-ink)}
+.hero{background-color:var(--hero);background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;color:var(--hero-ink)}
 .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:64px 72px}
 .hero h1{color:var(--hero-ink);font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.035em;font-weight:800}
 .hero h1 em{font-style:normal;color:var(--hero-accent)}
@@ -239,7 +243,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .msg-meta{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-3);margin:0 6px 6px;font-variant-numeric:tabular-nums}
 .who{font-weight:700}
 .doctor .who{color:var(--doc)} .patient .who{color:var(--pat)}
-.bubble{padding:14px 16px 12px;border-radius:18px;border:1px solid;width:100%}
+.bubble{padding:14px 16px 12px;border-radius:18px;border:1px solid;width:100%;box-shadow:0 1px 2px rgba(12,26,36,.04),0 4px 14px rgba(12,26,36,.04)}
 .doctor .bubble{background:var(--surface);border-color:var(--doc-line);border-top-left-radius:6px}
 .patient .bubble{background:var(--pat-soft);border-color:var(--pat-line);border-top-right-radius:6px}
 .translation{font-size:19px;line-height:1.5;font-weight:700}
@@ -264,22 +268,25 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 .note{align-self:center;font-size:13.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);padding:8px 14px;border-radius:999px;display:flex;gap:8px;align-items:center;text-align:center;max-width:100%}
 .note.error{color:var(--urgent);border-color:var(--urgent-line);background:var(--urgent-soft)}
 .dock{position:sticky;bottom:0;z-index:10;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-.dock-buttons{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-block:12px;max-width:892px}
-.speak{position:relative;display:flex;align-items:center;gap:14px;padding:12px 16px 12px 12px;border-radius:20px;border:1.5px solid;text-align:left;min-height:84px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:background .15s,border-color .15s,opacity .15s}
+/* Mic buttons (team change #2): big round button in the centre, name and hint underneath.
+   Same layout on laptop and phone, so the doctor and patient always know where to press. */
+.dock-buttons{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-block:14px;max-width:760px}
+.speak{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:16px 12px 14px;border-radius:24px;border:1.5px solid;text-align:center;min-height:172px;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;transition:background .15s,border-color .15s,opacity .15s,box-shadow .15s}
 .speak.doctor{background:var(--doc-soft);border-color:var(--doc-line)}
-.speak.patient{background:var(--pat-soft);border-color:var(--pat-line);flex-direction:row-reverse;text-align:right;padding:12px 12px 12px 16px}
+.speak.patient{background:var(--pat-soft);border-color:var(--pat-line)}
 .speak[disabled]{opacity:.45;cursor:not-allowed}
-.mic{position:relative;width:60px;height:60px;flex:none;border-radius:50%;display:grid;place-items:center;transition:transform .15s,background .15s}
+.speak:not([disabled]):hover{box-shadow:var(--shadow)}
+.speak:not([disabled]):hover .mic{transform:scale(1.04)}
+.mic{position:relative;width:88px;height:88px;flex:none;border-radius:50%;display:grid;place-items:center;transition:transform .15s,background .15s;box-shadow:0 6px 16px rgba(12,26,36,.14)}
 .doctor .mic{background:var(--doc);color:var(--on-doc)}
 .patient .mic{background:var(--pat);color:var(--on-pat)}
-.mic .icon{width:26px;height:26px;stroke-width:2}
-.speak-text{min-width:0;flex:1;display:flex;flex-direction:column}
-.patient .speak-text{align-items:flex-end}
-.speak-who{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.3;display:block}
-.speak-who .tag{font-family:var(--font);font-weight:400;color:var(--ink-3);font-size:14px}
-.speak-hint{display:block;font-size:13.5px;color:var(--ink-2);margin-top:2px}
-.speak-hint[dir="rtl"]{font-size:14px;line-height:1.9}
-.meter{display:none;align-items:center;gap:3px;height:22px;margin-top:4px}
+.mic .icon{width:34px;height:34px;stroke-width:2}
+.speak-text{min-width:0;width:100%;display:flex;flex-direction:column;align-items:center}
+.speak-who{font-family:var(--display);font-weight:700;font-size:17px;line-height:1.3;display:block}
+.speak-who .tag{font-family:var(--font);font-weight:400;color:var(--ink-3);font-size:14.5px}
+.speak-hint{display:block;font-size:14px;color:var(--ink-2);margin-top:2px}
+.speak-hint[dir="rtl"]{font-size:15px;line-height:1.9}
+.meter{display:none;align-items:center;justify-content:center;gap:3px;height:22px;margin-top:4px}
 .meter i{width:4px;height:4px;border-radius:2px;background:var(--rec);transition:height .08s}
 .speak.recording{background:var(--surface);border-color:var(--rec);box-shadow:0 0 0 5px var(--rec-soft)}
 .speak.recording .mic{background:var(--rec);color:#fff;transform:scale(1.05)}
@@ -288,7 +295,10 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 .speak.recording .meter{display:flex}
 .speak.recording .speak-hint{color:var(--rec);font-weight:700}
 @keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
-.demo-bar{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-3);padding-bottom:10px}
+/* Demo bar (team change #4): one quiet line under the buttons, so it doesn't compete with them */
+.demo-bar{display:flex;align-items:center;justify-content:center;gap:6px 14px;flex-wrap:wrap;font-size:13px;color:var(--ink-3);padding-bottom:12px}
+.demo-bar .btn{min-height:32px;padding:0 12px;font-size:13px;border-radius:999px}
+.demo-bar label{display:inline-flex;align-items:center;gap:6px}
 
 /* summary */
 .sum-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:16px}
@@ -322,10 +332,14 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 @media (max-width:560px){
   .flow{grid-template-columns:1fr}
   .section{padding-block:48px}
-  .dock-buttons{gap:8px}
-  .speak,.speak.patient{flex-direction:column;align-items:center;text-align:center;padding:12px 8px;gap:8px;min-height:auto}
-  .patient .speak-text,.speak-text{align-items:center}
-  .meter{justify-content:center}
+  .dock-buttons{gap:10px;padding-block:10px}
+  .speak{padding:12px 8px;gap:8px;min-height:0;border-radius:20px}
+  .mic{width:72px;height:72px}
+  .mic .icon{width:30px;height:30px}
+  .speak-who{font-size:16px}
+  .speak-who .tag{display:block;font-size:13px}
+  .demo-note{display:none}
+  .demo-bar{padding-bottom:10px}
   .translation{font-size:17px}
   .msg{max-width:94%}
   .pair-full,.tl{display:none}
@@ -337,6 +351,8 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <!-- VoiceBridge logo: two speech bubbles meeting (one person's words reaching the other) -->
+  <symbol id="i-logo" viewBox="0 0 32 32"><path d="M6 9.5A3.5 3.5 0 0 1 9.5 6h8A3.5 3.5 0 0 1 21 9.5v4a3.5 3.5 0 0 1-3.5 3.5H12l-3.5 3v-3.2A3.5 3.5 0 0 1 6 13.5z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M26 18.5a3.5 3.5 0 0 0-3.5-3.5h-8a3.5 3.5 0 0 0-3.5 3.5v4a3.5 3.5 0 0 0 3.5 3.5H20l3.5 3v-3.2a3.5 3.5 0 0 0 2.5-3.3z" fill="currentColor" style="stroke:var(--brand)" stroke-width="1.6"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 17v4"/><path d="M8 21h8"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
@@ -366,7 +382,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 
 <header class="site-head">
   <div class="wrap">
-    <a class="logo" href="#home"><span class="logo-mark"><svg class="icon"><use href="#i-chat"/></svg></span>VoiceBridge</a>
+    <a class="logo" href="#home"><span class="logo-mark"><svg aria-hidden="true"><use href="#i-logo"/></svg></span><span>Voice<b>Bridge</b></span></a>
     <nav class="nav" aria-label="Main">
       <a href="#home" data-nav="home">Home</a>
       <a href="#how" data-nav="how">How it works</a>
@@ -587,7 +603,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
     <div class="wrap dock-buttons">
       <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold or tap to speak English">
         <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
-        <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span></span><span class="speak-hint" id="hint-doctor">Hold or tap to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
+        <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span></span><span class="speak-hint" id="hint-doctor">Tap or hold to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
       </button>
       <button class="speak patient" id="btn-patient" aria-label="Patient: hold or tap to speak">
         <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
@@ -595,7 +611,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
       </button>
     </div>
     <div class="demo-bar wrap" id="demo-bar">
-      <span>Demo mode: replies are scripted.</span>
+      <span class="demo-note">Demo mode: replies are scripted.</span>
       <button class="btn btn-ghost btn-sm" id="autoplay-btn"><svg class="icon"><use href="#i-play"/></svg>Play the whole demo</button>
       <label style="display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="speak-toggle" checked> Read translations aloud</label>
     </div>
@@ -738,6 +754,7 @@ function route(forced){
   if(NEEDS_SESSION.has(name)&&!state.sid) name=state.code?"choose":"start";
   if(name==="choose"&&!state.code) name="start";
   currentView=name;
+  document.body.dataset.view=name; // lets CSS hide the menu during an appointment (focus mode)
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===`v-${name}`));
   document.querySelectorAll("[data-nav]").forEach(a=>{ if(a.dataset.nav===name) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   $("mobile-nav").classList.remove("open"); $("menu-btn").setAttribute("aria-expanded","false");
@@ -807,8 +824,8 @@ function scrollThread(){ requestAnimationFrame(()=>window.scrollTo({top:document
 function showEmpty(){
   const t=$("thread"); t.innerHTML="";
   const e=el("div","empty"); e.id="empty";
-  e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h2>Ready when you are</h2><p>Hold your button while you speak, or tap it once to start and again to send.</p>
-  <div class="how-list"><div><span class="num">1</span>Doctor and patient each use their own button</div><div><span class="num">2</span>Speak normally, one person at a time</div><div><span class="num">3</span>Listen to the translation and read it below</div></div>`;
+  // Team change #5: shorter empty screen, one clear instruction instead of a 3-step list
+  e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h2>Ready when you are</h2><p>Tap your button below, speak, then tap again. The other person hears the translation.</p>`;
   t.append(e);
 }
 function updateTurns(){ const c=$("turns"); c.innerHTML=`${Number(state.turnsLeft)} <span class="tl">turn${state.turnsLeft===1?"":"s"} </span>left`; c.classList.toggle("low",state.turnsLeft<=5); }
@@ -851,7 +868,7 @@ function speakOut(d){
 const rec={stream:null,mr:null,chunks:[],analyser:null};
 ["doctor","patient"].forEach(r=>{ const m=$(`meter-${r}`); for(let i=0;i<14;i++) m.append(el("i")); });
 let meterTimer=null;
-function resetHints(){ $("hint-doctor").textContent="Hold or tap to speak"; $("hint-doctor").dir="ltr"; const h=$("hint-patient"); h.textContent=state.lang.hint; setDir(h,state.lang.code); }
+function resetHints(){ $("hint-doctor").textContent="Tap or hold to speak"; $("hint-doctor").dir="ltr"; const h=$("hint-patient"); h.textContent=state.lang.hint; setDir(h,state.lang.code); }
 function setBusy(b){ state.busy=b; const off=b||state.turnsLeft<=0; $("btn-doctor").disabled=off; $("btn-patient").disabled=off; $("autoplay-btn").disabled=b; }
 async function startRec(role){
   if(state.busy||state.rec||state.turnsLeft<=0) return;
