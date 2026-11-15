@@ -3,6 +3,7 @@ main.py: the web server. It turns service.py's functions into web addresses
 (the "doors" the frontend knocks on), exactly as in the API contract:
 
   POST /api/session   start an appointment          (JSON in, JSON out)
+  POST /api/clone     OPTIONAL: copy a speaker's voice, with consent (form with an audio file)
   POST /api/turn      one person speaks              (form with an audio file)
   POST /api/summary   summary of the appointment     (JSON)
   POST /api/end       end + delete the appointment   (JSON)
@@ -15,6 +16,7 @@ The frontend is served from the same server (same address), so the browser
 needs no special permission (CORS) to call /api.
 """
 
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, Request, UploadFile
@@ -22,12 +24,24 @@ from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from backend import ratelimit, service
+from backend import ratelimit, service, voice
 from backend.errors import ServiceError
 
 MAX_UPLOAD_BYTES = 10 * 1024 * 1024  # 10 MB: a 60-second recording is far smaller
 
+# At start-up: delete any temporary cloned voices left over from before a restart
+# (sessions live in memory, so a restart forgets them without ending them).
+# "lifespan" = code FastAPI runs when the server starts (before "yield") and stops (after).
+@asynccontextmanager
+async def lifespan(_app):
+    removed = voice.delete_leftover_clones()
+    if removed:
+        print(f"[main] Deleted {removed} leftover cloned voice(s) from before the restart.")
+    yield
+
+
 app = FastAPI(
+    lifespan=lifespan,
     title="VoiceBridge API",
     description="Live voice translation for UK GP appointments. "
     "This project is a prototype and is not medical advice.",
@@ -70,6 +84,16 @@ def _visitor(request: Request) -> str:
 def create_session(body: SessionRequest, request: Request):
     ratelimit.check("session", _visitor(request))  # spam protection (see ratelimit.py)
     return service.create_session(body.access_code, body.doctor_lang, body.patient_lang)
+
+
+@app.post("/api/clone")
+def clone(request: Request, session_id: str = Form(...), speaker: str = Form(...),
+          consent: bool = Form(...), audio: UploadFile = File(...)):
+    ratelimit.check("clone", _visitor(request))  # spam protection (see ratelimit.py)
+    data = audio.file.read(MAX_UPLOAD_BYTES + 1)
+    if len(data) > MAX_UPLOAD_BYTES:
+        raise ServiceError("That recording is too large. Please keep it under a minute.", 400)
+    return service.clone_voice(session_id, speaker, consent, data)
 
 
 @app.post("/api/turn")

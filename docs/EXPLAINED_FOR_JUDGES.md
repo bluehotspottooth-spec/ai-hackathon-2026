@@ -94,6 +94,12 @@ Home → How it works → Languages → Safety → About, plus the appointment f
 - **Right-to-left text** for Urdu, Arabic and Persian (set automatically with the HTML `dir="rtl"` setting).
 - **Demo mode** (`USE_MOCK = true`): scripted answers, so the demo works even without internet or credits. `false` = the real backend.
 
+### Optional: speak in your own voice (voice cloning)
+- **What:** before talking, the doctor or patient can tap **"Use your own voice (optional)"**, tick the consent box and talk for about 20 seconds. ElevenLabs makes a temporary copy of their voice, so their translated words are spoken **in their own voice**.
+- **How:** the page sends the recording to `/api/clone`. The server checks consent, length (at least 10 s) and noise, then asks ElevenLabs (**Instant Voice Cloning**) for a copy and gets back a "voice ID". Each turn uses that voice ID instead of the stock voice.
+- **Privacy:** the copy is **deleted** when the appointment ends, when it expires after 2 hours, or at the next server start-up if the server crashed. **Team voices only**, never anyone else's. If cloning fails, the normal voice is used, so the appointment never breaks.
+- **Why:** it feels like a real conversation, and it's obvious who is speaking.
+
 ---
 
 ## 5. What makes it OUR work (not just "using Gemini")
@@ -150,6 +156,9 @@ A: The browser's Web Audio API gives us the loudness of different pitches from t
 
 **Q: How would this work in a real GP surgery?**
 A: It's a web link, so it works on any phone or computer with no install. Next steps would be native-speaker checks for every language, testing with real patients and GPs, and NHS data-protection approval.
+
+**Q: Isn't voice cloning dangerous?**
+A: It can be, so we limited it: only our own team's voices, a consent box that must be ticked before anything is recorded, and the copy is automatically deleted when the appointment ends (and on expiry or restart). It's optional; the app works without it.
 
 **Q: What was the hardest problem?**
 A: Good examples: the AI **invented symptoms** when the audio was noisy (we added the noise check); it raised urgent alerts when the doctor just **asked** about chest pain (we changed the rules); and it made "tight pain" into "severe pain" in the summary (we banned added intensity words). All logged in `docs/ERRORS_AND_FIXES.md`.

@@ -365,6 +365,19 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 .modal-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;max-width:420px;width:100%;padding:24px;display:grid;gap:10px;box-shadow:var(--shadow)}
 .modal-card h2{font-size:21px}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:8px}
+/* Team change #12: optional "own voice" (voice cloning, with consent) */
+.own-voice-btn{margin-top:4px}
+#clone-modal .modal-card{max-height:calc(100dvh - 32px);overflow-y:auto}
+.clone-who{display:flex;gap:8px}
+.clone-who label{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1.5px solid var(--line-2);border-radius:12px;font-weight:700;cursor:pointer}
+.clone-who input{accent-color:var(--brand)}
+.clone-who label:has(input:checked){border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.clone-consent{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+.clone-consent input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex:none}
+.clone-script{font-size:15px;line-height:1.55;color:var(--ink);background:var(--surface-2);border-left:3px solid var(--brand);border-radius:8px;padding:10px 12px}
+.clone-status{font-size:14.5px;font-weight:700;color:var(--ink-2);min-height:22px}
+.clone-status.rec{color:var(--rec)} .clone-status.ok{color:var(--brand)} .clone-status.err{color:var(--urgent)}
+.own-chip{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--brand-soft);color:var(--brand);font-family:var(--font);font-size:12px;font-weight:700;vertical-align:middle}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--ink);color:var(--surface);padding:10px 16px;border-radius:999px;font-size:14px;font-weight:700}
 
 @media (max-width:900px){
@@ -665,11 +678,11 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
     <div class="wrap dock-buttons">
       <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold or tap to speak English">
         <span class="mic-wrap"><canvas class="wave" id="wave-doctor" width="312" height="312" aria-hidden="true"></canvas><span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span></span>
-        <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span></span><span class="speak-hint" id="hint-doctor">Tap or hold to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
+        <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span><span class="own-chip" id="own-doctor" hidden>Own voice</span></span><span class="speak-hint" id="hint-doctor">Tap or hold to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
       </button>
       <button class="speak patient" id="btn-patient" aria-label="Patient: hold or tap to speak">
         <span class="mic-wrap"><canvas class="wave" id="wave-patient" width="312" height="312" aria-hidden="true"></canvas><span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span></span>
-        <span class="speak-text"><span class="speak-who"><span id="pat-word">Patient</span> <span class="tag" id="pat-tag">Urdu</span></span><span class="speak-hint" id="hint-patient"></span><span class="meter" id="meter-patient" aria-hidden="true"></span></span>
+        <span class="speak-text"><span class="speak-who"><span id="pat-word">Patient</span> <span class="tag" id="pat-tag">Urdu</span><span class="own-chip" id="own-patient" hidden>Own voice</span></span><span class="speak-hint" id="hint-patient"></span><span class="meter" id="meter-patient" aria-hidden="true"></span></span>
       </button>
     </div>
     <div class="demo-bar wrap" id="demo-bar">
@@ -711,6 +724,25 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
     <div class="modal-actions"><button class="btn btn-ghost btn-sm" id="end-cancel">Keep talking</button><button class="btn btn-primary btn-sm" id="end-confirm">End and summarise</button></div>
   </div>
 </div>
+<!-- Team change #12: OPTIONAL own voice (voice cloning). Team voices only, with consent; deleted at the end -->
+<div class="modal" id="clone-modal" hidden role="dialog" aria-modal="true" aria-labelledby="clone-title">
+  <div class="modal-card">
+    <h2 id="clone-title">Use your own voice (optional)</h2>
+    <p class="muted">VoiceBridge can copy your voice, so the translation of your words is spoken in <b>your</b> voice. The copy is <b>deleted when the appointment ends</b>. Prototype: team members only.</p>
+    <div class="clone-who" role="radiogroup" aria-label="Whose voice">
+      <label><input type="radio" name="clone-who" value="doctor" checked> Doctor</label>
+      <label><input type="radio" name="clone-who" value="patient"> Patient</label>
+    </div>
+    <label class="clone-consent"><input type="checkbox" id="clone-consent"><span>I agree to my voice being copied for this appointment only, and I understand it will be deleted when the appointment ends.</span></label>
+    <p class="muted" style="font-size:14px">Then press record and talk for about 20 seconds, in any language. You could read this:</p>
+    <p class="clone-script">"Hello. I'm recording a short sample so VoiceBridge can learn how my voice sounds. I'm speaking calmly and clearly, at my normal speed, in a quiet room."</p>
+    <div class="clone-status" id="clone-status" aria-live="polite"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-sm" id="clone-cancel">Not now</button>
+      <button class="btn btn-primary btn-sm" id="clone-rec" disabled>Start recording</button>
+    </div>
+  </div>
+</div>
 <div class="toast" id="toast" hidden></div>
 
 <script>
@@ -748,6 +780,7 @@ const realApi={
   sendTurn:(sid,speaker,blob,name)=>{const f=new FormData();f.append("session_id",sid);f.append("speaker",speaker);f.append("audio",blob,name);return call("/api/turn",{method:"POST",body:f});},
   getSummary:(sid)=>call("/api/summary",json({session_id:sid})),
   endSession:(sid)=>call("/api/end",json({session_id:sid})),
+  cloneVoice:(sid,speaker,consent,blob,name)=>{const f=new FormData();f.append("session_id",sid);f.append("speaker",speaker);f.append("consent",consent?"true":"false");f.append("audio",blob,name);return call("/api/clone",{method:"POST",body:f});},
 };
 const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
 const SCRIPT=[
@@ -774,6 +807,7 @@ const mockApi={
     summary_en:"• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).\n• No fever.\n• Takes metformin 500 mg twice a day.\n• The GP plans an ECG today as a precaution.",
     summary_patient_lang:"• تین دن سے سینے میں درد، سیڑھیاں چڑھتے وقت سانس پھولنا۔\n• بخار نہیں ہے۔\n• دن میں دو بار میٹفارمن 500 ملی گرام۔\n• ڈاکٹر احتیاطاً آج ای سی جی کریں گے۔"}; },
   async endSession(){ await wait(150); return {ended:true}; },
+  async cloneVoice(){ await wait(1800); return {voice_ready:true,cloned:true}; },
 };
 const api=USE_MOCK?mockApi:realApi;
 
@@ -872,7 +906,7 @@ async function startSession(autoplay){
     Object.assign(state,{sid:s.session_id,turnsLeft:s.turns_left,urgent:new Set(),turnCount:0,started:Date.now()});
     $("top-lang").textContent=state.lang.english; $("pat-word").textContent=state.lang.word; $("pat-tag").textContent=state.lang.english;
     $("btn-patient").setAttribute("aria-label",`Patient: hold or tap to speak ${state.lang.english}`);
-    $("urgent-banner").hidden=true; resetHints(); showEmpty(); updateTurns(); setBusy(false);
+    $("urgent-banner").hidden=true; $("own-doctor").hidden=true; $("own-patient").hidden=true; resetHints(); showEmpty(); updateTurns(); setBusy(false);
     go("consult");
     if(autoplay) setTimeout(playDemo,700);
   }catch(e){
@@ -890,6 +924,8 @@ function showEmpty(){
   const e=el("div","empty"); e.id="empty";
   // Team change #5: shorter empty screen, one clear instruction instead of a 3-step list
   e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h2>Ready when you are</h2><p>Tap your button below, speak, then tap again. The other person hears the translation.</p>`;
+  // Team change #12: optional own voice, offered before the conversation starts
+  const ov=el("button","btn btn-ghost btn-sm own-voice-btn"); ov.id="own-voice-btn"; ov.innerHTML=`${icon("mic")}Use your own voice (optional)`; ov.onclick=openClone; e.append(ov);
   t.append(e);
 }
 function updateTurns(){ const c=$("turns"); c.innerHTML=`${Number(state.turnsLeft)} <span class="tl">turn${state.turnsLeft===1?"":"s"} </span>left`; c.classList.toggle("low",state.turnsLeft<=5); }
@@ -1057,6 +1093,67 @@ function wire(role){
   b.addEventListener("keydown",(e)=>{ if((e.key===" "||e.key==="Enter")&&!e.repeat){ e.preventDefault(); state.rec===role?stopRec(role):startRec(role); } });
 }
 wire("doctor"); wire("patient");
+
+/* ===================== OPTIONAL: OWN VOICE (team change #12) =====================
+   With consent, record 10-45 s of someone talking; the backend copies the voice (ElevenLabs
+   Instant Voice Cloning) so their translations are spoken in their own voice. The copy is
+   deleted when the appointment ends. If copying fails, the standard voice is used. */
+const CLONE_MIN=USE_MOCK?3:10, CLONE_MAX=45;
+const clone={mr:null,chunks:[],timer:null,start:0};
+const recType=()=>["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
+function cloneWho(){ return document.querySelector('input[name="clone-who"]:checked').value; }
+function cloneStatus(text,kind){ const s=$("clone-status"); s.textContent=text; s.className="clone-status"+(kind?" "+kind:""); }
+function cloneInputs(on){ document.querySelectorAll('#clone-modal input').forEach(i=>i.disabled=!on); }
+function openClone(){
+  if(state.busy||state.rec) return;
+  $("clone-consent").checked=false; cloneInputs(true); $("clone-rec").disabled=true; $("clone-rec").textContent="Start recording";
+  $("clone-cancel").disabled=false; cloneStatus(""); $("clone-modal").hidden=false; $("clone-consent").focus();
+}
+function closeClone(){ cloneStop(true); $("clone-modal").hidden=true; }
+$("clone-consent").onchange=(e)=>{ if(!clone.start) $("clone-rec").disabled=!e.target.checked; };
+$("clone-cancel").onclick=closeClone;
+$("clone-modal").addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeClone(); });
+$("clone-rec").onclick=()=>clone.start?cloneStop(false):cloneStart();
+async function cloneStart(){
+  if(!$("clone-consent").checked) return;   // no consent = nothing is recorded or sent
+  if(!USE_MOCK){
+    try{
+      if(!rec.stream) rec.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+      const type=recType(); clone.mr=new MediaRecorder(rec.stream,type?{mimeType:type}:undefined); clone.chunks=[];
+      clone.mr.ondataavailable=(e)=>{ if(e.data.size) clone.chunks.push(e.data); }; clone.mr.start();
+    }catch(e){ cloneStatus(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected.","err"); return; }
+  }
+  clone.start=performance.now(); cloneInputs(false);
+  $("clone-rec").textContent="Stop and copy my voice"; $("clone-rec").disabled=true;
+  const tick=()=>{
+    const s=Math.floor((performance.now()-clone.start)/1000);
+    cloneStatus(`● Recording 0:${String(s).padStart(2,"0")} · ${s<CLONE_MIN?`keep talking (at least ${CLONE_MIN} s)`:"tap Stop when you're ready"}`,"rec");
+    $("clone-rec").disabled=s<CLONE_MIN;
+    if(s>=CLONE_MAX) cloneStop(false);
+  };
+  tick(); clone.timer=setInterval(tick,250);
+}
+async function cloneStop(cancel){
+  if(!clone.start) return;
+  clearInterval(clone.timer); clone.start=0;
+  let blob=new Blob(["demo"]), name="voice.webm";
+  if(clone.mr){
+    blob=await new Promise(r=>{ clone.mr.onstop=()=>r(new Blob(clone.chunks,{type:clone.mr.mimeType||"audio/webm"})); clone.mr.stop(); });
+    name=blob.type.includes("mp4")?"voice.m4a":blob.type.includes("ogg")?"voice.ogg":"voice.webm"; clone.mr=null;
+  }
+  if(cancel){ cloneInputs(true); return; }      // closed without finishing: the recording is thrown away
+  const who=cloneWho();
+  $("clone-rec").disabled=true; $("clone-cancel").disabled=true; cloneStatus("Copying the voice… (a few seconds)");
+  try{
+    const r=await api.cloneVoice(state.sid,who,true,blob,name);
+    if(r.cloned){
+      $(`own-${who}`).hidden=false;
+      cloneStatus(`Done. The ${who}'s translated words will be spoken in their own voice.`,"ok");
+      setTimeout(()=>{ $("clone-modal").hidden=true; toast(`${who==="doctor"?"Doctor":"Patient"}: own voice ready`); },1600);
+    } else cloneStatus("We couldn't copy the voice right now, so the standard voice will be used.","err");
+  }catch(e){ cloneStatus(e.message,"err"); }
+  finally{ cloneInputs(true); $("clone-cancel").disabled=false; $("clone-rec").textContent="Record again"; $("clone-rec").disabled=!$("clone-consent").checked; }
+}
 
 /* Play the whole scripted demo, with the buttons animating as if pressed */
 async function playDemo(){

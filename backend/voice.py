@@ -118,8 +118,13 @@ def speak_detailed(text: str, language: str, speaker: str = "doctor", voice_id: 
     spoken_text = text.replace("/", ", ")
 
     if VOICE_PROVIDER != "gemini":
+        if voice_id:  # a cloned voice: if it fails, the stock voice below takes over
+            try:
+                return {"mp3": _elevenlabs(spoken_text, language, speaker, voice_id), "provider": "elevenlabs-clone"}
+            except Exception as e:
+                print(f"[voice] Cloned voice failed ({type(e).__name__}): {e}. Using the stock voice.")
         try:
-            return {"mp3": _elevenlabs(spoken_text, language, speaker, voice_id), "provider": "elevenlabs"}
+            return {"mp3": _elevenlabs(spoken_text, language, speaker, None), "provider": "elevenlabs"}
         except Exception as e:
             print(f"[voice] ElevenLabs failed ({type(e).__name__}): {e}. Trying backup voice.")
     try:
@@ -142,9 +147,62 @@ def speak(text: str, language: str, speaker: str = "doctor", voice_id: str | Non
     text:      what to say (the translation)
     language:  ISO 639-1 code of the text, e.g. "ur", "en"
     speaker:   whose words these are ("doctor" or "patient"); picks the voice
-    voice_id:  optional override (e.g. a cloned voice, if we add that later)
+    voice_id:  optional cloned voice (see clone_voice below)
     """
     return speak_detailed(text, language, speaker, voice_id)["mp3"]
+
+
+# ---------------------------------------------------------------------------
+# OPTIONAL: voice cloning (ElevenLabs Instant Voice Cloning)
+#
+# With the speaker's consent, ~20-60 s of them talking is turned into a copy of
+# their voice. Their translations are then spoken in THEIR OWN voice, which feels
+# more natural and makes it obvious who is "speaking".
+#
+# Rules we follow (hackathon + privacy):
+#   - Only our TEAM's voices, and only after they tick the consent box.
+#   - Every clone is temporary: deleted when the appointment ends, when the
+#     appointment expires (2 h), and any leftovers at server start-up.
+#   - Clones get a name starting with CLONE_PREFIX, so we only ever delete OUR
+#     temporary clones, never other voices on the ElevenLabs account.
+#   - Needs the ElevenLabs Starter plan or above (the Free plan has no cloning)
+#     and an API key with the "Voices: write" permission.
+# ---------------------------------------------------------------------------
+CLONE_PREFIX = "VoiceBridge temp"
+
+
+def clone_voice(wav: bytes, label: str) -> str:
+    """Make a temporary copy of a voice from a WAV recording. Returns the new voice_id."""
+    try:
+        r = _client.voices.ivc.create(
+            name=f"{CLONE_PREFIX} {label}",
+            files=[("sample.wav", wav, "audio/wav")],
+            description="Temporary clone for one VoiceBridge appointment, made with consent. Auto-deleted.",
+        )
+        return r.voice_id
+    except Exception as e:
+        print(f"[voice] Cloning failed ({type(e).__name__}): {e}")
+        raise VoiceError("We couldn't copy the voice right now, so the standard voice will be used.") from e
+
+
+def delete_voice(voice_id: str) -> bool:
+    """Delete a cloned voice. Returns True if it worked (never raises: ending must always work)."""
+    try:
+        _client.voices.delete(voice_id)
+        return True
+    except Exception as e:
+        print(f"[voice] Couldn't delete cloned voice {voice_id} ({type(e).__name__}): {e}")
+        return False
+
+
+def delete_leftover_clones() -> int:
+    """Delete temporary clones left behind (e.g. if the server restarted mid-appointment)."""
+    try:
+        found = _client.voices.search(search=CLONE_PREFIX, page_size=100).voices
+    except Exception as e:
+        print(f"[voice] Couldn't check for leftover clones ({type(e).__name__}): {e}")
+        return 0
+    return sum(delete_voice(v.voice_id) for v in found if (v.name or "").startswith(CLONE_PREFIX))
 
 
 def credits_left() -> int | None:

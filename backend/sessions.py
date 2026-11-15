@@ -45,17 +45,20 @@ class Session:
     patient_lang: str
     created_at: float = field(default_factory=time.time)
     turns: list[dict] = field(default_factory=list)
-    voices: dict = field(default_factory=dict)  # for optional voice cloning later
+    voices: dict = field(default_factory=dict)  # optional cloned voices: {"doctor"/"patient": voice_id}
 
     @property
     def turns_left(self) -> int:
         return MAX_TURNS - len(self.turns)
 
 
-def _remove_old_sessions():
+def _remove_old_sessions() -> list["Session"]:
+    """Forget appointments older than 2 hours. Returns them so their cloned voices can be deleted."""
     now = time.time()
-    for sid in [s.id for s in _sessions.values() if now - s.created_at > MAX_AGE_SECONDS]:
-        del _sessions[sid]
+    old = [s for s in _sessions.values() if now - s.created_at > MAX_AGE_SECONDS]
+    for s in old:
+        del _sessions[s.id]
+    return old
 
 
 def create_session(access_code: str, doctor_lang: str, patient_lang: str) -> Session:
@@ -69,8 +72,13 @@ def create_session(access_code: str, doctor_lang: str, patient_lang: str) -> Ses
 
     session = Session(id=secrets.token_urlsafe(12), doctor_lang=doctor_lang, patient_lang=patient_lang)
     with _lock:
-        _remove_old_sessions()
+        expired = _remove_old_sessions()
         _sessions[session.id] = session
+    # Delete expired appointments' cloned voices (outside the lock: it's a slow internet call).
+    from backend import voice  # imported here so sessions.py still works without ElevenLabs set up
+    for old in expired:
+        for voice_id in old.voices.values():
+            voice.delete_voice(voice_id)
     return session
 
 

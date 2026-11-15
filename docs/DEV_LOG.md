@@ -153,6 +153,14 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - Logo, bigger centred mic buttons, focus mode, new teal + apricot colours, an animated home demo, a sound-wave ring while recording.
 - **Live caption spotlight (#11):** the newest translation is shown big at the top, older ones in an "Earlier in this appointment" list. **Why:** the phone sits on the desk between the GP and the patient, so the latest sentence must be readable from across the desk. Tested with the full demo at laptop and phone size.
 
+### Afternoon · Optional voice cloning added (after feature freeze, team decision)
+- **What:** with consent, a speaker records 10-45 s; ElevenLabs **Instant Voice Cloning** makes a temporary copy of their voice, and their translated words are spoken in their own voice.
+- **Backend:** `voice.py` (`clone_voice`, `delete_voice`, `delete_leftover_clones`), `service.py` (`clone_voice`: consent, at least 10 s, not noisy), `main.py` (`POST /api/clone`, exactly as in the API contract), `ratelimit.py` (6 clones an hour). If a cloned voice fails mid-appointment, the stock voice takes over, then the backup voice.
+- **Privacy:** clones are deleted when the appointment **ends**, when it **expires** (2 h), and any **leftovers at server start-up**. We only delete voices named "VoiceBridge temp…", never other voices on the account. **Team voices only**, consent box required (nothing is recorded without it).
+- **Frontend:** change #12 in FRONTEND_CHANGES.md ("Use your own voice (optional)" pop-up).
+- **Tested:** demo mode at laptop and phone size; backend: no consent, too-short sample, ending. **Not yet:** a real clone, because the API key needs the "Voices: write" permission and the Starter plan (ERRORS_AND_FIXES #37).
+- **Why a decision was needed:** the brief's feature freeze was Sun 1 PM. The team chose to add it because it's listed as optional in the brief and the API contract already had `/api/clone`.
+
 ---
 
 ## Next

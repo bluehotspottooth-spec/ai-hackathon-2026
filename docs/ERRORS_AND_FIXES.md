@@ -288,6 +288,19 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix (`service.py`):** the summary prompt now says to keep the speaker's descriptive words in **both** languages and never add intensity words.
 - **Re-test (3 runs):** no شدید in any. The Urdu now says **سخت درد**, which can still read as "harsh/strong pain", so it's improved but needs a native Urdu speaker's check (K17).
 
+## Voice cloning (optional feature, Sun 15 Nov afternoon)
+
+### 37. ⚠️ ElevenLabs refused to clone: "missing the permission voices_write"
+- **Found:** the first cloning test (with a synthetic sample made from the stock voice "Daniel", so no real person's voice was copied) got **401: The API key you used is missing the permission voices_write**. Our key was made on Saturday with only the permissions needed for speech.
+- **What the app did:** exactly what we designed. The clone failed quietly, `/api/clone` answered `cloned: false`, and the appointment kept the standard voice. Nothing crashed.
+- **Fix (Ahmed, on the ElevenLabs website):** edit the API key and switch **Voices** to **Write**. Also, ElevenLabs' pricing page (checked 15 Nov) shows Instant Voice Cloning **only on Starter and above** (Starter: $1 first month, then $6/month, 10 custom voice slots), not on Free.
+- **Status:** waiting for the key and plan change, then re-test.
+
+### 38. ✅ Small slips while adding cloning
+- FastAPI warned that `@app.on_event("startup")` is **deprecated** (old style). Switched to the recommended `lifespan` function.
+- Testing "too short" with a 3-second test tone was caught by the **noise check** instead (a steady tone has no speech, so its speech-vs-background contrast is 0 dB). That's correct behaviour; re-tested "too short" with 5 s of real (synthetic) speech: *"Please talk for at least 10 seconds…"* ✅.
+- My first version of `/api/clone` also returned a `message` field, which is **not in the API contract**. Removed it so the contract stays exactly as agreed; the page writes its own messages.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

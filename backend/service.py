@@ -2,6 +2,7 @@
 service.py: the 4 things the app can do, joined together in one place.
 
   create_session(access_code, doctor_lang, patient_lang)
+  clone_voice(session_id, speaker, consent, audio)   <- optional: use their own voice
   run_turn(session_id, speaker, audio)        <- one person speaks
   get_summary(session_id)
   end_session(session_id)
@@ -31,12 +32,50 @@ from backend.audio import AudioError, convert_to_wav
 from backend.errors import ServiceError
 from backend.prompts import LANGUAGES
 
-__all__ = ["ServiceError", "create_session", "run_turn", "get_summary", "end_session"]
+__all__ = ["ServiceError", "create_session", "clone_voice", "run_turn", "get_summary", "end_session"]
+
+CLONE_MIN_SECONDS = 10  # ElevenLabs needs at least 10 s of speech; 20-60 s sounds better
 
 
 def create_session(access_code: str, doctor_lang: str, patient_lang: str) -> dict:
     s = sessions.create_session(access_code, doctor_lang, patient_lang)
     return {"session_id": s.id, "turns_left": s.turns_left}
+
+
+def clone_voice(session_id: str, speaker: str, consent: bool, audio: bytes | str) -> dict:
+    """
+    OPTIONAL voice cloning. With consent, copy the speaker's voice so their
+    translations are spoken in their own voice. Without consent, nothing is sent
+    to ElevenLabs and the standard voice is used.
+    Returns {"voice_ready": True, "cloned": True/False} (API contract).
+    cloned=False with consent means ElevenLabs refused (e.g. plan, voice slots full):
+    the appointment still works with the standard voice.
+    """
+    if speaker not in ("doctor", "patient"):
+        raise ServiceError("Speaker must be 'doctor' or 'patient'.", 400)
+    session = sessions.get_session(session_id)
+    if not consent:
+        return {"voice_ready": True, "cloned": False}
+
+    audio_bytes = Path(audio).read_bytes() if isinstance(audio, str) else audio
+    try:
+        wav, seconds, noisy = convert_to_wav(audio_bytes)
+    except AudioError as e:
+        raise ServiceError(str(e), 400)
+    if seconds < CLONE_MIN_SECONDS:
+        raise ServiceError(f"Please talk for at least {CLONE_MIN_SECONDS} seconds so we can copy your voice.", 400)
+    if noisy:
+        raise ServiceError("There's too much background noise to copy your voice well. Please try somewhere quieter.", 400)
+
+    old = session.voices.pop(speaker, None)  # re-recording replaces (and deletes) the old copy
+    if old:
+        voice.delete_voice(old)
+    try:
+        session.voices[speaker] = voice.clone_voice(wav, f"{speaker} {session_id[:6]}")
+    except voice.VoiceError:
+        # The appointment still works with the standard voice, so this isn't an error for the user.
+        return {"voice_ready": True, "cloned": False}
+    return {"voice_ready": True, "cloned": True}
 
 
 def run_turn(session_id: str, speaker: str, audio: bytes | str) -> dict:
@@ -79,7 +118,8 @@ def run_turn(session_id: str, speaker: str, audio: bytes | str) -> dict:
     inaudible = result["speech_clarity"] == "inaudible" or not result["translation"]
     if not inaudible:
         try:
-            spoken = voice.speak_detailed(result["translation"], target, speaker)
+            # The speaker's own (cloned) voice if they made one, otherwise the standard voice.
+            spoken = voice.speak_detailed(result["translation"], target, speaker, session.voices.get(speaker))
             audio_b64 = base64.b64encode(spoken["mp3"]).decode("ascii")
         except voice.VoiceError:
             audio_b64 = ""  # the screen shows the text; the turn still works
@@ -161,6 +201,8 @@ def get_summary(session_id: str) -> dict:
 
 def end_session(session_id: str) -> dict:
     """End the appointment: everything said in it is deleted."""
-    sessions.end_session(session_id)
-    # (If we add voice cloning, cloned voices are deleted here too.)
+    session = sessions.end_session(session_id)
+    # Cloned voices are deleted from ElevenLabs as well (privacy + the plan's 10 voice slots).
+    for voice_id in session.voices.values():
+        voice.delete_voice(voice_id)
     return {"ended": True}

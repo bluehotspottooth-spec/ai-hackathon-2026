@@ -26,6 +26,7 @@ from backend.errors import ServiceError
 LIMITS = {
     "session": (10, 60 * 60),  # max 10 new appointments per 60 minutes
     "turn": (30, 5 * 60),      # max 30 turns per 5 minutes
+    "clone": (6, 60 * 60),     # max 6 voice copies per hour (each uses one of our ElevenLabs voice slots)
 }
 
 _history: dict[tuple[str, str], deque] = defaultdict(deque)
