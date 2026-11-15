@@ -32,8 +32,13 @@ One row per change. Take a **before and after screenshot** for the bigger ones (
 | 5 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Quieter demo bar:** one small line under the buttons; on phones the "Demo mode" sentence is hidden (button area height 291 → 263 px) | The demo controls shouldn't compete with the real buttons, and phones need the space for the conversation | `42fafc4` |
 | 6 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Simpler empty screen:** one instruction ("Tap your button below, speak, then tap again…") instead of a 3-step list; the hint now leads with "Tap" | First-time users see one clear thing to do. Most people tap rather than hold | `42fafc4` |
 | 7 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Polish:** a subtle dot texture on the dark home banner, and soft shadows on the message bubbles | Looks more refined and professional without adding distractions | `42fafc4` |
-| 8 | | Benet | *Your next changes go here (colours, spacing, wording…)* | | |
-| 9 | | | *Connected to the backend (`USE_MOCK = false`) and tested with a real microphone* | | |
+| 8 | Sun 15 Nov | Chosen by the team, built with Claude Code | **New colour identity:** deep teal (trust) plus a warm **apricot accent**, warmer background tones, and a deeper teal gradient on the home banner. The main "Start an appointment" button is now apricot. Works in light and dark mode | The first version felt cold and generic. Warmth suits a health app for worried patients, and one bright accent makes the main action obvious | `cc1e58a` |
+| 9 | Sun 15 Nov | Chosen by the team, built with Claude Code | **Animated home demo:** the example card now plays a live conversation in **Urdu → Polish → Arabic**: the doctor speaks (moving sound wave), the translation types itself out, the patient answers, and an urgent flag pops in. It starts as a complete still example, and is switched off for people who turn off animations on their device | Shows what VoiceBridge does in five seconds, without reading, and that it works across languages and scripts. A strong first impression for judges and users | `cc1e58a` |
+| 10 | Sun 15 Nov | Chosen by the team, built with Claude Code | **Recording animation:** while someone speaks, a ring of 48 red sound bars pulses around the mic. In the real app it follows the microphone's actual sound level; in demo mode it imitates a voice. The recording text is shorter ("Listening… tap to send") | Clear, live proof that the app is hearing you, so people don't stop talking too early or wonder if the mic works | `cc1e58a` |
+| 11 | | Benet | *Your next changes go here (colours, spacing, wording…)* | | |
+| 12 | | | *Connected to the backend (`USE_MOCK = false`) and tested with a real microphone* | | |
+
+\* Rows 8–10 were made together in one commit.
 
 **Checked after these changes:** laptop (1280 px) and phone (375 px) sizes, focus mode, recording state, demo conversation, no sideways scrolling on phones, and the page plus `logo.svg` served correctly by the backend. Not checked yet: a real microphone and real phones (after deployment).
 
