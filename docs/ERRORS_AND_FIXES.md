@@ -343,6 +343,7 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Cause 2:** the demo uses the **phone's built-in voice** (not ElevenLabs), and many phones have **no Urdu voice**, so the doctor's Urdu lines stay silent (with a "No Urdu voice" message). The real app is not affected: ElevenLabs speaks Urdu.
 - **Fix:** (1) the demo button now switches the page to demo mode **without reloading**, so the demo starts from the user's tap; (2) on the first tap anywhere, the page plays a silent sound through both the audio player and the browser voice, which "unlocks" sound for later (this also helps the real app on iPhones, where the translation arrives seconds after the tap); (3) if the phone's voice list hasn't loaded yet, we still try to speak instead of giving up.
 - **Verified on the laptop:** no reload, unlock ran, English line spoken, **0** API calls. **Not yet verified on a phone.**
+- **Follow-up (Ahmed: "both doctor and patient read aloud, without API tokens"):** the demo now plays **pre-made recordings** of its 6 lines (made once with ElevenLabs, saved in `frontend/demo_audio/`), so Urdu is spoken even on phones without an Urdu voice. Verified: all 6 played to the end in order, the auto-demo waits for each to finish, **0** API calls (FRONTEND_CHANGES #15).
 
 ---
 
