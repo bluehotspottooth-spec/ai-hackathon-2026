@@ -22,17 +22,19 @@
   Pages (hash links): #home #how #languages #safety #about, app flow: #start #choose #consult #summary
 -->
 <style>
-/* Layout concept: a calm clinical product site; the appointment screen is a chat thread with a two-button dock. */
+/* Layout concept: a calm clinical product site; the appointment screen is a chat thread with a two-button dock.
+   Colour identity (team change #8): deep teal for trust + a warm apricot accent for warmth and highlights. */
 :root{
-  --bg:#f2f5f4; --surface:#ffffff; --surface-2:#f7f9f8; --line:#dfe6e3; --line-2:#c9d4d0;
-  --ink:#0c1a24; --ink-2:#384853; --ink-3:#62717b;
-  --brand:#0f6b6a; --brand-2:#0a5453; --brand-soft:#dcefeb; --on-brand:#ffffff;
+  --bg:#f3f4f1; --surface:#ffffff; --surface-2:#f8f8f5; --line:#e2e4dd; --line-2:#cdd1c6;
+  --ink:#13202a; --ink-2:#3c4952; --ink-3:#66747d;
+  --brand:#0b6e6b; --brand-2:#07524f; --brand-soft:#dcefeb; --on-brand:#ffffff;
+  --accent:#e8794a; --accent-2:#d4622f; --accent-soft:#fde8dc; --on-accent:#2a1205;
   --doc:#2b4fbf; --doc-soft:#e9efff; --doc-line:#c9d6fb; --on-doc:#ffffff;
   --pat:#0b7a5c; --pat-soft:#e2f3ec; --pat-line:#b9e0d0; --on-pat:#ffffff;
   --urgent:#b42330; --urgent-soft:#fdecee; --urgent-line:#f1c0c5;
   --warn:#865700; --warn-soft:#fff4d6; --warn-line:#efd9a0;
   --rec:#d13c3c; --rec-soft:rgba(209,60,60,.14);
-  --hero:#0c1a24; --hero-ink:#ffffff; --hero-muted:#b6c4cd; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.08);
+  --hero:#0a3a3b; --hero-2:#0f2330; --hero-ink:#ffffff; --hero-muted:#c3d2d4; --hero-accent:#ffb38c; --hero-chip:rgba(255,255,255,.08);
   --shadow:0 1px 2px rgba(12,26,36,.05),0 8px 24px rgba(12,26,36,.07);
   --overlay:rgba(12,26,36,.45);
   --focus:#e09b00;
@@ -41,28 +43,30 @@
   --rtl:"Noto Nastaliq Urdu","Noto Sans Arabic","Segoe UI",Tahoma,sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0b1418; --surface:#121e23; --surface-2:#17262c; --line:#24353c; --line-2:#31464e;
-  --ink:#e7eef0; --ink-2:#b4c3c9; --ink-3:#8698a1;
+  --bg:#0e1517; --surface:#141e21; --surface-2:#192529; --line:#26353a; --line-2:#33474d;
+  --ink:#eaf0f0; --ink-2:#b8c5c8; --ink-3:#8a9aa0;
   --brand:#41b6a9; --brand-2:#5ccabd; --brand-soft:#10302d; --on-brand:#06221f;
+  --accent:#ff9d70; --accent-2:#ffb38c; --accent-soft:#3a2216; --on-accent:#2a1205;
   --doc:#8ea9ff; --doc-soft:#162140; --doc-line:#2b3c68; --on-doc:#0b1430;
   --pat:#5fd0a9; --pat-soft:#0f2a22; --pat-line:#1f4a3b; --on-pat:#062019;
   --urgent:#ff8b93; --urgent-soft:#3a1418; --urgent-line:#6b2a31;
   --warn:#f2c25a; --warn-soft:#33270d; --warn-line:#5c4718;
   --rec:#ff6b6b; --rec-soft:rgba(255,107,107,.16);
-  --hero:#0f2127; --hero-ink:#ffffff; --hero-muted:#a8bac2; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.07);
+  --hero:#0b2c2e; --hero-2:#0b1a22; --hero-ink:#ffffff; --hero-muted:#b0c2c6; --hero-accent:#ffb38c; --hero-chip:rgba(255,255,255,.07);
   --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); --overlay:rgba(0,0,0,.6); --focus:#ffc24d;
   color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#0b1418; --surface:#121e23; --surface-2:#17262c; --line:#24353c; --line-2:#31464e;
-  --ink:#e7eef0; --ink-2:#b4c3c9; --ink-3:#8698a1;
+  --bg:#0e1517; --surface:#141e21; --surface-2:#192529; --line:#26353a; --line-2:#33474d;
+  --ink:#eaf0f0; --ink-2:#b8c5c8; --ink-3:#8a9aa0;
   --brand:#41b6a9; --brand-2:#5ccabd; --brand-soft:#10302d; --on-brand:#06221f;
+  --accent:#ff9d70; --accent-2:#ffb38c; --accent-soft:#3a2216; --on-accent:#2a1205;
   --doc:#8ea9ff; --doc-soft:#162140; --doc-line:#2b3c68; --on-doc:#0b1430;
   --pat:#5fd0a9; --pat-soft:#0f2a22; --pat-line:#1f4a3b; --on-pat:#062019;
   --urgent:#ff8b93; --urgent-soft:#3a1418; --urgent-line:#6b2a31;
   --warn:#f2c25a; --warn-soft:#33270d; --warn-line:#5c4718;
   --rec:#ff6b6b; --rec-soft:rgba(255,107,107,.16);
-  --hero:#0f2127; --hero-ink:#ffffff; --hero-muted:#a8bac2; --hero-accent:#7fd6c9; --hero-chip:rgba(255,255,255,.07);
+  --hero:#0b2c2e; --hero-2:#0b1a22; --hero-ink:#ffffff; --hero-muted:#b0c2c6; --hero-accent:#ffb38c; --hero-chip:rgba(255,255,255,.07);
   --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35); --overlay:rgba(0,0,0,.6); --focus:#ffc24d;
   color-scheme:dark;
 }
@@ -117,10 +121,12 @@ body[data-view="consult"] .logo{pointer-events:none}
 .btn-sm{min-height:40px;padding:0 14px;font-size:14.5px;border-radius:10px}
 .btn-on-dark{background:var(--hero-chip);color:var(--hero-ink);border:1px solid rgba(255,255,255,.18)}
 .btn-on-dark:hover{background:rgba(255,255,255,.14)}
+.btn-accent{background:var(--accent);color:var(--on-accent);box-shadow:0 8px 20px rgba(232,121,74,.3)}
+.btn-accent:hover{background:var(--accent-2)}
 .chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;border-radius:999px;font-size:13px;font-weight:700;background:var(--surface);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap}
 
 /* home */
-.hero{background-color:var(--hero);background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;color:var(--hero-ink)}
+.hero{background-color:var(--hero);background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(140deg,var(--hero) 0%,var(--hero-2) 100%);background-size:22px 22px,100% 100%;color:var(--hero-ink)}
 .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:64px 72px}
 .hero h1{color:var(--hero-ink);font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.035em;font-weight:800}
 .hero h1 em{font-style:normal;color:var(--hero-accent)}
@@ -128,8 +134,26 @@ body[data-view="consult"] .logo{pointer-events:none}
 .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .hero-facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px;color:var(--hero-muted);font-size:14.5px}
 .hero-facts strong{display:block;color:var(--hero-ink);font-family:var(--display);font-size:24px;letter-spacing:-.02em}
-.preview{background:var(--surface);color:var(--ink);border-radius:22px;padding:18px;box-shadow:0 30px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:12px}
-.preview-top{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-3);font-weight:700}
+/* Animated hero demo (team change #9): a live translation plays out in Urdu, Polish and Arabic */
+.stage{background:var(--surface);color:var(--ink);border-radius:24px;padding:16px;box-shadow:0 30px 60px rgba(0,0,0,.28);display:flex;flex-direction:column;gap:12px;min-height:420px}
+.stage-top{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-3);font-weight:700}
+.stage-top .live-pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent-2)}
+.stage-top .live-pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.3}}
+.stage-langs{margin-left:auto;display:flex;gap:4px}
+.stage-langs span{padding:2px 8px;border-radius:999px;border:1px solid var(--line);font-size:12px}
+.stage-langs span.on{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+.stage-body{display:flex;flex-direction:column;gap:12px;flex:1}
+.stage-body .msg{max-width:100%}
+.stage-foot{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px;min-height:38px}
+.mini-wave{display:inline-flex;gap:3px;align-items:center;height:20px}
+.mini-wave i{width:3px;height:4px;border-radius:2px;background:var(--ink-3)}
+.stage.talking .mini-wave i{background:var(--accent);animation:wv .9s ease-in-out infinite}
+.mini-wave i:nth-child(2){animation-delay:.12s}.mini-wave i:nth-child(3){animation-delay:.24s}.mini-wave i:nth-child(4){animation-delay:.36s}.mini-wave i:nth-child(5){animation-delay:.48s}.mini-wave i:nth-child(6){animation-delay:.6s}
+@keyframes wv{0%,100%{height:4px}50%{height:20px}}
+.typing-caret::after{content:"";display:inline-block;width:2px;height:1em;margin-inline-start:2px;background:var(--accent);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.pop{animation:pop .4s cubic-bezier(.2,1.5,.4,1)}
+@keyframes pop{from{transform:scale(.6)}to{transform:none}}
 .section{padding-block:72px}
 .section-head{max-width:640px;margin-bottom:32px;display:grid;gap:10px}
 .section-head h2{font-size:clamp(26px,3.4vw,36px)}
@@ -290,9 +314,11 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 .meter i{width:4px;height:4px;border-radius:2px;background:var(--rec);transition:height .08s}
 .speak.recording{background:var(--surface);border-color:var(--rec);box-shadow:0 0 0 5px var(--rec-soft)}
 .speak.recording .mic{background:var(--rec);color:#fff;transform:scale(1.05)}
-.speak.recording .mic::before,.speak.recording .mic::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--rec);animation:ring 1.5s ease-out infinite}
-.speak.recording .mic::after{animation-delay:.75s}
-.speak.recording .meter{display:flex}
+/* Recording animation (team change #10): a ring of sound bars around the mic that follows the voice */
+.mic-wrap{position:relative;display:grid;place-items:center;margin-block:14px}
+.mic{z-index:1}
+.wave{position:absolute;width:156px;height:156px;left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:0;transition:opacity .2s}
+.speak.recording .wave{opacity:1}
 .speak.recording .speak-hint{color:var(--rec);font-weight:700}
 @keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.8);opacity:0}}
 /* Demo bar (team change #4): one quiet line under the buttons, so it doesn't compete with them */
@@ -335,6 +361,8 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
   .dock-buttons{gap:10px;padding-block:10px}
   .speak{padding:12px 8px;gap:8px;min-height:0;border-radius:20px}
   .mic{width:72px;height:72px}
+  .wave{width:130px;height:130px}
+  .mic-wrap{margin-block:10px}
   .mic .icon{width:30px;height:30px}
   .speak-who{font-size:16px}
   .speak-who .tag{display:block;font-size:13px}
@@ -410,7 +438,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
         <h1 id="home-title" style="margin-top:12px">Say it in your language. <em>Your GP hears it in theirs.</em></h1>
         <p class="hero-sub">Hold a button and speak. VoiceBridge translates between patient and doctor in about four seconds, out loud and on screen, and flags urgent symptoms to the GP.</p>
         <div class="hero-cta">
-          <a class="btn btn-primary" href="#start">Start an appointment <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-accent" href="#start">Start an appointment <svg class="icon"><use href="#i-arrow"/></svg></a>
           <button class="btn btn-on-dark" id="hero-demo"><svg class="icon"><use href="#i-play"/></svg>Watch a demo consultation</button>
         </div>
         <div class="hero-facts">
@@ -419,17 +447,25 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
           <div><strong>0</strong>conversations kept</div>
         </div>
       </div>
-      <div class="preview" aria-label="Example of a translated exchange">
-        <div class="preview-top"><span>Live · English ⇄ Urdu</span><span>Turn 2 of 20</span></div>
-        <div class="msg doctor" style="max-width:100%">
-          <div class="msg-meta"><span class="who">Doctor</span><span>10:42</span></div>
-          <div class="bubble"><div class="translation" dir="rtl">آج آپ کس وجہ سے آئے ہیں؟</div><div class="original"><span class="original-label">Said in English</span>What brings you in today?</div></div>
+      <!-- Animated demo: starts as a complete example (so it looks right before any animation), then plays live -->
+      <div class="stage" id="stage" role="img" aria-label="Animated example: a doctor and a patient talking through VoiceBridge in Urdu, Polish and Arabic">
+        <div class="stage-top">
+          <span class="live-pill"><i></i>Live</span>
+          <span id="stage-pair">English ⇄ Urdu</span>
+          <span class="stage-langs" aria-hidden="true"><span class="on" data-l="Urdu">UR</span><span data-l="Polish">PL</span><span data-l="Arabic">AR</span></span>
         </div>
-        <div class="msg patient" style="max-width:100%">
-          <div class="msg-meta"><span class="who">Patient · Urdu</span><span>10:43</span></div>
-          <div class="bubble"><div class="translation">I've had chest pain for three days.</div><div class="original" dir="rtl"><span class="original-label" dir="ltr">Said in Urdu</span>مجھے تین دن سے سینے میں درد ہے۔</div>
-            <div class="flags"><span class="flag urgent"><svg class="icon"><use href="#i-alert"/></svg>chest pain</span></div></div>
+        <div class="stage-body" id="stage-body">
+          <div class="msg doctor">
+            <div class="msg-meta"><span class="who">Doctor</span></div>
+            <div class="bubble"><div class="translation" dir="rtl">آج آپ کس وجہ سے آئے ہیں؟</div><div class="original"><span class="original-label">Said in English</span>What brings you in today?</div></div>
+          </div>
+          <div class="msg patient">
+            <div class="msg-meta"><span class="who">Patient · Urdu</span></div>
+            <div class="bubble"><div class="translation">I've had chest pain for three days.</div><div class="original" dir="rtl"><span class="original-label" dir="ltr">Said in Urdu</span>مجھے تین دن سے سینے میں درد ہے۔</div>
+              <div class="flags"><span class="flag urgent"><svg class="icon"><use href="#i-alert"/></svg>chest pain</span></div></div>
+          </div>
         </div>
+        <div class="stage-foot"><span class="mini-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="stage-status">Translated in about 4 seconds</span></div>
       </div>
     </div>
   </div>
@@ -602,11 +638,11 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
   <div class="dock">
     <div class="wrap dock-buttons">
       <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold or tap to speak English">
-        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="mic-wrap"><canvas class="wave" id="wave-doctor" width="312" height="312" aria-hidden="true"></canvas><span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span></span>
         <span class="speak-text"><span class="speak-who">Doctor <span class="tag">English</span></span><span class="speak-hint" id="hint-doctor">Tap or hold to speak</span><span class="meter" id="meter-doctor" aria-hidden="true"></span></span>
       </button>
       <button class="speak patient" id="btn-patient" aria-label="Patient: hold or tap to speak">
-        <span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span>
+        <span class="mic-wrap"><canvas class="wave" id="wave-patient" width="312" height="312" aria-hidden="true"></canvas><span class="mic"><svg class="icon"><use href="#i-mic"/></svg></span></span>
         <span class="speak-text"><span class="speak-who"><span id="pat-word">Patient</span> <span class="tag" id="pat-tag">Urdu</span></span><span class="speak-hint" id="hint-patient"></span><span class="meter" id="meter-patient" aria-hidden="true"></span></span>
       </button>
     </div>
@@ -885,13 +921,39 @@ async function startRec(role){
     }catch(e){ state.rec=null; $(`btn-${other}`).disabled=false; note(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected and try again.",true); return; }
   }
   state.startedAt=performance.now(); $(`btn-${role}`).classList.add("recording");
-  const bars=[...$(`meter-${role}`).children]; const data=rec.analyser?new Uint8Array(rec.analyser.frequencyBinCount):null;
+  drawWave(role);
   meterTimer=setInterval(()=>{
-    let level=.5; if(rec.analyser){ rec.analyser.getByteFrequencyData(data); level=Math.min(1,data.slice(2,40).reduce((a,b)=>a+b,0)/38/255*2.2); }
-    bars.forEach(b=>b.style.height=`${4+Math.min(1,(rec.analyser?level:.3+Math.random()*.7)*(0.6+Math.random()*.8))*18}px`);
-    const s=Math.floor((performance.now()-state.startedAt)/1000); const h=$(`hint-${role}`); h.dir="ltr"; h.textContent=`0:${String(s).padStart(2,"0")} · Listening, release or tap to send`;
+    const s=Math.floor((performance.now()-state.startedAt)/1000); const h=$(`hint-${role}`); h.dir="ltr"; h.textContent=`0:${String(s).padStart(2,"0")} · Listening… tap to send`;
     if(s>=MAX_SECONDS) stopRec(role);
   },90);
+}
+/* Circular sound wave (team change #10): 48 bars around the mic. In real mode each bar follows
+   the microphone's sound level (Web Audio analyser); in demo mode it imitates a speaking voice. */
+function drawWave(role){
+  const cv=$(`wave-${role}`); if(!cv) return;
+  const ctx=cv.getContext("2d"), W=cv.width, C=W/2, N=48;
+  const color=getComputedStyle(document.documentElement).getPropertyValue("--rec").trim()||"#d13c3c";
+  const scale=W/cv.getBoundingClientRect().width||2;                 // canvas pixels per screen pixel
+  const micR=($(`btn-${role}`).querySelector(".mic").getBoundingClientRect().width/2)*scale;
+  const data=rec.analyser?new Uint8Array(rec.analyser.frequencyBinCount):null;
+  const smooth=new Array(N).fill(0);
+  const frame=(t)=>{
+    ctx.clearRect(0,0,W,W);
+    if(state.rec!==role) return;                                     // stops when recording stops
+    if(data) rec.analyser.getByteFrequencyData(data);
+    for(let i=0;i<N;i++){
+      let target;
+      if(data){ const bin=2+Math.floor((i<N/2?i:N-1-i)/(N/2)*38); target=Math.min(1,data[bin]/255*1.6); }
+      else target=.25+.45*Math.abs(Math.sin(t/260+i*.55))*(.6+.4*Math.sin(t/900+i));
+      smooth[i]=smooth[i]*.72+target*.28;
+      const a=i/N*Math.PI*2-Math.PI/2, r0=micR+10, r1=r0+6+smooth[i]*(C-r0-10);
+      ctx.strokeStyle=color; ctx.globalAlpha=.35+smooth[i]*.6; ctx.lineWidth=Math.max(3,W/60); ctx.lineCap="round";
+      ctx.beginPath(); ctx.moveTo(C+Math.cos(a)*r0,C+Math.sin(a)*r0); ctx.lineTo(C+Math.cos(a)*r1,C+Math.sin(a)*r1); ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
 }
 async function stopRec(role){
   if(state.rec!==role) return;
@@ -961,8 +1023,49 @@ document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("clic
   navigator.clipboard.writeText(box.innerText).then(()=>toast("Copied")).catch(()=>{ const r=document.createRange(); r.selectNodeContents(box); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Text selected. Press Ctrl+C to copy."); });
 }));
 
+/* ===================== HOME: ANIMATED LIVE DEMO (team change #9) =====================
+   Plays a short exchange in Urdu, Polish and Arabic: the doctor "speaks" (moving wave),
+   the translation types itself out, the patient answers, an urgent flag pops in.
+   Example sentences only (illustrative, not real patients). Skipped if the visitor
+   prefers reduced motion; then the complete static example stays on screen. */
+const HERO_SCENES=[
+  {lang:"Urdu",code:"ur",d:{o:"What brings you in today?",t:"آج آپ کس وجہ سے آئے ہیں؟"},p:{o:"مجھے تین دن سے سینے میں درد ہے۔",t:"I've had chest pain for three days.",urgent:["chest pain"]}},
+  {lang:"Polish",code:"pl",d:{o:"How long have you had the cough?",t:"Od jak dawna ma Pan kaszel?"},p:{o:"Od tygodnia, i mam gorączkę.",t:"For a week, and I have a fever."}},
+  {lang:"Arabic",code:"ar",d:{o:"Are you taking any medicines?",t:"هل تتناول أي أدوية؟"},p:{o:"نعم، أتناول الإنسولين مرتين في اليوم.",t:"Yes, I take insulin twice a day."}},
+];
+function heroMsg(role,tText,tLang,oText,oLang,scene){
+  const m=el("div",`msg ${role}`); const meta=el("div","msg-meta"); meta.append(el("span","who",role==="doctor"?"Doctor":`Patient · ${scene.lang}`)); m.append(meta);
+  const b=el("div","bubble"); const tr=el("div","translation typing-caret",""); setDir(tr,tLang); b.append(tr);
+  const o=el("div","original"); setDir(o,oLang); const lab=el("span","original-label",`Said in ${oLang==="en"?"English":scene.lang}`); lab.dir="ltr"; o.append(lab,document.createTextNode(oText)); b.append(o);
+  m.append(b); return {m,b,tr,full:tText};
+}
+async function typeOut(node,text){ for(let i=1;i<=text.length;i++){ node.textContent=text.slice(0,i); await wait(24); } node.classList.remove("typing-caret"); }
+async function heroLoop(){
+  if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const stage=$("stage"), body=$("stage-body"), status=$("stage-status"), pair=$("stage-pair");
+  await wait(2500);
+  for(let i=0;;i=(i+1)%HERO_SCENES.length){
+    while(currentView!=="home") await wait(800);   // only animate while the home page is showing
+    const s=HERO_SCENES[i];
+    pair.textContent=`English ⇄ ${s.lang}`;
+    document.querySelectorAll(".stage-langs span").forEach(x=>x.classList.toggle("on",x.dataset.l===s.lang));
+    body.innerHTML="";
+    stage.classList.add("talking"); status.textContent="Doctor is speaking English…"; await wait(1300);
+    stage.classList.remove("talking"); status.textContent="Translating…"; await wait(500);
+    const d=heroMsg("doctor",s.d.t,s.code,s.d.o,"en",s); body.append(d.m); await typeOut(d.tr,d.full);
+    status.textContent=`Spoken aloud in ${s.lang}`; await wait(1100);
+    stage.classList.add("talking"); status.textContent=`Patient is speaking ${s.lang}…`; await wait(1300);
+    stage.classList.remove("talking"); status.textContent="Translating…"; await wait(500);
+    const p=heroMsg("patient",s.p.t,"en",s.p.o,s.code,s); body.append(p.m); await typeOut(p.tr,p.full);
+    if(s.p.urgent){ const fl=el("div","flags"); s.p.urgent.forEach(u=>{ const f=flag("urgent","alert",u); f.classList.add("pop"); fl.append(f); }); p.b.append(fl); status.textContent="Urgent symptom flagged for the GP"; }
+    else status.textContent="Spoken aloud in English";
+    await wait(3400);
+  }
+}
+
 /* ===================== START-UP ===================== */
 renderLangGrid(); updatePair(); resetHints(); updateTurns(); route();
+heroLoop();
 </script>
 </body>
 </html>
