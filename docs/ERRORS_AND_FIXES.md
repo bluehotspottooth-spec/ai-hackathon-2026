@@ -310,7 +310,7 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Found:** the clone was created, but speaking with it returned **401 voice_access_denied: This voice requires verification** (`detected_captcha_voice`).
 - **Why:** to avoid copying a real person, our test sample was made with ElevenLabs' **own stock voice "Daniel"**. ElevenLabs' anti-misuse system recognised it as an existing voice and blocked it. That's their safety system working, not a bug in our code.
 - **What the app did:** fell back to the stock voice automatically (the Urdu sentence was still spoken), and the clone was deleted. ✅
-- **Next:** test with a **team member's own voice** (with consent), which is what the feature is for.
+- **Resolved:** ✅ tested with **Ahmed's own voice** (with consent) through the real app in Chrome: clone made, both turns spoken in his cloned voice (no fallback in the server log), and after **End** our check found **0** temporary clones left on the ElevenLabs account.
 
 ---
 
