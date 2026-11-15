@@ -763,7 +763,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 // (or Hugging Face). Anywhere else (double-clicked file, previews, the claude.ai demo link)
 // it's demo mode. Add ?demo to the address to force demo mode. (Was a manual true/false switch.)
 const OUR_SERVER = /^(localhost|127\.0\.0\.1)$|\.onrender\.com$|\.hf\.space$/.test(location.hostname);
-const USE_MOCK = !OUR_SERVER || new URLSearchParams(location.search).has("demo");
+let USE_MOCK = !OUR_SERVER || new URLSearchParams(location.search).has("demo");   // "let": the demo button can switch to demo mode
 const MAX_SECONDS = 60, MIN_SECONDS = 0.5, HOLD_MS = 350;
 
 const LANGS = [
@@ -825,7 +825,7 @@ const mockApi={
   async endSession(){ await wait(150); return {ended:true}; },
   async cloneVoice(){ await wait(1800); return {voice_ready:true,cloned:true}; },
 };
-const api=USE_MOCK?mockApi:realApi;
+let api=USE_MOCK?mockApi:realApi;
 
 /* ===================== STATE + HELPERS ===================== */
 const state={code:"",lang:LANGS[3],sid:null,turnsLeft:20,busy:false,rec:null,startedAt:0,pressAt:0,urgent:new Set(),turnCount:0,started:0,autoplay:false};
@@ -840,9 +840,30 @@ function toast(msg){const t=$("toast");t.textContent=msg;t.hidden=false;clearTim
 function voiceFor(lang){ try{ return speechSynthesis.getVoices().find(v=>v.lang&&v.lang.toLowerCase().startsWith(lang)); }catch(e){ return null; } }
 function sayDemo(text,lang){
   if(!("speechSynthesis" in window)) return false;
-  const v=voiceFor(lang==="en"?"en":lang); if(!v) return false;
-  speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.voice=v; u.lang=v.lang; u.rate=.98; speechSynthesis.speak(u); return true;
+  const v=voiceFor(lang==="en"?"en":lang);
+  // Phones load their voice list late: if the list is still empty, try anyway with just the language.
+  if(!v&&speechSynthesis.getVoices().length) return false;   // list loaded, but no voice for this language
+  speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text);
+  if(v){ u.voice=v; u.lang=v.lang; } else u.lang=lang==="en"?"en-GB":lang;
+  u.rate=.98; speechSynthesis.speak(u); return true;
 }
+/* Phones (especially iPhones) only allow sound that STARTS FROM A TAP. Translations arrive seconds
+   after the tap, so on the first tap we "unlock" both sound sources with a silent sound:
+   the audio player (real app, ElevenLabs) and the browser voice (demo). */
+function silentWav(){
+  const n=800, b=new ArrayBuffer(44+n), d=new DataView(b), w=(o,str)=>[...str].forEach((c,i)=>d.setUint8(o+i,c.charCodeAt(0)));
+  w(0,"RIFF"); d.setUint32(4,36+n,true); w(8,"WAVE"); w(12,"fmt "); d.setUint32(16,16,true); d.setUint16(20,1,true); d.setUint16(22,1,true);
+  d.setUint32(24,8000,true); d.setUint32(28,8000,true); d.setUint16(32,1,true); d.setUint16(34,8,true); w(36,"data"); d.setUint32(40,n,true);
+  for(let i=0;i<n;i++) d.setUint8(44+i,128);   // 0.1 s of silence
+  return URL.createObjectURL(new Blob([b],{type:"audio/wav"}));
+}
+function unlockAudio(){
+  if(unlockAudio.done) return; unlockAudio.done=true;
+  try{ if(player.paused){ player.src=silentWav(); player.play().catch(()=>{}); } }catch(e){}
+  try{ if("speechSynthesis" in window){ const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); } }catch(e){}
+}
+document.addEventListener("pointerdown",unlockAudio,{capture:true});
+document.addEventListener("keydown",unlockAudio,{capture:true});
 try{ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>{}; }catch(e){}
 
 /* ===================== ROUTER ===================== */
@@ -891,10 +912,16 @@ LANGS.forEach(l=>{
   c.append(b); $("lang-cards").append(c);
 });
 /* "Watch a demo consultation": on the live site (real mode) the scripted demo must NOT call the real
-   server (it would refuse the code "demo"), so we reload the page in demo mode (?demo) and start it there.
-   Demo mode uses no API credits. */
+   server (it would refuse the code "demo"), so we switch this page to demo mode first (no API calls,
+   no credits). No page reload: the phone must see the demo start from THIS tap, or it blocks the sound. */
+function enterDemoMode(){
+  USE_MOCK=true; api=mockApi;
+  $("demo-bar").hidden=false; $("mode-label").textContent="Demo · "; $("demo-code-hint").hidden=false;
+  history.replaceState(null,"",location.pathname+"?demo"+location.hash);
+}
 $("hero-demo").onclick=()=>{
-  if(!USE_MOCK){ location.href=location.pathname+"?demo&play"; return; }
+  unlockAudio();
+  if(!USE_MOCK) enterDemoMode();
   state.code="demo"; startSession(true);
 };
 
@@ -1255,11 +1282,6 @@ async function heroLoop(){
 /* ===================== START-UP ===================== */
 renderLangGrid(); updatePair(); resetHints(); updateTurns(); route();
 heroLoop();
-// Arrived from "Watch a demo consultation" on the live site (?demo&play): play the demo straight away.
-if(USE_MOCK&&new URLSearchParams(location.search).has("play")){
-  history.replaceState(null,"",location.pathname+"?demo");   // so refreshing doesn't restart it
-  state.code="demo"; startSession(true);
-}
 </script>
 </body>
 </html>

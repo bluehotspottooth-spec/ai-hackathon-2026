@@ -337,6 +337,13 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix:** in real mode the button reloads the page as `?demo&play`, which switches to demo mode and starts the scripted conversation straight away (no API calls, no credits). In demo mode it works as before.
 - **Verified:** on the local server (real mode) the button opened the demo and the server log showed **no** `/api/` calls; the double-clicked file still works.
 
+### 46. ⚠️ No sound in the demo on Ahmed's phone
+- **Found by Ahmed** on his phone, in the demo on the live site.
+- **Cause 1:** phones only allow sound that **starts from a tap**. Fix #45 reloaded the page (`?demo&play`) and then started the demo **without** a tap, so the phone blocked the browser voice.
+- **Cause 2:** the demo uses the **phone's built-in voice** (not ElevenLabs), and many phones have **no Urdu voice**, so the doctor's Urdu lines stay silent (with a "No Urdu voice" message). The real app is not affected: ElevenLabs speaks Urdu.
+- **Fix:** (1) the demo button now switches the page to demo mode **without reloading**, so the demo starts from the user's tap; (2) on the first tap anywhere, the page plays a silent sound through both the audio player and the browser voice, which "unlocks" sound for later (this also helps the real app on iPhones, where the translation arrives seconds after the tap); (3) if the phone's voice list hasn't loaded yet, we still try to speak instead of giving up.
+- **Verified on the laptop:** no reload, unlock ran, English line spoken, **0** API calls. **Not yet verified on a phone.**
+
 ---
 
 ## ⚠️ Important note for testing (C2)
