@@ -1096,7 +1096,25 @@ function speakOut(d){
 }
 
 /* ===================== CONSULT: RECORDING ===================== */
-const rec={stream:null,mr:null,chunks:[],analyser:null};
+const rec={stream:null,mr:null,chunks:[],analyser:null,ctx:null,src:null};
+/* Microphone: a FRESH one for every recording, released straight after (ERRORS_AND_FIXES #49).
+   Phones (especially iPhones) quietly turn a still-open microphone silent once the page plays sound
+   (the translation), so every recording after the first came through as silence. Releasing the mic
+   also lets the phone play the translation at full volume through the loudspeaker. */
+async function getMic(){
+  releaseMic();
+  const stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+  try{   // the moving sound-wave ring (only for the picture; recording works without it)
+    if(!rec.ctx){ rec.ctx=new (window.AudioContext||window.webkitAudioContext)(); rec.analyser=rec.ctx.createAnalyser(); rec.analyser.fftSize=256; }
+    if(rec.ctx.state==="suspended") rec.ctx.resume();
+    rec.src=rec.ctx.createMediaStreamSource(stream); rec.src.connect(rec.analyser);
+  }catch(e){}
+  return stream;
+}
+function releaseMic(){
+  try{ rec.src&&rec.src.disconnect(); }catch(e){} rec.src=null;
+  if(rec.stream) rec.stream.getTracks().forEach(t=>t.stop()); rec.stream=null;
+}
 ["doctor","patient"].forEach(r=>{ const m=$(`meter-${r}`); for(let i=0;i<14;i++) m.append(el("i")); });
 let meterTimer=null;
 function resetHints(){ $("hint-doctor").textContent="Tap or hold to speak"; $("hint-doctor").dir="ltr"; const h=$("hint-patient"); h.textContent=state.lang.hint; setDir(h,state.lang.code); }
@@ -1107,13 +1125,10 @@ async function startRec(role){
   state.rec=role; const other=role==="doctor"?"patient":"doctor"; $(`btn-${other}`).disabled=true;
   if(!USE_MOCK){
     try{
-      if(!rec.stream){
-        rec.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
-        const ctx=new (window.AudioContext||window.webkitAudioContext)(); rec.analyser=ctx.createAnalyser(); rec.analyser.fftSize=256; ctx.createMediaStreamSource(rec.stream).connect(rec.analyser);
-      }
+      rec.stream=await getMic();
       const type=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
       rec.mr=new MediaRecorder(rec.stream,type?{mimeType:type}:undefined); rec.chunks=[]; rec.mr.ondataavailable=(e)=>{ if(e.data.size) rec.chunks.push(e.data); }; rec.mr.start();
-    }catch(e){ state.rec=null; $(`btn-${other}`).disabled=false; note(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected and try again.",true); return; }
+    }catch(e){ releaseMic(); state.rec=null; $(`btn-${other}`).disabled=false; note(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected and try again.",true); return; }
   }
   state.startedAt=performance.now(); $(`btn-${role}`).classList.add("recording");
   drawWave(role);
@@ -1154,7 +1169,7 @@ async function stopRec(role){
   if(state.rec!==role) return;
   state.rec=null; clearInterval(meterTimer); $(`btn-${role}`).classList.remove("recording"); resetHints();
   const secs=(performance.now()-state.startedAt)/1000; let blob=new Blob(["demo"]), name="turn.webm";
-  if(!USE_MOCK&&rec.mr){ blob=await new Promise(r=>{ rec.mr.onstop=()=>r(new Blob(rec.chunks,{type:rec.mr.mimeType||"audio/webm"})); rec.mr.stop(); }); name=blob.type.includes("mp4")?"turn.m4a":blob.type.includes("ogg")?"turn.ogg":"turn.webm"; }
+  if(!USE_MOCK&&rec.mr){ blob=await new Promise(r=>{ rec.mr.onstop=()=>r(new Blob(rec.chunks,{type:rec.mr.mimeType||"audio/webm"})); rec.mr.stop(); }); name=blob.type.includes("mp4")?"turn.m4a":blob.type.includes("ogg")?"turn.ogg":"turn.webm"; rec.mr=null; releaseMic(); }
   if(secs<MIN_SECONDS){ setBusy(false); note("That was very short. Speak for at least a second."); return; }
   await sendTurn(role,blob,name);
 }
@@ -1207,7 +1222,7 @@ async function cloneStart(){
   if(!$("clone-consent").checked) return;   // no consent = nothing is recorded or sent
   if(!USE_MOCK){
     try{
-      if(!rec.stream) rec.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});
+      rec.stream=await getMic();
       const type=recType(); clone.mr=new MediaRecorder(rec.stream,type?{mimeType:type}:undefined); clone.chunks=[];
       clone.mr.ondataavailable=(e)=>{ if(e.data.size) clone.chunks.push(e.data); }; clone.mr.start();
     }catch(e){ cloneStatus(e.name==="NotAllowedError"?"Microphone is blocked. Allow it next to the web address, then try again.":"Couldn't start the microphone. Check it's connected.","err"); return; }
@@ -1228,7 +1243,7 @@ async function cloneStop(cancel){
   let blob=new Blob(["demo"]), name="voice.webm";
   if(clone.mr){
     blob=await new Promise(r=>{ clone.mr.onstop=()=>r(new Blob(clone.chunks,{type:clone.mr.mimeType||"audio/webm"})); clone.mr.stop(); });
-    name=blob.type.includes("mp4")?"voice.m4a":blob.type.includes("ogg")?"voice.ogg":"voice.webm"; clone.mr=null;
+    name=blob.type.includes("mp4")?"voice.m4a":blob.type.includes("ogg")?"voice.ogg":"voice.webm"; clone.mr=null; releaseMic();
   }
   if(cancel){ cloneInputs(true); return; }      // closed without finishing: the recording is thrown away
   const who=cloneWho();

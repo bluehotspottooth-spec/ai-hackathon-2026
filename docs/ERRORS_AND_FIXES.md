@@ -356,6 +356,13 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix:** on the live server, going to **Start appointment** always switches back to the real app (real API, demo bar hidden, demo code cleared). The demo button is unchanged. Opened as a file (no server), it stays a demo as before. Because the Arabic demo used to be reached through "Start appointment → Arabic", the demo screen now has a **Watch in Arabic / Watch in Urdu** button.
 - **Verified:** demo → Start appointment → a wrong code reached the real server and got 401; the Arabic button restarts the demo in Arabic with no API calls; the double-clicked file still shows the demo.
 
+### 49. ⚠️ On Ahmed's phone, every turn after the first was "silent"
+- **Found by Ahmed** on his phone (live site, real mode): "the recording can't be heard".
+- **Evidence (Render log):** appointment created ✅, voice clone ✅, **first turn 200 ✅**, then **every later turn 400** = our audio check found the recording silent ("We couldn't hear anything").
+- **Cause:** the page kept the microphone open between turns. On phones (especially iPhones), once the page **plays sound** (the spoken translation), the still-open microphone keeps "recording" but only captures **silence**. Laptops don't do this, so we never saw it there.
+- **Fix:** a **fresh microphone for every recording**, released straight after (also for the voice-cloning sample). Bonus: with the mic released, iPhones play the translation at full volume through the loudspeaker instead of quietly.
+- **Verified (laptop, fake microphone because the test browser blocks real mics):** 3 recordings → 3 separate microphones, each closed afterwards, each recording non-empty. **Needs Ahmed's phone to confirm.**
+
 ---
 
 ## ⚠️ Important note for testing (C2)
