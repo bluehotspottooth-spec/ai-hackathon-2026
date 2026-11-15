@@ -1,0 +1,13 @@
+﻿language,sentences,term_correct_baseline_%,term_correct_voicebridge_%,accuracy_baseline_1to5,accuracy_voicebridge_1to5,judge_prefers_voicebridge_%,judge_prefers_baseline_%,tie_%,numbers_kept_baseline_%,numbers_kept_voicebridge_%,glossary_match_baseline_%,glossary_match_voicebridge_%
+Polish (pl),7,100,100,4.57,4.86,43,14,43,,,71,86
+Romanian (ro),7,100,100,4.57,4.86,29,14,57,,,57,86
+Panjabi (pa),7,100,100,4.86,5.0,29,0,71,,,71,86
+Urdu (ur),7,100,100,4.86,4.57,14,43,43,,,29,100
+Portuguese (pt),7,100,100,4.86,5.0,14,0,86,,,100,100
+Spanish (es),7,100,100,4.86,5.0,14,14,71,,,86,100
+Arabic (ar),7,100,100,4.71,5.0,43,0,57,,,57,71
+Bengali (bn),7,86,100,4.43,4.86,57,14,29,,,43,86
+Gujarati (gu),7,100,100,4.71,4.57,29,43,29,,,71,86
+Italian (it),7,100,100,4.86,4.86,29,14,57,,,100,100
+Persian (fa),7,100,100,4.86,4.29,0,43,57,,,100,100
+ALL LANGUAGES,77,99,100,4.74,4.81,27,18,55,,,71,91

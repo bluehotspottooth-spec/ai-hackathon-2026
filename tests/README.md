@@ -47,7 +47,9 @@ That gave **93 sentences: 51 said by doctors, 42 by patients**. Example: *"OK. A
 
 **Question:** do our additions (GP interpreter rules + medical glossary) make medical translation better than plain Gemini?
 
-For **each of the 93 sentences** and **each of our 11 languages** (1,023 pairs), the same English sentence is translated **twice**, with the same AI model (`gemini-3.5-flash-lite`, the one the live app uses):
+*(The script can run all 93 sentences × 11 languages = 1,023 pairs. Because Google limited our request speed, the results we report are from the **first 7 sentences in all 11 languages (77 pairs)**; see `results/medical/README.md`.)*
+
+For **each sentence** and **each of our 11 languages**, the same English sentence is translated **twice**, with the same AI model (`gemini-3.5-flash-lite`, the one the live app uses):
 
 | | What it gets |
 |---|---|

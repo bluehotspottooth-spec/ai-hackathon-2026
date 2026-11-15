@@ -57,11 +57,11 @@ RAW = OUT / "raw_results.jsonl"
 
 PATIENT_LANGS = ["pl", "ro", "pa", "ur", "pt", "es", "ar", "bn", "gu", "it", "fa"]  # census order
 TRANSLATE_MODEL = pipeline.MODEL            # the model the live app uses (gemini-3.5-flash-lite)
-JUDGE_MODEL = "gemini-4-hydrogen"           # a DIFFERENT, stronger model judges, so it is not marking its own work
-# (Note: gemini-4-hydrogen also drafted our glossary translations in build_glossary.py, so it may
-#  slightly favour glossary words. We report this as a limitation.)
+JUDGE_MODEL = "gemini-3.1-flash-lite"       # a DIFFERENT model judges, so the translator isn't marking its own work
+# (We first tried the stronger gemini-4-hydrogen as judge, but it took ~55 s per sentence:
+#  ~3 hours for the full test, too slow before the deadline. Limitation noted in the results.)
 SEED = 2026                                 # same seed as our data split: A/B order is reproducible
-WORKERS = 10                                # how many sentences are processed at the same time
+WORKERS = 8                                 # how many at the same time (more just gets us rate-limited)
 
 
 # ----------------------------------------------------------------------------- AI calls
@@ -200,7 +200,9 @@ def main():
 
     OUT.mkdir(parents=True, exist_ok=True)
     done = {(r["id"], r["lang"]) for r in _load_raw()}
-    jobs = [(r, l) for l in langs for r in rows if (r["id"], l) not in done]
+    # Sentence by sentence, all languages each time: if the run is stopped early, every language
+    # has been tested on the same sentences (fair per-language comparison).
+    jobs = [(r, l) for r in rows for l in langs if (r["id"], l) not in done]
     print(f"{len(rows)} sentences x {len(langs)} languages: {len(done)} already done, {len(jobs)} to do. "
           f"Translator: {TRANSLATE_MODEL}, judge: {JUDGE_MODEL}")
 
