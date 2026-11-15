@@ -21,13 +21,21 @@
 
 One row per change. Take a **before and after screenshot** for the bigger ones (put them in `docs/design/screenshots/`). They're great for the write-up and the demo video.
 
+"Who" says who decided and who built it. Where Claude Code wrote the code, it says so, to be honest about AI help.
+
 | # | Date / time | Who | What we changed | Why (the user reason) | Commit |
 |---|---|---|---|---|---|
-| 1 | Sun 15 Nov, time | Benet | *Example: Made the mic buttons bigger (60 → 80 px) and moved the labels under them* | *Easier to hit for older patients and on phones* | *abc1234* |
-| 2 | | | *Logo: designed the VoiceBridge logo* | | |
-| 3 | | | *Refined colours / spacing* | | |
-| 4 | | | *Connected to the backend (`USE_MOCK = false`)* | | |
-| 5 | | | | | |
+| 1 | Sun 15 Nov | Team decision; files renamed by Claude Code | **Renamed** the AI original → `docs/design/voicebridge_ORIGINAL.html` (never edited) and our working copy → `frontend/voicebridge_FINAL.html`; the backend now serves the FINAL file at `/` | Makes it obvious what the AI made and what we made, for the team and for judges | `b133bfd` |
+| 2 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Logo:** two speech bubbles meeting (an outlined one and a solid one), on the teal brand colour. Used in the header, as the browser-tab icon, and as `frontend/logo.svg` for slides and the write-up. The wordmark is two-tone: "Voice**Bridge**" | The app is a bridge between two people's words; a clear mark makes it look like a real, trustworthy product rather than a demo | `42fafc4` |
+| 3 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Mic buttons:** bigger (60 → **88 px** on laptops, **72 px** on phones), **centred**, with the name and the "Tap or hold to speak" hint **underneath**. The same layout on laptop and phone (it used to be side-by-side on laptops and stacked on phones). Hover feedback added | It's the main thing people press. Bigger, centred targets are easier for older or anxious patients and on a phone lying on the desk, and the same layout everywhere means nobody has to relearn it | `42fafc4` |
+| 4 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Focus mode:** during an appointment the top menu and the "Start appointment" button are hidden, and the logo can't be clicked | Stops anyone accidentally leaving the conversation mid-appointment; less clutter while people are talking | `42fafc4` |
+| 5 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Quieter demo bar:** one small line under the buttons; on phones the "Demo mode" sentence is hidden (button area height 291 → 263 px) | The demo controls shouldn't compete with the real buttons, and phones need the space for the conversation | `42fafc4` |
+| 6 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Simpler empty screen:** one instruction ("Tap your button below, speak, then tap again…") instead of a 3-step list; the hint now leads with "Tap" | First-time users see one clear thing to do. Most people tap rather than hold | `42fafc4` |
+| 7 | Sun 15 Nov | Requested by Ahmed, built with Claude Code | **Polish:** a subtle dot texture on the dark home banner, and soft shadows on the message bubbles | Looks more refined and professional without adding distractions | `42fafc4` |
+| 8 | | Benet | *Your next changes go here (colours, spacing, wording…)* | | |
+| 9 | | | *Connected to the backend (`USE_MOCK = false`) and tested with a real microphone* | | |
+
+**Checked after these changes:** laptop (1280 px) and phone (375 px) sizes, focus mode, recording state, demo conversation, no sideways scrolling on phones, and the page plus `logo.svg` served correctly by the backend. Not checked yet: a real microphone and real phones (after deployment).
 
 ### Tips for writing the "why"
 Judges care about **who it's for**. Good reasons sound like:
