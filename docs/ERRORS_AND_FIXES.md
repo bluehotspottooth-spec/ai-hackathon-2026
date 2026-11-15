@@ -350,6 +350,12 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Cause:** the Arabic demo summary got **real line breaks** inside a JavaScript text (it must use the two characters backslash + n). The shell we use quietly turned the double backslash in our editing script into a single one, which Python then read as a real line break.
 - **Fix:** rewrote that line using character codes instead of backslashes, then re-tested: page loads, Arabic and Urdu demos both work. **Lesson:** after any scripted edit, reload the page and check the console for errors.
 
+### 48. ✅ After watching the demo, "Start appointment" was the demo too
+- **Found by Ahmed** on the live site: after "Watch a demo consultation", booking an appointment gave the scripted demo instead of the real app.
+- **Cause (our fix #46):** the demo button switched the whole page into demo mode and nothing switched it back.
+- **Fix:** on the live server, going to **Start appointment** always switches back to the real app (real API, demo bar hidden, demo code cleared). The demo button is unchanged. Opened as a file (no server), it stays a demo as before. Because the Arabic demo used to be reached through "Start appointment → Arabic", the demo screen now has a **Watch in Arabic / Watch in Urdu** button.
+- **Verified:** demo → Start appointment → a wrong code reached the real server and got 401; the Arabic button restarts the demo in Arabic with no API calls; the double-clicked file still shows the demo.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

@@ -700,6 +700,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
     <div class="demo-bar wrap" id="demo-bar">
       <span class="demo-note">Demo mode: replies are scripted.</span>
       <button class="btn btn-ghost btn-sm" id="autoplay-btn"><svg class="icon"><use href="#i-play"/></svg>Play the whole demo</button>
+      <button class="btn btn-ghost btn-sm" id="demo-lang-btn"><svg class="icon"><use href="#i-globe"/></svg>Watch in Arabic</button>
       <label style="display:inline-flex;align-items:center;gap:6px"><input type="checkbox" id="speak-toggle" checked> Read translations aloud</label>
     </div>
   </div>
@@ -906,6 +907,8 @@ function route(forced){
   if(!VIEWS.includes(name)) name="home";
   if(NEEDS_SESSION.has(name)&&!state.sid) name=state.code?"choose":"start";
   if(name==="choose"&&!state.code) name="start";
+  // On our live server, booking an appointment is ALWAYS real, even right after watching the demo.
+  if(name==="start"&&USE_MOCK&&OUR_SERVER) exitDemoMode();
   currentView=name;
   document.body.dataset.view=name; // lets CSS hide the menu during an appointment (focus mode)
   document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===`v-${name}`));
@@ -938,6 +941,13 @@ function enterDemoMode(){
   USE_MOCK=true; api=mockApi;
   $("demo-bar").hidden=false; $("mode-label").textContent="Demo · "; $("demo-code-hint").hidden=false;
   history.replaceState(null,"",location.pathname+"?demo"+location.hash);
+}
+// Back to the real app (used when someone goes to "Start appointment" on the live site after the demo).
+function exitDemoMode(){
+  USE_MOCK=false; api=realApi; state.code=""; state.sid=null;
+  try{ speechSynthesis.cancel(); }catch(e){} player.pause();
+  $("demo-bar").hidden=true; $("mode-label").textContent="Live · "; $("demo-code-hint").hidden=true;
+  history.replaceState(null,"",location.pathname+location.hash);
 }
 $("hero-demo").onclick=()=>{
   unlockAudio();
@@ -981,6 +991,7 @@ async function startSession(autoplay){
     $("btn-patient").setAttribute("aria-label",`Patient: hold or tap to speak ${state.lang.english}`);
     $("urgent-banner").hidden=true; $("own-doctor").hidden=true; $("own-patient").hidden=true; resetHints(); showEmpty(); updateTurns(); setBusy(false);
     go("consult");
+    if(USE_MOCK) updateDemoLangBtn();
     if(demoSwitched) note("The demo is available in Urdu and Arabic, so this one is in Urdu. The real app supports all 11 languages.");
     if(autoplay) setTimeout(playDemo,700);
   }catch(e){
@@ -1176,7 +1187,7 @@ wire("doctor"); wire("patient");
    With consent, record 10-45 s of someone talking; the backend copies the voice (ElevenLabs
    Instant Voice Cloning) so their translations are spoken in their own voice. The copy is
    deleted when the appointment ends. If copying fails, the standard voice is used. */
-const CLONE_MIN=USE_MOCK?3:10, CLONE_MAX=45;
+const CLONE_MAX=45, cloneMin=()=>USE_MOCK?3:10;   // pretend recording in the demo can be short
 const clone={mr:null,chunks:[],timer:null,start:0};
 const recType=()=>["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"].find(t=>window.MediaRecorder&&MediaRecorder.isTypeSupported(t))||"";
 function cloneWho(){ return document.querySelector('input[name="clone-who"]:checked').value; }
@@ -1205,8 +1216,8 @@ async function cloneStart(){
   $("clone-rec").textContent="Stop and copy my voice"; $("clone-rec").disabled=true;
   const tick=()=>{
     const s=Math.floor((performance.now()-clone.start)/1000);
-    cloneStatus(`● Recording 0:${String(s).padStart(2,"0")} · ${s<CLONE_MIN?`keep talking (at least ${CLONE_MIN} s)`:"tap Stop when you're ready"}`,"rec");
-    $("clone-rec").disabled=s<CLONE_MIN;
+    cloneStatus(`● Recording 0:${String(s).padStart(2,"0")} · ${s<cloneMin()?`keep talking (at least ${cloneMin()} s)`:"tap Stop when you're ready"}`,"rec");
+    $("clone-rec").disabled=s<cloneMin();
     if(s>=CLONE_MAX) cloneStop(false);
   };
   tick(); clone.timer=setInterval(tick,250);
@@ -1250,6 +1261,14 @@ async function waitForSpeech(maxMs=12000){
   while(performance.now()-t0<maxMs&&speaking()) await wait(200);
 }
 $("autoplay-btn").onclick=playDemo;
+// Demo language switch (Urdu <-> Arabic): restarts the demo in the other language.
+function updateDemoLangBtn(){ $("demo-lang-btn").lastChild.textContent=demoLang()==="ar"?"Watch in Urdu":"Watch in Arabic"; }
+$("demo-lang-btn").onclick=()=>{
+  if(state.autoplay){ toast("Let this demo finish first."); return; }
+  unlockAudio();
+  state.lang=LANGS.find(l=>l.code===(demoLang()==="ar"?"ur":"ar")); updatePair();
+  state.code="demo"; startSession(true);
+};
 $("demo-bar").hidden=!USE_MOCK;
 $("mode-label").textContent=USE_MOCK?"Demo · ":"Live · ";
 

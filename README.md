@@ -79,7 +79,7 @@ Translate one file from the terminal, without the server:
 ```
 
 ## Deploying
-**Live app: https://voicebridge-hxyi.onrender.com** (access code needed; ask Ahmed). Add `?demo` to the link for the scripted demo.
+**Live app: https://voicebridge-hxyi.onrender.com** (access code needed; ask Ahmed). The home page's **Watch a demo consultation** button plays a scripted demo (Urdu or Arabic) with no access code and no API credits; **Start appointment** is always the real app.
 
 The app runs on **Render** (free web service), built from this repo with the `Dockerfile`. The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
 (We planned Hugging Face Spaces, but Docker Spaces now need a paid plan. `deploy_space.py` is kept in case we move there.)
