@@ -800,30 +800,48 @@ const realApi={
 };
 const wait=(ms)=>new Promise(r=>setTimeout(r,ms));
 /* Demo conversation. "a" = a recording of the translation, made ONCE with ElevenLabs (the same voices as
-   the real app) and saved in frontend/demo_audio/, so the demo speaks both Urdu and English with NO API calls. */
-const SCRIPT=[
-  {a:"demo_audio/1_doctor.mp3",role:"doctor",o:"Hello, what brings you in today?",t:"السلام علیکم، آج آپ کس وجہ سے آئے ہیں؟"},
-  {a:"demo_audio/2_patient.mp3",role:"patient",o:"ڈاکٹر صاحب، مجھے تین دن سے سینے میں درد ہے اور سیڑھیاں چڑھتے وقت سانس پھول جاتی ہے۔",t:"Doctor, I've had chest pain for three days, and I get short of breath when I climb the stairs.",urgent:["chest pain","shortness of breath"]},
-  {a:"demo_audio/3_doctor.mp3",role:"doctor",o:"Do you have a fever, and are you taking any medicines?",t:"کیا آپ کو بخار ہے، اور کیا آپ کوئی دوائی لے رہے ہیں؟"},
-  {a:"demo_audio/4_patient.mp3",role:"patient",o:"نہیں، بخار نہیں ہے۔ میں دن میں دو بار پانچ سو ملی گرام میٹفارمن لیتا ہوں۔",t:"No, I don't have a fever. I take 500 milligrams of metformin twice a day.",unclear:["میٹفارمن"]},
-  {a:"demo_audio/5_doctor.mp3",role:"doctor",o:"Thank you. I'd like to check your heart with an ECG today, just to be safe.",t:"شکریہ۔ احتیاط کے طور پر میں آج ای سی جی سے آپ کا دل چیک کرنا چاہوں گا۔"},
-  {a:"demo_audio/6_patient.mp3",role:"patient",o:"ٹھیک ہے، شکریہ ڈاکٹر صاحب۔",t:"Okay, thank you doctor.",noisy:true},
-];
+   the real app) and saved in frontend/demo_audio/, so the demo speaks both sides with NO API calls.
+   Two demo languages: Urdu and Arabic (the patient's English lines are identical, so those recordings are shared).
+   Any other language uses the Urdu demo. The Arabic lines are AI translations, not yet checked by a native speaker. */
+const SCRIPTS={
+  ur:[
+    {a:"demo_audio/1_doctor.mp3",role:"doctor",o:"Hello, what brings you in today?",t:"السلام علیکم، آج آپ کس وجہ سے آئے ہیں؟"},
+    {a:"demo_audio/2_patient.mp3",role:"patient",o:"ڈاکٹر صاحب، مجھے تین دن سے سینے میں درد ہے اور سیڑھیاں چڑھتے وقت سانس پھول جاتی ہے۔",t:"Doctor, I've had chest pain for three days, and I get short of breath when I climb the stairs.",urgent:["chest pain","shortness of breath"]},
+    {a:"demo_audio/3_doctor.mp3",role:"doctor",o:"Do you have a fever, and are you taking any medicines?",t:"کیا آپ کو بخار ہے، اور کیا آپ کوئی دوائی لے رہے ہیں؟"},
+    {a:"demo_audio/4_patient.mp3",role:"patient",o:"نہیں، بخار نہیں ہے۔ میں دن میں دو بار پانچ سو ملی گرام میٹفارمن لیتا ہوں۔",t:"No, I don't have a fever. I take 500 milligrams of metformin twice a day.",unclear:["میٹفارمن"]},
+    {a:"demo_audio/5_doctor.mp3",role:"doctor",o:"Thank you. I'd like to check your heart with an ECG today, just to be safe.",t:"شکریہ۔ احتیاط کے طور پر میں آج ای سی جی سے آپ کا دل چیک کرنا چاہوں گا۔"},
+    {a:"demo_audio/6_patient.mp3",role:"patient",o:"ٹھیک ہے، شکریہ ڈاکٹر صاحب۔",t:"Okay, thank you doctor.",noisy:true},
+  ],
+  ar:[
+    {a:"demo_audio/ar_1_doctor.mp3",role:"doctor",o:"Hello, what brings you in today?",t:"مرحبًا، ما الذي أتى بك اليوم؟"},
+    {a:"demo_audio/2_patient.mp3",role:"patient",o:"دكتور، أعاني من ألم في الصدر منذ ثلاثة أيام، وأشعر بضيق في التنفس عندما أصعد الدرج.",t:"Doctor, I've had chest pain for three days, and I get short of breath when I climb the stairs.",urgent:["chest pain","shortness of breath"]},
+    {a:"demo_audio/ar_3_doctor.mp3",role:"doctor",o:"Do you have a fever, and are you taking any medicines?",t:"هل لديك حمّى، وهل تتناول أي أدوية؟"},
+    {a:"demo_audio/4_patient.mp3",role:"patient",o:"لا، ليست لدي حمّى. أتناول خمسمئة ملليغرام من الميتفورمين مرتين في اليوم.",t:"No, I don't have a fever. I take 500 milligrams of metformin twice a day.",unclear:["الميتفورمين"]},
+    {a:"demo_audio/ar_5_doctor.mp3",role:"doctor",o:"Thank you. I'd like to check your heart with an ECG today, just to be safe.",t:"شكرًا لك. أودّ أن أفحص قلبك بتخطيط القلب اليوم، من باب الاحتياط."},
+    {a:"demo_audio/6_patient.mp3",role:"patient",o:"حسنًا، شكرًا يا دكتور.",t:"Okay, thank you doctor.",noisy:true},
+  ],
+};
+const DEMO_SUMMARY={
+  ur:"• تین دن سے سینے میں درد، سیڑھیاں چڑھتے وقت سانس پھولنا۔\n• بخار نہیں ہے۔\n• دن میں دو بار میٹفارمن 500 ملی گرام۔\n• ڈاکٹر احتیاطاً آج ای سی جی کریں گے۔",
+  ar:"• ألم في الصدر منذ 3 أيام، وضيق في التنفس عند صعود الدرج.\n• لا توجد حمّى.\n• يتناول الميتفورمين 500 ملغ مرتين يوميًا.\n• يخطط الطبيب لإجراء تخطيط للقلب اليوم من باب الاحتياط.",
+};
+const demoLang=()=>SCRIPTS[state.lang.code]?state.lang.code:"ur";   // other languages use the Urdu demo
+const demoScript=()=>SCRIPTS[demoLang()];
 const demo={turns:20,next:{doctor:0,patient:0}};
 const mockApi={
   async createSession(code){ await wait(500); if(code.trim().toLowerCase()==="wrong") throw new ApiError("That code didn't work. Check with the clinic staff.",401); demo.turns=20; demo.next={doctor:0,patient:0}; return {session_id:"demo",turns_left:20}; },
   async sendTurn(sid,speaker){
     await wait(1500);
     if(demo.turns<=0) throw new ApiError("This appointment has reached its 20-turn limit. End it and start a new one.",429);
-    const lines=SCRIPT.filter(s=>s.role===speaker); const line=lines[demo.next[speaker]++ % lines.length];
+    const lines=demoScript().filter(s=>s.role===speaker); const line=lines[demo.next[speaker]++ % lines.length];
     demo.turns--;
-    return {original_text:line.o,detected_language:speaker==="doctor"?"en":"ur",target_language:speaker==="doctor"?state.lang.code:"en",translation:line.t,
+    return {original_text:line.o,detected_language:speaker==="doctor"?"en":demoLang(),target_language:speaker==="doctor"?demoLang():"en",translation:line.t,
       urgent_terms:line.urgent||[],unclear_words:line.unclear||[],speech_clarity:line.unclear?"partly_unclear":"clear",noisy:!!line.noisy,audio_base64:"",demo_audio:line.a,
       timings:{convert:.07,translate:3.1,speak:.9,total:4.1},turns_left:demo.turns};
   },
   async getSummary(){ await wait(1200); return {
     summary_en:"• Chest pain for 3 days; short of breath when climbing stairs (urgent symptoms reported).\n• No fever.\n• Takes metformin 500 mg twice a day.\n• The GP plans an ECG today as a precaution.",
-    summary_patient_lang:"• تین دن سے سینے میں درد، سیڑھیاں چڑھتے وقت سانس پھولنا۔\n• بخار نہیں ہے۔\n• دن میں دو بار میٹفارمن 500 ملی گرام۔\n• ڈاکٹر احتیاطاً آج ای سی جی کریں گے۔"}; },
+    summary_patient_lang:DEMO_SUMMARY[demoLang()]}; },
   async endSession(){ await wait(150); return {ended:true}; },
   async cloneVoice(){ await wait(1800); return {voice_ready:true,cloned:true}; },
 };
@@ -953,12 +971,17 @@ async function startSession(autoplay){
   const btn=$("begin-btn"), err=$("setup-error");
   btn.disabled=true; btn.textContent="Starting…"; err.hidden=true;
   try{
+    // Demo mode has scripts for Urdu and Arabic only: other languages switch to Urdu (with a note), so the
+    // screen never shows a confusing "Heard Urdu, not Polish" warning.
+    const demoSwitched=USE_MOCK&&!SCRIPTS[state.lang.code];
+    if(demoSwitched){ state.lang=LANGS.find(l=>l.code==="ur"); updatePair(); renderLangGrid(); }
     const s=await api.createSession(state.code||"demo",state.lang.code);
     Object.assign(state,{sid:s.session_id,turnsLeft:s.turns_left,urgent:new Set(),turnCount:0,started:Date.now()});
     $("top-lang").textContent=state.lang.english; $("pat-word").textContent=state.lang.word; $("pat-tag").textContent=state.lang.english;
     $("btn-patient").setAttribute("aria-label",`Patient: hold or tap to speak ${state.lang.english}`);
     $("urgent-banner").hidden=true; $("own-doctor").hidden=true; $("own-patient").hidden=true; resetHints(); showEmpty(); updateTurns(); setBusy(false);
     go("consult");
+    if(demoSwitched) note("The demo is available in Urdu and Arabic, so this one is in Urdu. The real app supports all 11 languages.");
     if(autoplay) setTimeout(playDemo,700);
   }catch(e){
     if(e.status===401){ $("access-error").textContent=e.message; $("access-error").hidden=false; go("start"); }
@@ -1213,7 +1236,7 @@ async function cloneStop(cancel){
 /* Play the whole scripted demo, with the buttons animating as if pressed */
 async function playDemo(){
   if(state.autoplay) return; state.autoplay=true;
-  for(const line of SCRIPT){
+  for(const line of demoScript()){
     if(currentView!=="consult"||!state.sid||state.turnsLeft<=0) break;
     await startRec(line.role); await wait(1300); await stopRec(line.role);
     if($("speak-toggle").checked){ await waitForSpeech(); await wait(700); } else await wait(900);

@@ -345,6 +345,11 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Verified on the laptop:** no reload, unlock ran, English line spoken, **0** API calls. **Not yet verified on a phone.**
 - **Follow-up (Ahmed: "both doctor and patient read aloud, without API tokens"):** the demo now plays **pre-made recordings** of its 6 lines (made once with ElevenLabs, saved in `frontend/demo_audio/`), so Urdu is spoken even on phones without an Urdu voice. Verified: all 6 played to the end in order, the auto-demo waits for each to finish, **0** API calls (FRONTEND_CHANGES #15).
 
+### 47. ✅ The page stopped working after adding the Arabic demo (a line break inside a text)
+- **Found** while testing: the whole page's script failed to load ("Invalid or unexpected token"), so nothing worked.
+- **Cause:** the Arabic demo summary got **real line breaks** inside a JavaScript text (it must use the two characters backslash + n). The shell we use quietly turned the double backslash in our editing script into a single one, which Python then read as a real line break.
+- **Fix:** rewrote that line using character codes instead of backslashes, then re-tested: page loads, Arabic and Urdu demos both work. **Lesson:** after any scripted edit, reload the page and check the console for errors.
+
 ---
 
 ## ⚠️ Important note for testing (C2)
