@@ -53,10 +53,10 @@ Read this whole file before doing anything. It is the single source of truth for
 ## 4. Architecture
 
 ```
-Gradio UI (frontend/app.py)            /api endpoints (backend/main.py)
-   │  records mic, calls Python          │  used by /docs testing and the
-   │  functions directly                 │  evaluation scripts
-   └──────────────┬──────────────────────┘
+Browser: frontend/voicebridge_FINAL.html (HTML/CSS/JS, records the mic)
+                  │  fetch("/api/session" | "/api/turn" | "/api/summary" | "/api/end")
+                  ▼
+        backend/main.py      the /api endpoints (+ /docs test page, + serves the frontend at "/")
                   ▼
         backend/service.py   create_session, run_turn, get_summary, end_session
                   │          (one place for the logic, so nothing is written twice)
@@ -65,13 +65,13 @@ Gradio UI (frontend/app.py)            /api endpoints (backend/main.py)
    ├─ voice.py     text-to-speech (ElevenLabs multilingual; fallback Gemini TTS); optional cloning
    └─ sessions.py  in-memory sessions, access code, turn limit
                   ▼
-Hosted on Hugging Face Spaces (Docker, port 7860): FastAPI app with the Gradio UI
-mounted on it (gr.mount_gradio_app), so one public link serves both.
+Hosted on Hugging Face Spaces (Docker, port 7860): one FastAPI app serves both the
+frontend page and the /api endpoints, so one public link does everything.
 ```
 
-**Decision (Sat 14 Nov, final): the frontend is HTML/CSS/JS**, built by Benet on top of the **NEW MOCK (v2)** in `frontend/index.html` (guide: `frontend/README.md`). It talks to the `/api` endpoints in section 6 and is served by `main.py`. History: we briefly planned Gradio (`docs/UI_BRIEF_GRADIO.md`, now unused), then a first Gemini Canvas mockup (`frontend/old_mockup/`, reference only).
+**Decision (final): the frontend is HTML/CSS/JS**: `frontend/voicebridge_FINAL.html` (guide: `frontend/README.md`), refined by the team from the AI-made original (`docs/design/voicebridge_ORIGINAL.html`, Git tag `ai-original-mock`; every change logged in `docs/FRONTEND_CHANGES.md`). It talks to the `/api` endpoints in section 6 and is served by `main.py`. History: we briefly planned Gradio (dropped 15 Nov), and a first Gemini Canvas mockup is kept in `frontend/old_mockup/` for reference.
 
-**Who owns which folder** (see README): `backend/` + top-level setup files = Ahmed; `frontend/` = UI teammate; `tests/` + `data/` = testing teammate; `docs/` = shared. Only edit your own folder.
+**Who owns which folder** (see README): `backend/` + top-level setup files = Ahmed; `frontend/` = Benet; `tests/` + `data/` = testing teammate; `docs/` = shared. Only edit your own folder.
 
 ## 5. Folder structure
 
@@ -80,9 +80,9 @@ voicebridge/
   CLAUDE.md
   README.md         (includes "who works where")
   docs/
-    UI_BRIEF.md                    (HTML frontend brief)
-    UI_BRIEF_GRADIO.md             (Gradio frontend brief)
-    Submission for Hackathon.docx  (write-up)
+    DEV_LOG.md, ERRORS_AND_FIXES.md, DATASET_CHECKING_PLAN.md, FRONTEND_CHANGES.md
+    design/voicebridge_ORIGINAL.html  (AI-made original frontend, never edited)
+    Submission for Hackathon.docx     (write-up)
   requirements.txt
   Dockerfile
   .env              (never committed)
@@ -98,11 +98,9 @@ voicebridge/
     sessions.py
     glossary.json
   frontend/
-    index.html        (NEW MOCK v2: the frontend, built by Benet on the Claude Code prototype)
-    README.md         (handoff guide for Benet)
-    old_mockup/       (OLD first Gemini Canvas mockup, credited, reference only)
-    app.py            (Gradio UI, exposes `demo`)
-    mock_service.py   (fake service functions for building the UI)
+    voicebridge_FINAL.html  (the frontend: one file, served at "/" by main.py)
+    README.md               (guide for Benet)
+    old_mockup/             (first Gemini Canvas mockup, credited, reference only)
   data/
     primock57/      (downloaded dataset, gitignored if large)
     term_counts.csv
@@ -141,7 +139,7 @@ Rules:
 Build in this order. Each phase ends with a milestone that must work before moving on.
 
 **A1. Setup**
-- Create the folder structure, `.gitignore` (include `.env`, `.venv/`, `__pycache__/`, large data), virtual environment, `requirements.txt` (fastapi, uvicorn[standard], python-multipart, google-genai, elevenlabs, python-dotenv, pydub, gradio (approved for the Gradio frontend); add others only with approval). Versions are pinned in `requirements.txt`.
+- Create the folder structure, `.gitignore` (include `.env`, `.venv/`, `__pycache__/`, large data), virtual environment, `requirements.txt` (fastapi, uvicorn[standard], python-multipart, google-genai, elevenlabs, python-dotenv, pydub; add others only with approval). Versions are pinned in `requirements.txt`. (gradio was added on 14 Nov and removed on 15 Nov when the HTML frontend was chosen.)
 - `.env` keys: `GEMINI_API_KEY`, `ELEVENLABS_API_KEY`, `ACCESS_CODE`.
 
 **A2. `audio.py`**
@@ -164,9 +162,9 @@ Build in this order. Each phase ends with a milestone that must work before movi
 - In-memory dict: `session_id → {doctor_lang, patient_lang, voices, turns[], turn_count, created_at}`. Access code check. 20-turn limit. Sessions are lost on restart (fine for a prototype).
 
 **A6. `service.py` + `main.py` (FastAPI)**
-- `service.py`: the 4 functions from `docs/UI_BRIEF_GRADIO.md` section 4 (`create_session`, `run_turn`, `get_summary`, `end_session`) plus `ServiceError`, calling A2 to A5.
+- `service.py`: 4 functions (`create_session`, `run_turn`, `get_summary`, `end_session`) plus `ServiceError`, calling A2 to A5.
 - `main.py`: implement the contract in section 6 by calling `service.py`.
-- Mount the Gradio `demo` from `frontend/app.py` at `/` with `gr.mount_gradio_app`.
+- Serve `frontend/voicebridge_FINAL.html` at `/` (other files in `frontend/`, e.g. a logo, are served too).
 - Run with `uvicorn backend.main:app --reload`.
 - **Milestone 3:** full turn works from `http://localhost:8000/docs` by uploading an audio file.
 
@@ -180,13 +178,14 @@ Build in this order. Each phase ends with a milestone that must work before movi
 - Hugging Face Space (Docker SDK); keys in Space Secrets.
 - **Milestone 5:** the public link works on a phone (mic permission, a full conversation, access code, limit).
 
-### PART B: Frontend / UI (teammate, in Gradio)
+### PART B: Frontend / UI (Benet, HTML/CSS/JS)
 
-**The full frontend brief is `docs/UI_BRIEF_GRADIO.md`** (or `docs/UI_BRIEF.md` if we switch back to HTML). Summary:
-- Gradio `gr.Blocks` app in `frontend/app.py`, exposed as `demo`, with 4 screens: access, language setup, appointment (doctor mic, patient mic, shared transcript, urgent flags, turns left), summary.
-- Calls the 4 `service.py` functions. `USE_MOCK = True` uses `frontend/mock_service.py` until the backend is ready.
+**The guide is `frontend/README.md`.** Summary:
+- One file, `frontend/voicebridge_FINAL.html`: info pages (Home, How it works, Languages, Safety, About) + the appointment flow (access code → language → appointment → summary).
+- Tap-or-hold mic buttons, chat-bubble transcript, pinned urgent banner, unclear-word, noise and language warnings, summary.
+- `USE_MOCK = true` = scripted demo; `false` = real backend.
+- Changes from the AI-made original are logged in `docs/FRONTEND_CHANGES.md`.
 - Footer line: "This project is a prototype and is not medical advice."
-- Known Gradio limits: click-to-record (not hold-to-speak); iPhone autoplay may need a tap.
 
 ### PART C: Testing, data and evidence (teammate, with help)
 

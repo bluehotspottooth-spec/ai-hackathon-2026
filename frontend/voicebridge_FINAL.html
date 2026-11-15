@@ -17,7 +17,7 @@
   the same so it connects to Ahmed's backend, and how to connect it.
   ===============================================================
   VoiceBridge interactive prototype (multi-page). Demo mode by default.
-  USE_MOCK = false + serve as frontend/index.html from the backend = real API, mic and voices.
+  USE_MOCK = false + served by the backend (main.py serves this file at "/") = real API, mic and voices.
   Pages (hash links): #home #how #languages #safety #about, app flow: #start #choose #consult #summary
 -->
 <style>
@@ -637,7 +637,7 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 
 <script>
 /* ===================== SETTINGS ===================== */
-const USE_MOCK = true;           // false = real backend (serve as frontend/index.html)
+const USE_MOCK = true;           // false = real backend (serve through the backend)
 const MAX_SECONDS = 60, MIN_SECONDS = 0.5, HOLD_MS = 350;
 
 const LANGS = [

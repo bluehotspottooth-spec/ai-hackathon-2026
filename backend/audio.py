@@ -3,7 +3,7 @@ audio.py: turn any recording into clean audio that Gemini can understand.
 
 Why we need this:
 - Browsers and phones record in different formats (Chrome: webm/opus,
-  iPhone: m4a/mp4, Gradio: usually wav). Gemini does not accept webm.
+  iPhone: m4a/mp4, uploaded files: often wav). Gemini does not accept webm.
 - So we convert EVERYTHING into one standard format: WAV, 16 kHz, mono.
   * WAV is accepted by Gemini.
   * 16 kHz mono is plenty for speech (Gemini down-samples audio anyway),

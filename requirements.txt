@@ -7,4 +7,3 @@ google-genai==3.3.0         # Google's official SDK for Gemini
 elevenlabs==2.78.0          # ElevenLabs SDK for text-to-speech
 python-dotenv==1.2.4        # reads our secret keys from the .env file
 pydub==0.25.1               # audio conversion (uses ffmpeg underneath)
-gradio==6.32.0              # the frontend UI (built by our teammate)

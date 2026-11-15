@@ -6,8 +6,8 @@ service.py: the 4 things the app can do, joined together in one place.
   get_summary(session_id)
   end_session(session_id)
 
-Both frontends call these (the HTML app through the /api endpoints in main.py,
-a Gradio app directly), so the logic is written once. Every function returns a
+The frontend calls these through the /api endpoints in main.py (and the
+evaluation scripts can call them directly), so the logic is written once. Every function returns a
 plain dict with exactly the fields in the API contract (CLAUDE.md section 6),
 or raises ServiceError with a friendly message.
 
@@ -42,7 +42,7 @@ def create_session(access_code: str, doctor_lang: str, patient_lang: str) -> dic
 def run_turn(session_id: str, speaker: str, audio: bytes | str) -> dict:
     """
     One person speaks. `audio` is the recording's bytes (HTML app) or a file
-    path (Gradio gives a path).
+    path (handy for test scripts).
     """
     if speaker not in ("doctor", "patient"):
         raise ServiceError("Speaker must be 'doctor' or 'patient'.", 400)

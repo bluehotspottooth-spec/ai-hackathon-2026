@@ -6,14 +6,14 @@
 
 | | |
 |---|---|
-| **Original file (never edited)** | [`docs/design/voicebridge_premium_mockup.html`](design/voicebridge_premium_mockup.html) |
+| **Original file (never edited)** | [`docs/design/voicebridge_ORIGINAL.html`](design/voicebridge_ORIGINAL.html) |
 | **Git tag** | `ai-original-mock` (on GitHub: Code → Tags). It shows exactly what the AI made, with a timestamp |
 | **Made with** | Claude Code (AI coding assistant), 14 Nov 2026, based on our first Gemini Canvas mockup (`frontend/old_mockup/`) |
 | **What it already did** | Multi-page site, appointment flow, chat-bubble transcript, tap-or-hold mic buttons, urgent banner, demo mode, API calls to our backend |
 
-**Our working copy:** [`frontend/index.html`](../frontend/index.html). All changes below happen there.
+**Our working copy (FINAL):** [`frontend/voicebridge_FINAL.html`](../frontend/voicebridge_FINAL.html). All changes below happen there.
 
-**How to compare old vs new at any time:** on GitHub, open `https://github.com/bluehotspottooth-spec/ai-hackathon-2026/compare/ai-original-mock...main` and look at `frontend/index.html`. Or locally: `git diff ai-original-mock -- frontend/index.html`.
+**How to compare old vs new at any time:** on GitHub, open `https://github.com/bluehotspottooth-spec/ai-hackathon-2026/compare/ai-original-mock...main` (the files were renamed on 15 Nov, so GitHub shows them as moved and changed). Or locally: `git diff ai-original-mock:docs/design/voicebridge_premium_mockup.html HEAD:frontend/voicebridge_FINAL.html` (at the tagged moment the original was still called `voicebridge_premium_mockup.html`).
 
 ---
 

@@ -4,13 +4,13 @@
 
 | File | What it is |
 |---|---|
-| **`index.html`** | ✅ **NEW MOCK (v2)**: the current design. Work on this one |
+| **`voicebridge_FINAL.html`** | ✅ **FINAL**: our frontend. Work on this one |
 | **`README.md`** | ✅ **NEW MOCK (v2)**: this guide |
 | `old_mockup/` | ❌ The OLD first mockup from Gemini Canvas. Reference only, don't edit |
 
-> **Team decision (15 Nov):** this mock is our main frontend. The AI-made original stays untouched in `docs/design/` (Git tag `ai-original-mock`). **Write down every change you make, and why, in [`docs/FRONTEND_CHANGES.md`](../docs/FRONTEND_CHANGES.md).** That's our evidence of what we added ourselves.
+> **Team decision (15 Nov):** this mock is our main frontend. The AI-made original stays untouched as `docs/design/voicebridge_ORIGINAL.html` (Git tag `ai-original-mock`). **Write down every change you make, and why, in [`docs/FRONTEND_CHANGES.md`](../docs/FRONTEND_CHANGES.md).** That's our evidence of what we added ourselves.
 
-`frontend/index.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
+`frontend/voicebridge_FINAL.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
 
 > Live demo of the same design (Ahmed can share it): a private claude.ai link from the team.
 > First draft of this design was AI-generated (Claude Code, based on the earlier Gemini Canvas mockup in `old_mockup/`). Credit both in the write-up.
@@ -19,7 +19,7 @@
 
 ## 1. See it working (2 minutes, no backend needed)
 
-Double-click `frontend/index.html` (or in PowerShell, from the `voicebridge` folder: `start frontend\index.html`).
+Double-click `frontend/voicebridge_FINAL.html` (or in PowerShell, from the `voicebridge` folder: `start frontend\voicebridge_FINAL.html`).
 
 It opens in **demo mode** (`USE_MOCK = true`): scripted answers, no microphone, no server.
 - Any access code works (type `wrong` to see the error)
@@ -29,7 +29,7 @@ It opens in **demo mode** (`USE_MOCK = true`): scripted answers, no microphone, 
 
 ## 2. What you CAN change freely ✅
 
-| What | Where in `index.html` |
+| What | Where in `voicebridge_FINAL.html` |
 |---|---|
 | **Colours** (light and dark) | The `:root { --bg: ...; --brand: ...}` block at the top of `<style>`. Change a colour once there and it changes everywhere. Dark mode colours are in the two blocks just below it |
 | **Fonts** | `--font` and `--display` in `:root`, plus the Google Fonts `<link>` |
@@ -56,7 +56,7 @@ Tip: after each change, reload the page and run **Play the whole demo**. If the 
 Already tested by Ahmed and Claude: with `USE_MOCK = false` it worked first time with the real backend (session, Urdu → English and English → Urdu turns in about 5 s each with spoken audio, urgent banner, summary, appointment deleted at the end).
 
 1. Get the latest code: `git pull`
-2. In `index.html`, find `const USE_MOCK = true;` and change it to **`false`**
+2. In `voicebridge_FINAL.html`, find `const USE_MOCK = true;` and change it to **`false`**
 3. Ahmed (or you, with the `.env` keys) starts the backend from the `voicebridge` folder:
    ```
    .venv\Scripts\python -X utf8 -m uvicorn backend.main:app --reload --port 8000

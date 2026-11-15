@@ -18,7 +18,7 @@ needs no special permission (CORS) to call /api.
 from pathlib import Path
 
 from fastapi import FastAPI, File, Form, Request, UploadFile
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -97,11 +97,17 @@ def health():
 
 
 # ---- the website itself
-# If the frontend has been built (frontend/index.html exists), serve it at "/".
-# Until then, "/" goes to the /docs test page.
+# The whole frontend is one file, frontend/voicebridge_FINAL.html, served at "/".
+# Any other files in frontend/ (e.g. a logo) are served by name, e.g. /logo.svg.
+# If the file doesn't exist, "/" goes to the /docs test page instead.
 FRONTEND = Path(__file__).resolve().parent.parent / "frontend"
-if (FRONTEND / "index.html").exists():
-    app.mount("/", StaticFiles(directory=FRONTEND, html=True), name="frontend")
+FRONTEND_PAGE = FRONTEND / "voicebridge_FINAL.html"
+if FRONTEND_PAGE.exists():
+    @app.get("/", include_in_schema=False)
+    def frontend_page():
+        return FileResponse(FRONTEND_PAGE)
+
+    app.mount("/", StaticFiles(directory=FRONTEND), name="frontend")
 else:
     @app.get("/", include_in_schema=False)
     def root():
