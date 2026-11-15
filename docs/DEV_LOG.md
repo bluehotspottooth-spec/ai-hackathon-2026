@@ -37,7 +37,7 @@ Built by Ahmed Khan. Tools and services used are credited in the README and the 
 - **Tested (English → Urdu, robot voice):** correct Urdu; flagged "chest pain" and "shortness of breath"; did **not** flag "I do not have a fever"; kept "500 mg twice a day" exact.
 
 ### ~12:00 · Milestone 1: real Urdu speech → English
-- Downloaded 2 Urdu clips from **FLEURS** (Google, CC BY 4.0): test IDs 1806 and 1930. Results saved in `tests/results/milestone1_urdu.json`.
+- Downloaded 2 Urdu clips from **FLEURS** (Google, CC BY 4.0): test IDs 1806 and 1930. Results saved in `tests/results/early_checks/milestone1_urdu.json`.
 - **Speed:** 3–4 s per turn, fast enough for a live conversation.
 - **Quality:** mixed, honestly reported:
   - Clip 1806 (12 s): transcribed almost perfectly in both modes. The baseline translated it correctly; VoiceBridge mistranslated one word ("pollution" → "flooding").
@@ -67,7 +67,7 @@ Built by Ahmed Khan. Tools and services used are credited in the README and the 
 - **Decision: model `eleven_v4_turbo`.** It's the only fast model that supports all 11 languages. The older models used in most tutorials skip Urdu, Panjabi, Bengali, Gujarati and Persian.
 - **Decision: two stock British voices**: *Alice* speaks the patient's words (in English) to the doctor, and *Daniel* speaks the doctor's words to the patient. Different voices make the direction obvious. They're stock voices, so we're not using anyone's real voice.
 - **Decision: send the language code** with the text, because Urdu, Persian and Arabic share an alphabet; the code tells the voice how to pronounce it.
-- **Milestone 2 ✅:** Urdu and Polish doctor questions + an English patient sentence, generated in **0.6–1.1 s** each. Files: `tests/results/milestone2/`.
+- **Milestone 2 ✅:** Urdu and Polish doctor questions + an English patient sentence, generated in **0.6–1.1 s** each. Files: `tests/results/early_checks/milestone2/`.
 - **All-languages check:** we spoke one GP sentence in all 11 languages and had Gemini listen back: right language 11/11, 95–100% word match. It caught two real problems (Polish slash read aloud, Arabic letter), both fixed and re-tested (ERRORS_AND_FIXES #19–21).
 - **Cost:** about **0.4 credits per character**. 9,643 credits left = roughly 400 more spoken turns this month, so testers should avoid big speech batches.
 

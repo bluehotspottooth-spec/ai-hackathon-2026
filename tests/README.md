@@ -12,7 +12,7 @@
 | `build_glossary.py` | Builds our medical glossary (`backend/glossary.json`) from the **other 40** consultations |
 | `primock57.py` | Helper that reads the PriMock57 transcripts |
 | `results/medical/` | ⭐ **Medical test results** (start with its `README.md`) |
-| `results/milestone1_urdu.json`, `results/milestone2/` | Early checks while building (one Urdu clip; first spoken Urdu/Polish sentences) |
+| `results/early_checks/` (`milestone1_urdu.json`, `milestone2/`) | Early checks while building (one Urdu clip; first spoken Urdu/Polish sentences) |
 | `clips/` | Audio clips. `clips/recording/<language>/` is where teammates put their own recordings (native speakers) |
 
 ---

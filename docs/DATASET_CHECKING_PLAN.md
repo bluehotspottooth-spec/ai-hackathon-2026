@@ -1,7 +1,7 @@
 # Dataset checking plan
 
 How we build the medical glossary, how we check it against the NHS standard, and how we test VoiceBridge fairly.
-For the **testing teammate** (steps C1–C3 in CLAUDE.md), but everyone should understand it, because judges will ask.
+For the **testing teammate** (steps C1–C3 in docs/PROJECT_BRIEF.md), but everyone should understand it, because judges will ask.
 
 > **The one rule that matters most:** never test on data that was used to build the system.
 > The hackathon rules say results must come from **test data not used to build the system**.

@@ -9,7 +9,7 @@ service.py: the 4 things the app can do, joined together in one place.
 
 The frontend calls these through the /api endpoints in main.py (and the
 evaluation scripts can call them directly), so the logic is written once. Every function returns a
-plain dict with exactly the fields in the API contract (CLAUDE.md section 6),
+plain dict with exactly the fields in the API contract (the project brief (docs/PROJECT_BRIEF.md) section 6),
 or raises ServiceError with a friendly message.
 
 What one turn does:

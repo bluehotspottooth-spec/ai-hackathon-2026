@@ -171,4 +171,4 @@ A: Good examples: the AI **invented symptoms** when the audio was noisy (we adde
 - What we changed in the design: `docs/FRONTEND_CHANGES.md`
 - Every error and how we fixed it: `docs/ERRORS_AND_FIXES.md`
 - What we did each day: `docs/DEV_LOG.md`
-- The project brief: `CLAUDE.md`
+- The project brief: `docs/PROJECT_BRIEF.md`

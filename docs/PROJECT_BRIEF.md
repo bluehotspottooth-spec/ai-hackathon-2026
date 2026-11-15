@@ -1,4 +1,4 @@
-# VoiceBridge: project brief for Claude Code
+# VoiceBridge: project brief
 
 Read this whole file before doing anything. It is the single source of truth for this project.
 
@@ -9,7 +9,7 @@ Read this whole file before doing anything. It is the single source of truth for
 - This is our **first real project**. We know basic Python and what API keys are, but we have never connected APIs, built a backend, or deployed anything.
 - Machine: **Windows 11, PowerShell, Python 3.12, Git, VS Code, ffmpeg** installed.
 
-**Rules for you (Claude Code):**
+**Rules for the AI coding assistant:**
 1. Work in **small steps**. Do one step, run it, show the result, then stop and wait for us to say "next".
 2. After writing each file or function, **explain in plain English** what it does and why. We must be able to explain every part to judges in a live Q&A.
 3. **Ask before** installing packages, deleting anything, or changing the API contract (section 6).
@@ -78,9 +78,9 @@ frontend page and the /api endpoints, so one public link does everything.
 
 ```
 voicebridge/
-  CLAUDE.md
   README.md         (includes "who works where")
   docs/
+    PROJECT_BRIEF.md (this file)
     DEV_LOG.md, ERRORS_AND_FIXES.md, DATASET_CHECKING_PLAN.md, FRONTEND_CHANGES.md
     design/voicebridge_ORIGINAL.html  (AI-made original frontend, never edited)
     Submission for Hackathon.docx     (write-up)
@@ -219,7 +219,7 @@ All results go in `tests/results/` as CSV files and are summarised in the write-
 **C5. Evidence and deliverables**
 - Results tables and one or two charts (e.g. chrF per language, baseline vs VoiceBridge).
 - "Known limitations" list with real failure examples and our explanation.
-- Credits list: every dataset, model, API, library and AI tool (Gemini, ElevenLabs, PriMock57, FLEURS, FLORES+, SNOMED CT browser, ONS Census 2021, FastAPI, pydub, jiwer, sacrebleu, Claude) with links and licences.
+- Credits list: every dataset, model, API, library and AI tool (Gemini, ElevenLabs, PriMock57, FLEURS, FLORES+, SNOMED CT browser, ONS Census 2021, FastAPI, pydub, jiwer, sacrebleu) with links and licences.
 - One-page write-up (Veritas template), 2-minute demo video, showcase page.
 
 ## 8. Timeline (London time)

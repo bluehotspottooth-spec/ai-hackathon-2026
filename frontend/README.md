@@ -41,7 +41,7 @@ It opens in **demo mode**: scripted answers, no microphone, no server. (The page
 
 ## 3. What you must NOT change ❌ (or it won't connect to the backend)
 
-1. **The `realApi` object** in the script: the addresses `/api/session`, `/api/turn`, `/api/summary`, `/api/end` and the field names `access_code`, `doctor_lang`, `patient_lang`, `session_id`, `speaker`, `audio`. These must match the backend exactly (see `CLAUDE.md` section 6).
+1. **The `realApi` object** in the script: the addresses `/api/session`, `/api/turn`, `/api/summary`, `/api/end` and the field names `access_code`, `doctor_lang`, `patient_lang`, `session_id`, `speaker`, `audio`. These must match the backend exactly (see `docs/PROJECT_BRIEF.md` section 6).
 2. **The field names the page reads back:** `original_text`, `translation`, `detected_language`, `target_language`, `urgent_terms`, `unclear_words`, `speech_clarity`, `noisy`, `audio_base64`, `timings`, `turns_left`, `summary_en`, `summary_patient_lang`.
 3. **Element `id`s that the script uses** (e.g. `btn-doctor`, `btn-patient`, `thread`, `turns`, `urgent-banner`, `access-form`, `lang-grid`, `sum-en`, `sum-pat`, `end-modal`). Rename one → also rename it in the script, or it breaks. If unsure, search the file for `$("the-id")`.
 4. **The safety displays:** urgent banner, "Said in …" original text, underlined unclear words, noise and wrong-language badges, "Not what I said". These are part of our safety story for the judges.

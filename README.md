@@ -18,7 +18,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 | `frontend/` | **Benet** | The web app people see: `voicebridge_FINAL.html` (start with `frontend/README.md`). `frontend/old_mockup/` holds the OLD first Gemini Canvas mockup (reference only) |
 | `tests/` and `data/` | **Testing teammate** | Glossary building, FLEURS + medical evaluations, results CSVs, charts |
 | `docs/` | **Everyone** | Briefs and the write-up. Say in the team chat before editing a shared doc |
-| Top level (`CLAUDE.md`, `requirements.txt`, `.gitignore`, `.env.example`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
+| Top level (`requirements.txt`, `.gitignore`, `.env.example`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
 
 ### Uploading through the GitHub website
 1. Open **your** folder on GitHub first (e.g. click `frontend`).
@@ -43,7 +43,7 @@ tests/          Testing teammate: evaluation scripts
   results/      result CSVs and charts
 data/           Testing teammate: datasets and term counts
 docs/           Briefs, write-up (Submission for Hackathon.docx), dev log, errors + known issues
-CLAUDE.md       Full project brief (single source of truth)
+docs/PROJECT_BRIEF.md   Full project brief (single source of truth)
 Dockerfile      Recipe for running the app online (Render)
 ```
 
@@ -82,7 +82,7 @@ Translate one file from the terminal, without the server:
 **Live app: https://voicebridge-hxyi.onrender.com** (access code needed; ask Ahmed). The home page's **Watch a demo consultation** button plays a scripted demo (Urdu or Arabic) with no access code and no API credits; **Start appointment** is always the real app.
 
 The app runs on **Render** (free web service), built from this repo with the `Dockerfile`. The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
-(We planned Hugging Face Spaces, but Docker Spaces now need a paid plan. `deploy_space.py` is kept in case we move there.)
+(We planned Hugging Face Spaces, but Docker Spaces now need a paid plan.)
 
 **Updating the live app:** Render doesn't rebuild automatically (we deploy from the public repo link, not a GitHub connection). After pushing to `main`: Render dashboard → `voicebridge` → **Manual Deploy → Deploy latest commit**.
 
@@ -90,7 +90,7 @@ The app runs on **Render** (free web service), built from this repo with the `Do
 - `docs/DEV_LOG.md`: what we built, when, and **why** each decision was made
 - `docs/ERRORS_AND_FIXES.md`: every error and fix, plus the **known issues and limitations** table
 - `docs/DATASET_CHECKING_PLAN.md`: how the glossary was built and how we test fairly
-- `CLAUDE.md`: the full project brief and API contract
+- `docs/PROJECT_BRIEF.md`: the full project brief and API contract
 
 ## Credits
 

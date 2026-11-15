@@ -223,7 +223,7 @@ if __name__ == "__main__":
     import time
     from pathlib import Path
 
-    out_dir = Path("tests/results/milestone2")
+    out_dir = Path("tests/results/early_checks/milestone2")
     out_dir.mkdir(parents=True, exist_ok=True)
     samples = [
         ("ur", "doctor", "آپ کو یہ درد کب سے ہے؟ کیا سانس لینے میں تکلیف ہوتی ہے؟"),

@@ -173,7 +173,7 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 
 ### 19. 📊 Round-trip test of speech in all 11 languages
 - **How:** Gemini translated one GP sentence (*"Are you allergic to any medicines? Please tell me if you are pregnant."*) into all 11 languages, ElevenLabs spoke each one, and then our Gemini pipeline **listened back**. If the pronunciation were poor, the transcript would come back different.
-- **Result:** all 11 recognised as the right language; **95–100% text match**; speech generated in 0.6–1.1 s. Details: `tests/results/milestone2/tts_all_languages.json`.
+- **Result:** all 11 recognised as the right language; **95–100% text match**; speech generated in 0.6–1.1 s. Details: `tests/results/early_checks/milestone2/tts_all_languages.json`.
 - **Limit of this test:** it uses AI to check AI. A native speaker still has to listen and judge whether it sounds natural (part of C4).
 
 ### 20. ✅ Polish: the voice read a slash out loud ("pani ukośnik pan")
@@ -226,7 +226,7 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Error:** every request failed with *"Model 'gemini-3.8-flash-lite-tts' not found"*, even though Google's docs list it.
 - **Cause:** voice models only work through the **beta version** of the API (`v1beta`); Google's example uses it, our client didn't.
 - **Fix:** one line, `http_options={"api_version": "v1beta"}`.
-- **Test (listen-back, all 11 languages):** right language **11/11**, **93–100%** word match, **including Urdu** (which Google's list didn't mention). 3.3–4.7 s each (slower than ElevenLabs' ~1 s). **Automatic switch test:** ElevenLabs given a bad voice → Gemini voice took over ✅. Results: `tests/results/milestone2/backup_voice_all_languages.json`.
+- **Test (listen-back, all 11 languages):** right language **11/11**, **93–100%** word match, **including Urdu** (which Google's list didn't mention). 3.3–4.7 s each (slower than ElevenLabs' ~1 s). **Automatic switch test:** ElevenLabs given a bad voice → Gemini voice took over ✅. Results: `tests/results/early_checks/milestone2/backup_voice_all_languages.json`.
 
 ### 27. ⚠️ Random slow answers from Google
 - **What happened:** usually 3–4 s, but we saw 11 s, 22 s and once **54 s** (Bengali, backup voice).
