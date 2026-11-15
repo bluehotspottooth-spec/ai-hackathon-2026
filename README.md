@@ -18,7 +18,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 | `frontend/` | **Benet** | The web app people see: `voicebridge_FINAL.html` (start with `frontend/README.md`). `frontend/old_mockup/` holds the OLD first Gemini Canvas mockup (reference only) |
 | `tests/` and `data/` | **Testing teammate** | Glossary building, FLEURS + medical evaluations, results CSVs, charts |
 | `docs/` | **Everyone** | Briefs and the write-up. Say in the team chat before editing a shared doc |
-| Top level (`requirements.txt`, `.gitignore`, `Dockerfile`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
+| `deploy/` (`Dockerfile`, `requirements.txt`) and `.gitignore` | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
 
 ### Uploading through the GitHub website
 1. Open **your** folder on GitHub first (e.g. click `frontend`).
@@ -50,7 +50,7 @@ tests/          How we tested it (start with tests/README.md)
 data/           PriMock57 split (40 build / 17 test), term counts (dataset itself: download from its GitHub)
 docs/           Project brief, dev log, errors + fixes, frontend changes, explainer, write-up
   design/       the untouched AI-made original frontend (for comparison)
-Dockerfile, requirements.txt   how Render builds and runs the app
+deploy/         how Render builds and runs the app (Dockerfile, requirements.txt)
 ```
 
 ## How VoiceBridge works (one turn)
@@ -68,7 +68,7 @@ Recording ─► audio.py ─────────► pipeline.py + prompts.p
 First time only:
 ```
 python -m venv .venv
-.venv\Scripts\python -m pip install -r requirements.txt
+.venv\Scripts\python -m pip install -r deploy/requirements.txt
 notepad .env                  # create it with 3 lines: GEMINI_API_KEY=...  ELEVENLABS_API_KEY=...  ACCESS_CODE=...
 ```
 Also needs **ffmpeg** installed (`winget install Gyan.FFmpeg`).
@@ -87,7 +87,7 @@ Translate one file from the terminal, without the server:
 ## Deploying
 **Live app: https://voicebridge-hxyi.onrender.com** (access code needed; ask Ahmed). The home page's **Watch a demo consultation** button plays a scripted demo (Urdu or Arabic) with no access code and no API credits; **Start appointment** is always the real app.
 
-The app runs on **Render** (free web service), built from this repo with the `Dockerfile`. The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
+The app runs on **Render** (free web service), built from this repo with `deploy/Dockerfile` (Render setting: Dockerfile Path = `./deploy/Dockerfile`). The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
 (We planned Hugging Face Spaces, but Docker Spaces now need a paid plan.)
 
 **Updating the live app:** Render doesn't rebuild automatically (we deploy from the public repo link, not a GitHub connection). After pushing to `main`: Render dashboard → `voicebridge` → **Manual Deploy → Deploy latest commit**.

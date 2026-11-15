@@ -369,6 +369,16 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **Fix:** no turns → "Nothing was said in this appointment, so there's no summary" (the page doesn't even ask the server). Demo summaries are now built only from the lines that were played.
 - **Verified:** nothing said ✅, greeting only ✅, 2 turns → only the chest-pain bullet (English + Urdu) ✅, full Arabic demo → all 4 bullets ✅, no errors.
 
+### 51. ⚠️ A tester got "Too many requests"
+- **Found by** a teammate testing the live site. Render's log: repeated `POST /api/session` → **429**: they had used the **10 new appointments per hour** allowed per visitor (`ratelimit.py`). It was not ElevenLabs (plenty of credits left).
+- **Why it was too tight:** every "Begin appointment" counts, even with a wrong code. A tester trying several languages, or people sharing one Wi-Fi, hit it quickly and were locked out for up to an hour.
+- **Fix:** raised to **30 appointments per hour** and **60 turns per 5 minutes**. The access code still protects our credits. Redeploying also reset the counters, which unlocked the tester.
+
+### 52. ✅ Our own deploy failed after moving files into `deploy/`
+- **What happened:** after moving `Dockerfile` and `requirements.txt` into `deploy/`, Render's build failed: `COPY requirements.txt: not found`. The live site kept running the previous version, so users saw no problem, but we wrongly reported that the new version was live (our checks hit the old version).
+- **Cause:** the corrected Dockerfile line was edited locally but never committed: the `git add` command named files that no longer existed, failed, and its error message was hidden.
+- **Fix:** committed the corrected `deploy/Dockerfile`, redeployed, and this time checked Render's **events page** for "Deploy live", not just the website. **Lesson:** after a deploy, confirm the new version is the one running.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

@@ -11,8 +11,10 @@ the times of their recent requests. If they made too many in the last few
 minutes, we refuse with HTTP 429 "please slow down".
 
 Limits (per visitor):
-  - new appointments: 10 per hour   (normal: 1 per appointment)
-  - turns:            30 per 5 min  (normal: a few per minute at most)
+  - new appointments: 30 per hour   (normal: 1 per appointment)
+  - turns:            60 per 5 min  (normal: a few per minute at most)
+  (Raised on 15 Nov from 10 and 30: a tester trying several languages, and people sharing
+  one Wi-Fi, were locked out for up to an hour. The access code still protects our credits.)
 
 Note: kept in memory, so it resets if the server restarts. That's fine for a prototype.
 """
@@ -24,8 +26,8 @@ from collections import defaultdict, deque
 from backend.errors import ServiceError
 
 LIMITS = {
-    "session": (10, 60 * 60),  # max 10 new appointments per 60 minutes
-    "turn": (30, 5 * 60),      # max 30 turns per 5 minutes
+    "session": (30, 60 * 60),  # max 30 new appointments per 60 minutes
+    "turn": (60, 5 * 60),      # max 60 turns per 5 minutes
     "clone": (6, 60 * 60),     # max 6 voice copies per hour (each uses one of our ElevenLabs voice slots)
 }
 
@@ -49,7 +51,7 @@ def check(kind: str, visitor: str):
 
 def visitor_id(headers, client_host: str | None) -> str:
     """
-    Who is this? Their IP address. On Hugging Face the app sits behind a proxy,
+    Who is this? Their IP address. On Render the app sits behind a proxy,
     which puts the real address in the 'X-Forwarded-For' header.
     """
     forwarded = headers.get("x-forwarded-for")

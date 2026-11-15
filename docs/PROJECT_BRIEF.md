@@ -84,8 +84,8 @@ voicebridge/
     DEV_LOG.md, ERRORS_AND_FIXES.md, FRONTEND_CHANGES.md, EXPLAINED_FOR_JUDGES.md
     design/voicebridge_ORIGINAL.html  (AI-made original frontend, never edited)
     Submission for Hackathon.docx     (write-up)
-  requirements.txt
-  Dockerfile
+  deploy/
+    Dockerfile, Dockerfile.dockerignore, requirements.txt
   .env              (never committed)
   .gitignore
   backend/
@@ -174,7 +174,7 @@ Build in this order. Each phase ends with a milestone that must work before movi
 - Optional voice cloning with consent.
 
 **A8. Deploy**
-- `Dockerfile`: Python 3.12 slim, install ffmpeg via apt, install requirements, run uvicorn on the host's `PORT` (7860 if none).
+- `deploy/Dockerfile`: Python 3.12 slim, install ffmpeg via apt, install requirements, run uvicorn on the host's `PORT` (7860 if none).
 - Render web service (free plan, Docker) built from the GitHub repo; keys in Render's Environment settings. (Hugging Face was the plan, but its Docker Spaces now need the paid PRO plan.)
 - **Milestone 5:** the public link works on a phone (mic permission, a full conversation, access code, limit).
 

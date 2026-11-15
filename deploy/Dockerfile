@@ -23,10 +23,10 @@ ENV HOME=/home/user \
 WORKDIR /home/user/app
 
 # 4. Install our Python packages first (Docker caches this step, so code changes rebuild faster)
-COPY --chown=user requirements.txt .
+COPY --chown=user deploy/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir --user -r requirements.txt
 
-# 5. Copy in only the code the app needs (tests, data and docs stay out; see .dockerignore)
+# 5. Copy in only the code the app needs (tests, data and docs stay out; see Dockerfile.dockerignore)
 COPY --chown=user backend ./backend
 COPY --chown=user frontend ./frontend
 
