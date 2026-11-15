@@ -312,6 +312,25 @@ FLEURS Urdu clip **1806** (12 s): both modes transcribed it almost perfectly.
 - **What the app did:** fell back to the stock voice automatically (the Urdu sentence was still spoken), and the clone was deleted. ✅
 - **Resolved:** ✅ tested with **Ahmed's own voice** (with consent) through the real app in Chrome: clone made, both turns spoken in his cloned voice (no fallback in the server log), and after **End** our check found **0** temporary clones left on the ElevenLabs account.
 
+## Deployment (Sun 15 Nov, late afternoon)
+
+### 41. ⚠️ Hugging Face Docker Spaces now need a paid plan
+- **Found:** on the "Create a new Space" page, Docker (and Gradio) were greyed out: *"Gradio and Docker Spaces require a paid plan"* (PRO, $9/month). Only "Static" Spaces (plain web pages) are free, and our app needs a Python server.
+- **Decision (Ahmed):** host on **Render's free plan** instead (Docker supported, no card). Trade-off: the free app **sleeps after 15 minutes** without visitors; the next visit takes about a minute to wake up.
+
+### 42. ✅ Changes needed for Render
+- **Port:** Render tells the app which port to use (`PORT`, 10000); the Dockerfile used a fixed 7860. Fixed: `--port ${PORT:-7860}`.
+- **Demo/real switch:** the page had a manual `USE_MOCK` switch, so the online copy would have opened in demo mode. Now automatic: real backend only on our own servers (localhost, `*.onrender.com`, `*.hf.space`), demo everywhere else, `?demo` forces it. A first version ("demo only for file://") was wrong: previews open the page as `data:`, not `file:`, so it would have tried the real API there.
+
+### 43. ⚠️ Render couldn't read the private repo
+- **Found:** the GitHub repo is private and belongs to a teammate's account, so Ahmed's Render account couldn't be given access.
+- **Fix (team):** the repo owner made it **public** (judges need to see it anyway). Before that we checked the whole Git history: **no API keys** and `.env` never committed. Note: commit authors' email addresses are visible in a public history.
+- **Side effect:** without a GitHub connection, Render **doesn't auto-deploy**; after each push we click *Manual Deploy → Deploy latest commit*.
+
+### 44. ✅ Live test passed
+- **https://voicebridge-hxyi.onrender.com**: health check ✅, page + logo ✅, wrong access code → 401 ✅, full English → Urdu turn with both urgent flags and spoken audio ✅, appointment deleted ✅.
+- **Slower than the laptop:** 10.2 s total (convert 1.5 s on Render's 0.1-CPU free machine; Gemini 7.9 s, which varies between calls). Laptop: ~5 s. Worth re-measuring a few turns and reporting honestly.
+
 ---
 
 ## ⚠️ Important note for testing (C2)

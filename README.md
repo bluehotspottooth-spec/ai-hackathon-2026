@@ -79,8 +79,12 @@ Translate one file from the terminal, without the server:
 ```
 
 ## Deploying
+**Live app: https://voicebridge-hxyi.onrender.com** (access code needed; ask Ahmed). Add `?demo` to the link for the scripted demo.
+
 The app runs on **Render** (free web service), built from this repo with the `Dockerfile`. The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
 (We planned Hugging Face Spaces, but Docker Spaces now need a paid plan. `deploy_space.py` is kept in case we move there.)
+
+**Updating the live app:** Render doesn't rebuild automatically (we deploy from the public repo link, not a GitHub connection). After pushing to `main`: Render dashboard → `voicebridge` → **Manual Deploy → Deploy latest commit**.
 
 ## Documentation
 - `docs/DEV_LOG.md`: what we built, when, and **why** each decision was made

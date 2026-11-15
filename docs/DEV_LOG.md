@@ -162,6 +162,12 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Later:** Ahmed upgraded to ElevenLabs Starter and gave the key "Voices: write". Fixed a library bug (#39); clone creation (2.6 s) and deletion now verified. Speaking with a clone of a *stock* voice was blocked by ElevenLabs' anti-misuse check (#40), so the final check needed a team member's own voice. **Real test passed (Ahmed's voice, with consent, real app in Chrome at localhost):** clone → 2 turns spoken in his own voice → summary → End → 0 clones left on the account. This was also our first real-microphone test of the full frontend. Added "Your voice is not kept" to the Home page warning (FRONTEND_CHANGES #13).
 - **Why a decision was needed:** the brief's feature freeze was Sun 1 PM. The team chose to add it because it's listed as optional in the brief and the API contract already had `/api/clone`.
 
+### Evening · Deployed on Render (Milestone 5, laptop part)
+- **Live link: https://voicebridge-hxyi.onrender.com**
+- **Why Render, not Hugging Face:** Hugging Face Docker Spaces now need the paid PRO plan ($9/month); Render's free plan runs our Dockerfile at no cost. Trade-off: it sleeps after 15 min idle (~1 min to wake). (ERRORS_AND_FIXES #41)
+- **Steps:** the page now picks demo/real mode by itself; the Dockerfile uses Render's `PORT`; the repo was made public by its owner (no keys in the history, checked); Render web service created from the public repo (Docker, Frankfurt, free plan, health check `/api/health`); Ahmed typed the 3 secret values into Render's Environment Variables himself.
+- **Tested live:** wrong code refused, a full English → Urdu turn with urgent flags and audio in 10.2 s, appointment deleted. **Still to test:** phones (iPhone + Android), the voice cloning flow online.
+
 ---
 
 ## Next
