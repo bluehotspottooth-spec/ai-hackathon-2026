@@ -1,7 +1,6 @@
 # --- Secrets: NEVER commit these ---
 .env
 .env.*
-!.env.example
 
 # --- Python ---
 .venv/
@@ -9,14 +8,11 @@ __pycache__/
 *.pyc
 
 # --- Large or downloaded data (we credit the source instead of uploading it) ---
-data/primock57/*
-!data/primock57/.gitkeep
+# PriMock57: download from https://github.com/babylonhealth/primock57 into data/primock57/
+data/primock57/
+# Dataset clips (e.g. FLEURS) stay local; our own team recordings CAN be uploaded:
 tests/clips/*
-!tests/clips/.gitkeep
-
-# --- Gradio's local cache folders ---
-.gradio/
-flagged/
+!tests/clips/recording/
 
 # --- Editor / OS clutter ---
 .vscode/

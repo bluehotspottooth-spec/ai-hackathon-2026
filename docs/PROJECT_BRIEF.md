@@ -87,7 +87,6 @@ voicebridge/
   requirements.txt
   Dockerfile
   .env              (never committed)
-  .env.example      (committed: lists the keys, no real values)
   .gitignore
   backend/
     main.py

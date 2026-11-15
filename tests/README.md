@@ -6,6 +6,7 @@
 
 | File / folder | What it is |
 |---|---|
+| **`BASELINE_COMPARISON.md`** | ⭐ **The baseline comparison in one page**: plain Gemini vs VoiceBridge, results and what they mean |
 | **`evaluate_medical.py`** | ⭐ **The medical test**: baseline vs VoiceBridge on medical sentences, all 11 languages. Results in `results/medical/` |
 | `test_set_medical.csv` | The **93 test sentences** the medical test uses (from the 17 kept-aside consultations) |
 | `make_medical_test_set.py` | Builds `test_set_medical.csv` from the kept-aside consultations |

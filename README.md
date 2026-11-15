@@ -18,7 +18,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 | `frontend/` | **Benet** | The web app people see: `voicebridge_FINAL.html` (start with `frontend/README.md`). `frontend/old_mockup/` holds the OLD first Gemini Canvas mockup (reference only) |
 | `tests/` and `data/` | **Testing teammate** | Glossary building, FLEURS + medical evaluations, results CSVs, charts |
 | `docs/` | **Everyone** | Briefs and the write-up. Say in the team chat before editing a shared doc |
-| Top level (`requirements.txt`, `.gitignore`, `.env.example`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
+| Top level (`requirements.txt`, `.gitignore`, `Dockerfile`) | **Ahmed** | Project setup. Ask Ahmed if you need a package added |
 
 ### Uploading through the GitHub website
 1. Open **your** folder on GitHub first (e.g. click `frontend`).
@@ -41,12 +41,13 @@ frontend/       The app's screens
   logo.svg      the logo
   old_mockup/   first Gemini Canvas design (credited, reference only)
 tests/          How we tested it (start with tests/README.md)
-  evaluate_medical.py      the medical test: baseline vs VoiceBridge, 11 languages
+  BASELINE_COMPARISON.md   ⭐ baseline vs VoiceBridge: results in one page
+  evaluate_medical.py      the medical test script (11 languages)
   test_set_medical.csv     the 93 test sentences (from the 17 kept-aside consultations)
   results/medical/         medical test results (tables + examples)
   results/early_checks/    first checks while building (Urdu clip, voices in all languages)
   clips/recording/         native-speaker recordings, one folder per language
-data/           PriMock57 split (40 build / 17 test), term counts
+data/           PriMock57 split (40 build / 17 test), term counts (dataset itself: download from its GitHub)
 docs/           Project brief, dev log, errors + fixes, frontend changes, explainer, write-up
   design/       the untouched AI-made original frontend (for comparison)
 Dockerfile, requirements.txt   how Render builds and runs the app
@@ -68,7 +69,7 @@ First time only:
 ```
 python -m venv .venv
 .venv\Scripts\python -m pip install -r requirements.txt
-copy .env.example .env        # then fill in GEMINI_API_KEY, ELEVENLABS_API_KEY, ACCESS_CODE
+notepad .env                  # create it with 3 lines: GEMINI_API_KEY=...  ELEVENLABS_API_KEY=...  ACCESS_CODE=...
 ```
 Also needs **ffmpeg** installed (`winget install Gyan.FFmpeg`).
 
