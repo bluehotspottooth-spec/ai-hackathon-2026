@@ -82,7 +82,7 @@ Built by Ahmed Khan. Tools and services used are credited in the README and the 
 
 ### ~15:00 · Backup-voice hard stop + dataset checking plan
 - **Backup voice hard stop:** if Google's voice hasn't answered in 15 s, the turn returns text only (details: ERRORS_AND_FIXES #28).
-- **`docs/DATASET_CHECKING_PLAN.md`:** how the testing teammate builds the glossary and tests fairly.
+- **`docs/DATASET_CHECKING_PLAN.md`:** how the testing teammate builds the glossary and tests fairly. *(Removed 15 Nov: replaced by `tests/README.md`.)*
   - **Decision: ~80–100 glossary terms, chosen by category** (frequent PriMock57 words, NHS red-flag symptoms, common UK GP medicines, words the baseline gets wrong) rather than just "the 40 most frequent". **Why:** more safety coverage, but still few enough to translate into 11 languages and check.
   - **Decision: every English term checked against SNOMED CT** (the NHS's official vocabulary), recording its ID.
   - **Decision: PriMock57 split 40 build / 17 test with a fixed random seed**, saved in `data/split.json`. **Why:** results must come from data not used to build the system.

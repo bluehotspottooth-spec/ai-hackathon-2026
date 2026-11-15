@@ -6,7 +6,7 @@ Run from the project folder, one step at a time:
   python -X utf8 tests/build_glossary.py extract   # 2. Gemini lists medical terms in the 40 BUILD consultations
   python -X utf8 tests/build_glossary.py build     # 3. choose ~80-100 terms + draft translations -> backend/glossary.json
 
-The rules (see docs/DATASET_CHECKING_PLAN.md):
+The rules (see tests/README.md):
   - Terms come ONLY from the 40 BUILD consultations. The 17 TEST ones are for testing.
   - Translations are drafted by AI and marked verified=false until a native speaker checks them.
   - SNOMED CT IDs are left empty: a person looks each one up on termbrowser.nhs.uk.

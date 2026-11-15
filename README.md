@@ -94,7 +94,7 @@ The app runs on **Render** (free web service), built from this repo with the `Do
 ## Documentation
 - `docs/DEV_LOG.md`: what we built, when, and **why** each decision was made
 - `docs/ERRORS_AND_FIXES.md`: every error and fix, plus the **known issues and limitations** table
-- `docs/DATASET_CHECKING_PLAN.md`: how the glossary was built and how we test fairly
+- `tests/README.md`: how the glossary was built and how we tested fairly
 - `docs/PROJECT_BRIEF.md`: the full project brief and API contract
 
 ## Credits

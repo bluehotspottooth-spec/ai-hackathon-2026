@@ -81,7 +81,7 @@ voicebridge/
   README.md         (includes "who works where")
   docs/
     PROJECT_BRIEF.md (this file)
-    DEV_LOG.md, ERRORS_AND_FIXES.md, DATASET_CHECKING_PLAN.md, FRONTEND_CHANGES.md
+    DEV_LOG.md, ERRORS_AND_FIXES.md, FRONTEND_CHANGES.md, EXPLAINED_FOR_JUDGES.md
     design/voicebridge_ORIGINAL.html  (AI-made original frontend, never edited)
     Submission for Hackathon.docx     (write-up)
   requirements.txt

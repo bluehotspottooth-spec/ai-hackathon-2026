@@ -55,14 +55,14 @@ For **each of the 93 sentences** and **each of our 11 languages** (1,023 pairs),
 | **VoiceBridge** | Our full GP interpreter rules + script rules + our medical glossary (the same instructions as the live app) |
 
 Then each pair is scored three ways:
-1. **Blind AI judge (main score).** A different, stronger model (`gemini-4-hydrogen`) sees the English and the two translations in **random order** as "A" and "B". It is never told which one is ours. For each, it says whether the **medical term is translated correctly**, gives an **accuracy score from 1 to 5** (negations, numbers, doses, body parts, anything added or missing), writes a note on any error, and picks the better one or a tie.
+1. **Blind AI judge (main score).** A different model (`gemini-3.1-flash-lite`) sees the English and the two translations in **random order** as "A" and "B". It is never told which one is ours. For each, it says whether the **medical term is translated correctly**, gives an **accuracy score from 1 to 5** (negations, numbers, doses, body parts, anything added or missing), writes a note on any error, and picks the better one or a tie.
 2. **Numbers kept:** every number in the English (e.g. *500*, *3*) must appear in the translation (in any script's digits).
 3. **Glossary match:** does the translation use our glossary's word? This is only a consistency check: VoiceBridge is *given* the glossary, so it should score higher here.
 
 **What this test does NOT cover (honest limits):**
 - **Text only:** it tests the translation step, not speech recognition. The live app also hears the audio.
 - **English → patient language only:** PriMock57 is in English. The other direction needs recordings by native speakers (`clips/recording/`).
-- **The judge is an AI, not a native speaker.** Native speakers should check a sample of `results/medical/all_translations.csv`. Also, `gemini-4-hydrogen` drafted our glossary translations, so it might slightly favour glossary words.
+- **The judge is an AI, not a native speaker.** Native speakers should check a sample of `results/medical/all_translations.csv`. The judge is also a small, fast model: we first tried the stronger `gemini-4-hydrogen`, but it needed ~55 s per pair (about 3 hours for the full test), too slow before the deadline. So treat the judge's scores as a first check.
 - **Our glossary translations are AI-drafted and not yet checked** by native speakers.
 - It doesn't test the safety features that only work on audio (noise check, "never invent", unclear words) or urgent flags. Those were tested by hand (see `docs/ERRORS_AND_FIXES.md`).
 
@@ -71,7 +71,7 @@ Then each pair is scored three ways:
 From the `voicebridge` folder (uses the Gemini key in `.env`; no ElevenLabs credits):
 
 ```
-.venv\Scripts\python -X utf8 tests\evaluate_medical.py                         # everything (~30-40 min)
+.venv\Scripts\python -X utf8 tests\evaluate_medical.py                         # everything (1-3 hours: Google limits how fast we can call it)
 .venv\Scripts\python -X utf8 tests\evaluate_medical.py --langs ur,ar --limit 5   # quick trial
 ```
 
