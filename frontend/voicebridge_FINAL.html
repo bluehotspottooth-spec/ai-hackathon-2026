@@ -17,8 +17,11 @@
   Read frontend/README.md first: what you can change, what must stay
   the same so it connects to Ahmed's backend, and how to connect it.
   ===============================================================
-  VoiceBridge interactive prototype (multi-page). Demo mode by default.
-  USE_MOCK = false + served by the backend (main.py serves this file at "/") = real API, mic and voices.
+  VoiceBridge interactive prototype (multi-page).
+  Mode is chosen AUTOMATICALLY (see USE_MOCK in the script):
+    - on our own server (localhost or the live *.onrender.com link) -> real API, mic and voices
+    - anywhere else (double-clicked file, previews) -> demo mode (scripted, no server needed)
+    - add ?demo to the address to force demo mode anywhere
   Pages (hash links): #home #how #languages #safety #about, app flow: #start #choose #consult #summary
 -->
 <style>
@@ -747,7 +750,11 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
 
 <script>
 /* ===================== SETTINGS ===================== */
-const USE_MOCK = true;           // false = real backend (serve through the backend)
+// Real backend ONLY on our own servers: this laptop (localhost) or the live site on Render
+// (or Hugging Face). Anywhere else (double-clicked file, previews, the claude.ai demo link)
+// it's demo mode. Add ?demo to the address to force demo mode. (Was a manual true/false switch.)
+const OUR_SERVER = /^(localhost|127\.0\.0\.1)$|\.onrender\.com$|\.hf\.space$/.test(location.hostname);
+const USE_MOCK = !OUR_SERVER || new URLSearchParams(location.search).has("demo");
 const MAX_SECONDS = 60, MIN_SECONDS = 0.5, HOLD_MS = 350;
 
 const LANGS = [

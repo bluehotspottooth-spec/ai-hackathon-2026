@@ -21,7 +21,7 @@
 
 Double-click `frontend/voicebridge_FINAL.html` (or in PowerShell, from the `voicebridge` folder: `start frontend\voicebridge_FINAL.html`).
 
-It opens in **demo mode** (`USE_MOCK = true`): scripted answers, no microphone, no server.
+It opens in **demo mode**: scripted answers, no microphone, no server. (The page decides by itself: demo mode everywhere except on our own server, i.e. `localhost` or the live Render link. Add `?demo` to any address to force demo mode.)
 - Any access code works (type `wrong` to see the error)
 - On the appointment screen, **tap** a mic button to start and tap again to send, or press **Play the whole demo**
 
@@ -53,10 +53,10 @@ Tip: after each change, reload the page and run **Play the whole demo**. If the 
 
 ## 4. Connect it to the real backend (about 30 minutes)
 
-Already tested by Ahmed and Claude: with `USE_MOCK = false` it worked first time with the real backend (session, Urdu → English and English → Urdu turns in about 5 s each with spoken audio, urgent banner, summary, appointment deleted at the end).
+Already tested by Ahmed and Claude: with the real backend it worked first time with the real backend (session, Urdu → English and English → Urdu turns in about 5 s each with spoken audio, urgent banner, summary, appointment deleted at the end).
 
 1. Get the latest code: `git pull`
-2. In `voicebridge_FINAL.html`, find `const USE_MOCK = true;` and change it to **`false`**
+2. Nothing to switch: the page uses the real backend automatically when it's opened from our server (step 4)
 3. Ahmed (or you, with the `.env` keys) starts the backend from the `voicebridge` folder:
    ```
    .venv\Scripts\python -X utf8 -m uvicorn backend.main:app --reload --port 8000
@@ -64,7 +64,7 @@ Already tested by Ahmed and Claude: with `USE_MOCK = false` it worked first time
 4. Open **http://localhost:8000** in **Chrome** (not by double-clicking the file: the real API only works through the server)
 5. Enter the real access code (from Ahmed's `.env`), pick a language, allow the microphone, and talk
 
-**Microphone rules:** it only works on `http://localhost` or an `https://` site. Phones need the deployed Hugging Face link, so phone testing comes after deployment.
+**Microphone rules:** it only works on `http://localhost` or an `https://` site. Phones need the deployed Render link, so phone testing comes after deployment.
 
 ### Checklist once connected
 - [ ] Wrong code shows the error; right code starts an appointment
@@ -80,7 +80,7 @@ Already tested by Ahmed and Claude: with `USE_MOCK = false` it worked first time
 | Step | Time |
 |---|---|
 | Your design tweaks | as long as you want (keep it to 1–2 h: feature freeze is **Sunday 1 PM**) |
-| Flip `USE_MOCK`, run, first real turn | 10–15 min |
+| Start the backend, first real turn | 10–15 min |
 | Test all the checklist items on a laptop | 20–30 min |
 | Phone testing after deployment (iPhone audio can need a tap) | 30–60 min |
 

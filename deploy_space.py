@@ -1,5 +1,9 @@
 """
-deploy_space.py: builds the folder we push to our Hugging Face Space.
+deploy_space.py: builds the folder we push to a Hugging Face Space.
+
+NOTE (15 Nov): NOT USED. Hugging Face now charges for Docker Spaces (PRO, $9/month),
+so we deploy on Render's free plan instead, straight from GitHub (see DEV_LOG).
+Kept in case we ever move to Hugging Face.
 
 Why a separate folder? Hugging Face only needs the app (backend/, frontend/,
 Dockerfile, requirements.txt), and it REJECTS pushes containing binary files
@@ -8,8 +12,7 @@ just the app into ../voicebridge-space (a separate Git repo linked to the Space)
 
 What it does, each time you run it:
   1. Replaces the app files in ../voicebridge-space with fresh copies.
-  2. Switches the frontend to the real backend (USE_MOCK = false) IN THE COPY ONLY.
-     The GitHub version stays in demo mode, so double-clicking it still works.
+  2. (The frontend picks demo or real mode by itself, so nothing to switch.)
   3. Writes the Space's README.md: Hugging Face reads its settings from the top
      (sdk: docker, app_port: 7860).
 API keys are NOT copied (.env stays on this laptop). The Space gets them from
@@ -80,12 +83,7 @@ def main():
     for name in FRONTEND_FILES:
         shutil.copy2(HERE / "frontend" / name, SPACE / "frontend" / name)
 
-    # 2. Real backend in the deployed copy
-    page = SPACE / "frontend" / "voicebridge_FINAL.html"
-    html = page.read_text(encoding="utf-8")
-    if "const USE_MOCK = true;" not in html:
-        raise SystemExit("Couldn't find 'const USE_MOCK = true;' in the frontend. Stopped, nothing deployed.")
-    page.write_text(html.replace("const USE_MOCK = true;", "const USE_MOCK = false;", 1), encoding="utf-8")
+    # 2. (No change needed: the page switches to the real backend by itself when served online.)
 
     # 3. The Space's README (settings at the top)
     (SPACE / "README.md").write_text(README, encoding="utf-8")
@@ -98,7 +96,6 @@ def main():
     files = sorted(str(p.relative_to(SPACE)) for p in SPACE.rglob("*") if p.is_file() and ".git" not in p.parts)
     print(f"Space folder ready: {SPACE}")
     print("\n".join("  " + f for f in files))
-    print("Frontend set to the real backend (USE_MOCK = false) in this copy only.")
 
 
 if __name__ == "__main__":

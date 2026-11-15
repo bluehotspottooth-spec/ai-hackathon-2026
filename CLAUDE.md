@@ -13,7 +13,7 @@ Read this whole file before doing anything. It is the single source of truth for
 1. Work in **small steps**. Do one step, run it, show the result, then stop and wait for us to say "next".
 2. After writing each file or function, **explain in plain English** what it does and why. We must be able to explain every part to judges in a live Q&A.
 3. **Ask before** installing packages, deleting anything, or changing the API contract (section 6).
-4. Never put API keys in code. Keys live in `.env` (which must be in `.gitignore` before the first commit) and in Hugging Face Secrets when deployed.
+4. Never put API keys in code. Keys live in `.env` (which must be in `.gitignore` before the first commit) and in the host's secret settings (Render "Environment") when deployed.
 5. **Commit to Git after every working step** with a clear message. Our commit history is our evidence that everything was built during the hackathon.
 6. Check the **current official docs** for model names and SDK usage (Gemini, ElevenLabs) rather than guessing. Tell us which model you chose and why.
 7. Prefer simple, readable code over clever code. Add short comments.
@@ -65,8 +65,9 @@ Browser: frontend/voicebridge_FINAL.html (HTML/CSS/JS, records the mic)
    ├─ voice.py     text-to-speech (ElevenLabs multilingual; fallback Gemini TTS); optional cloning
    └─ sessions.py  in-memory sessions, access code, turn limit
                   ▼
-Hosted on Hugging Face Spaces (Docker, port 7860): one FastAPI app serves both the
+Hosted on Render (free web service, Docker): one FastAPI app serves both the
 frontend page and the /api endpoints, so one public link does everything.
+(Planned: Hugging Face Spaces. Changed 15 Nov: Docker Spaces now need a paid plan.)
 ```
 
 **Decision (final): the frontend is HTML/CSS/JS**: `frontend/voicebridge_FINAL.html` (guide: `frontend/README.md`), refined by the team from the AI-made original (`docs/design/voicebridge_ORIGINAL.html`, Git tag `ai-original-mock`; every change logged in `docs/FRONTEND_CHANGES.md`). It talks to the `/api` endpoints in section 6 and is served by `main.py`. History: we briefly planned Gradio (dropped 15 Nov), and a first Gemini Canvas mockup is kept in `frontend/old_mockup/` for reference.
@@ -174,8 +175,8 @@ Build in this order. Each phase ends with a milestone that must work before movi
 - Optional voice cloning with consent.
 
 **A8. Deploy**
-- `Dockerfile`: Python 3.12 slim, install ffmpeg via apt, install requirements, run uvicorn on port 7860.
-- Hugging Face Space (Docker SDK); keys in Space Secrets.
+- `Dockerfile`: Python 3.12 slim, install ffmpeg via apt, install requirements, run uvicorn on the host's `PORT` (7860 if none).
+- Render web service (free plan, Docker) built from the GitHub repo; keys in Render's Environment settings. (Hugging Face was the plan, but its Docker Spaces now need the paid PRO plan.)
 - **Milestone 5:** the public link works on a phone (mic permission, a full conversation, access code, limit).
 
 ### PART B: Frontend / UI (Benet, HTML/CSS/JS)
@@ -183,7 +184,7 @@ Build in this order. Each phase ends with a milestone that must work before movi
 **The guide is `frontend/README.md`.** Summary:
 - One file, `frontend/voicebridge_FINAL.html`: info pages (Home, How it works, Languages, Safety, About) + the appointment flow (access code → language → appointment → summary).
 - Tap-or-hold mic buttons, chat-bubble transcript, pinned urgent banner, unclear-word, noise and language warnings, summary.
-- `USE_MOCK = true` = scripted demo; `false` = real backend.
+- Demo or real mode is automatic (`USE_MOCK`): real backend only on our own server (localhost or the live Render link), scripted demo everywhere else; `?demo` forces demo mode.
 - Changes from the AI-made original are logged in `docs/FRONTEND_CHANGES.md`.
 - Footer line: "This project is a prototype and is not medical advice."
 

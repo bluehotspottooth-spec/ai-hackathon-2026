@@ -26,7 +26,7 @@ Built for the Veritas AI International High School Hackathon 2026 (AI + Language
 3. Write a clear message describing what you changed (not just "Add files via upload").
 
 ### Never upload
-- `.env` or any API key: keys stay on Ahmed's machine and in Hugging Face Secrets
+- `.env` or any API key: keys stay on Ahmed's machine and in Render's secret settings
 - Big datasets (we link to them and credit them instead)
 
 ---
@@ -44,7 +44,7 @@ tests/          Testing teammate: evaluation scripts
 data/           Testing teammate: datasets and term counts
 docs/           Briefs, write-up (Submission for Hackathon.docx), dev log, errors + known issues
 CLAUDE.md       Full project brief (single source of truth)
-Dockerfile      Recipe for running the app on Hugging Face (later)
+Dockerfile      Recipe for running the app online (Render)
 ```
 
 ## How VoiceBridge works (one turn)
@@ -78,8 +78,9 @@ Translate one file from the terminal, without the server:
 .venv\Scripts\python -X utf8 -m backend.pipeline tests\clips\your_recording.m4a --from en --to ur
 ```
 
-## Deploying (later)
-`Dockerfile` is ready for a Hugging Face **Docker Space** (port 7860). The keys go in the Space's **Settings → Secrets**, never in the code.
+## Deploying
+The app runs on **Render** (free web service), built from this repo with the `Dockerfile`. The keys go in Render's **Environment** settings, never in the code. On the free plan the app sleeps after 15 minutes without visitors, so the first visit then takes about a minute to load.
+(We planned Hugging Face Spaces, but Docker Spaces now need a paid plan. `deploy_space.py` is kept in case we move there.)
 
 ## Documentation
 - `docs/DEV_LOG.md`: what we built, when, and **why** each decision was made
