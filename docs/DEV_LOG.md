@@ -148,11 +148,15 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Decision (team):** the NEW MOCK (v2) becomes the main frontend. Benet refines it (layout, mic button size, visual polish, a logo), and then it's connected to the backend and deployed.
 - **How we keep it honest:** the AI-generated original stays untouched in `docs/design/voicebridge_premium_mockup.html` and is bookmarked with the Git tag **`ai-original-mock`**. Every team change goes into **`docs/FRONTEND_CHANGES.md`** (what, why, who, commit), and the GitHub compare view shows the exact difference.
 
+### Afternoon · Frontend made clearer (changes #1–#11 in FRONTEND_CHANGES.md)
+- Files renamed to `voicebridge_ORIGINAL.html` (AI original, in `docs/design/`) and `frontend/voicebridge_FINAL.html` (ours); the backend serves FINAL at `/`.
+- Logo, bigger centred mic buttons, focus mode, new teal + apricot colours, an animated home demo, a sound-wave ring while recording.
+- **Live caption spotlight (#11):** the newest translation is shown big at the top, older ones in an "Earlier in this appointment" list. **Why:** the phone sits on the desk between the GP and the patient, so the latest sentence must be readable from across the desk. Tested with the full demo at laptop and phone size.
+
 ---
 
 ## Next
-- UI teammate: design tweaks to `frontend/index.html`, then test with a real microphone in Chrome.
-- Deploy to Hugging Face, then test on phones.
+- Benet: design tweaks to `frontend/voicebridge_FINAL.html`, then test with a real microphone in Chrome (`USE_MOCK = false`).
 - Deploy to Hugging Face once the frontend is ready (Ahmed: make an HF account and Space; add 3 secrets).
 - Evaluation scripts (C2 FLEURS, C3 medical baseline vs VoiceBridge).
 - Fetch the FLEURS English references once Hugging Face's service is back.

@@ -252,7 +252,28 @@ body[data-view="consult"] .logo{pointer-events:none}
 .urgent-banner{display:flex;align-items:flex-start;gap:12px;margin-top:12px;background:var(--urgent-soft);border:1px solid var(--urgent-line);color:var(--urgent);padding:12px 14px;border-radius:14px}
 .urgent-banner b{display:block}
 .urgent-banner .x{margin-left:auto;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;color:var(--urgent)}
-.thread{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px;padding-block:20px 24px;min-height:42vh}
+.thread{max-width:860px;margin:0 auto;display:flex;flex-direction:column;gap:14px;padding-block:16px 24px}
+.thread:has(#empty){min-height:42vh}
+/* Live caption spotlight (team change #11) */
+.spotlight{max-width:860px;margin:18px auto 0;background:var(--surface);border:1.5px solid var(--line);border-radius:24px;padding:18px 22px 14px;box-shadow:var(--shadow);animation:rise .25s ease-out}
+.spotlight.doctor{border-color:var(--doc-line)}
+.spotlight.patient{border-color:var(--pat-line)}
+.spot-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-3)}
+.spot-who{font-weight:700}
+.spotlight.doctor .spot-who{color:var(--doc)}
+.spotlight.patient .spot-who{color:var(--pat)}
+.spot-for{padding:2px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);font-weight:700;color:var(--ink-2)}
+.spot-time{margin-left:auto;font-variant-numeric:tabular-nums}
+.spot-text{margin-top:10px;font-family:var(--display);font-weight:700;font-size:clamp(24px,3.4vw,36px);line-height:1.3;letter-spacing:-.01em;color:var(--ink)}
+.spot-text[dir="rtl"]{font-family:var(--rtl);font-weight:600;line-height:2;font-size:clamp(26px,3.8vw,40px);letter-spacing:0}
+.spot-original{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line-2);font-size:16px;color:var(--ink-2)}
+.spotlight .flags{margin-top:12px}
+.spot-actions{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap}
+.note-slot{max-width:860px;margin:12px auto 0;display:flex;justify-content:center}
+.note-slot:empty{display:none}
+.earlier{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);padding-top:6px;border-top:1px solid var(--line)}
+.thread .msg .translation{font-size:16.5px}
+.thread .msg .translation[dir="rtl"]{font-size:18px}
 .empty{margin:auto;text-align:center;max-width:460px;padding:28px 8px;color:var(--ink-2);display:grid;gap:10px;justify-items:center}
 .empty-art{width:80px;height:80px;border-radius:24px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
 .empty-art .icon{width:38px;height:38px;stroke-width:1.6}
@@ -634,7 +655,12 @@ mark.unclear{background:var(--warn-soft);color:inherit;text-decoration:underline
       <button class="x" id="urgent-x" aria-label="Dismiss urgent alert"><svg class="icon"><use href="#i-x"/></svg></button>
     </div>
   </div></div>
-  <div class="wrap"><div class="thread" id="thread" aria-live="polite"></div></div>
+  <div class="wrap">
+    <!-- Live caption spotlight (team change #11): the newest translation, large, for the listener -->
+    <section class="spotlight" id="spotlight" hidden aria-live="polite" aria-label="Latest translation"></section>
+    <div class="note-slot" id="note-slot" aria-live="polite"></div>
+    <div class="thread" id="thread"></div>
+  </div>
   <div class="dock">
     <div class="wrap dock-buttons">
       <button class="speak doctor" id="btn-doctor" aria-label="Doctor: hold or tap to speak English">
@@ -856,43 +882,87 @@ async function startSession(autoplay){
 }
 
 /* ===================== CONSULT: THREAD ===================== */
-function scrollThread(){ requestAnimationFrame(()=>window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"})); }
+/* Team change #11: the newest message is shown large in the spotlight at the top, so scroll there */
+function scrollThread(){ requestAnimationFrame(()=>window.scrollTo({top:0,behavior:"smooth"})); }
 function showEmpty(){
   const t=$("thread"); t.innerHTML="";
+  state.spot=null; $("spotlight").hidden=true; $("spotlight").innerHTML=""; $("note-slot").innerHTML="";
   const e=el("div","empty"); e.id="empty";
   // Team change #5: shorter empty screen, one clear instruction instead of a 3-step list
   e.innerHTML=`<div class="empty-art">${icon("mic")}</div><h2>Ready when you are</h2><p>Tap your button below, speak, then tap again. The other person hears the translation.</p>`;
   t.append(e);
 }
 function updateTurns(){ const c=$("turns"); c.innerHTML=`${Number(state.turnsLeft)} <span class="tl">turn${state.turnsLeft===1?"":"s"} </span>left`; c.classList.toggle("low",state.turnsLeft<=5); }
-function note(text,isError){ $("empty")?.remove(); const n=el("div","note"+(isError?" error":"")); n.innerHTML=icon(isError?"alert":"chat"); n.append(document.createTextNode(text)); $("thread").append(n); scrollThread(); }
-function typing(role){ $("empty")?.remove(); const m=el("div",`msg ${role}`); m.id="typing"; m.innerHTML=`<div class="typing"><span class="dots"><i></i><i></i><i></i></span>Translating</div>`; $("thread").append(m); scrollThread(); }
+/* Short status lines ("Translating…", "please say it again", errors) go in ONE slot under the
+   spotlight, replacing each other, instead of piling up in the conversation. */
+function note(text,isError){ const n=el("div","note"+(isError?" error":"")); n.innerHTML=icon(isError?"alert":"chat"); n.append(document.createTextNode(text)); $("note-slot").replaceChildren(n); scrollThread(); }
+function typing(role){
+  const who=role==="doctor"?"the doctor":"the patient";
+  const m=el("div","typing"); m.id="typing"; m.innerHTML=`<span class="dots"><i></i><i></i><i></i></span>`;
+  m.append(document.createTextNode(`Translating what ${who} said…`));
+  $("note-slot").replaceChildren(m); scrollThread();
+}
 function highlight(box,text,words){
   if(!words.length){ box.append(document.createTextNode(text)); return; }
   const esc=words.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
   text.split(new RegExp(`(${esc.join("|")})`,"g")).forEach(p=>{ if(words.includes(p)) box.append(el("mark","unclear",p)); else if(p) box.append(document.createTextNode(p)); });
 }
 function flag(cls,ic,text){ const f=el("span","flag "+cls); f.innerHTML=icon(ic); f.append(document.createTextNode(text)); return f; }
+/* Team change #11: a new message goes into the SPOTLIGHT (big, at the top). The message that was
+   there before moves down into the "Earlier in this appointment" list (newest first). */
 function addMessage(role,d){
-  $("typing")?.remove(); $("empty")?.remove();
+  $("typing")?.remove(); $("empty")?.remove(); $("note-slot").innerHTML="";
+  if(state.spot){
+    const t=$("thread");
+    t.prepend(buildMessage(state.spot.role,state.spot.d));
+    let label=$("earlier"); if(!label){ label=el("div","earlier","Earlier in this appointment"); label.id="earlier"; }
+    t.prepend(label);
+  }
+  state.spot={role,d};
+  renderSpotlight(role,d);
+  scrollThread();
+  if((d.urgent_terms||[]).length){ d.urgent_terms.forEach(u=>state.urgent.add(u)); $("urgent-list").textContent=" "+[...state.urgent].join(" · "); $("urgent-banner").hidden=false; }
+}
+function messageFlags(role,d){
+  const expected=role==="doctor"?"en":state.lang.code;
+  const fl=el("div","flags");
+  (d.urgent_terms||[]).forEach(u=>fl.append(flag("urgent","alert",u)));
+  if(d.detected_language!==expected) fl.append(flag("warn","globe",`Heard ${LANG_NAME[d.detected_language]||d.detected_language}, not ${LANG_NAME[expected]}`));
+  if((d.unclear_words||[]).length||d.speech_clarity==="partly_unclear") fl.append(flag("warn","alert","Some words may be misheard"));
+  if(d.noisy) fl.append(flag("warn","noise","Background noise"));
+  return fl;
+}
+function messageActions(role,d){
+  const acts=el("div","msg-actions");
+  const replay=el("button","link-btn"); replay.innerHTML=`${icon("play")}Replay`; replay.onclick=()=>speakOut(d); acts.append(replay);
+  const redo=el("button","link-btn"); redo.innerHTML=`${icon("redo")}Not what I said`; redo.onclick=()=>{ note(`${role==="doctor"?"Doctor":"Patient"}: please say it again.`); $(`btn-${role}`).focus(); }; acts.append(redo);
+  return acts;
+}
+function renderSpotlight(role,d){
+  const s=$("spotlight"); s.className=`spotlight ${role}`; s.hidden=false; s.innerHTML="";
+  const listener=role==="doctor"?`For the patient, in ${LANG_NAME[d.target_language]||d.target_language}`:"For the doctor, in English";
+  const top=el("div","spot-top");
+  top.append(el("span","spot-who",role==="doctor"?"Doctor said":`Patient said (${state.lang.english})`), el("span","spot-for",listener),
+             el("span","spot-time",`${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · ${d.timings.total.toFixed(1)} s`));
+  const text=el("p","spot-text",d.translation); setDir(text,d.target_language);
+  const o=el("div","spot-original"); setDir(o,d.detected_language);
+  const lab=el("span","original-label",`Said in ${LANG_NAME[d.detected_language]||d.detected_language}`); lab.dir="ltr"; o.append(lab); highlight(o,d.original_text,d.unclear_words||[]);
+  s.append(top,text,o);
+  const fl=messageFlags(role,d); if(fl.childElementCount) s.append(fl);
+  const acts=messageActions(role,d); acts.className="spot-actions"; s.append(acts);
+}
+function buildMessage(role,d){
   const expected=role==="doctor"?"en":state.lang.code;
   const m=el("article",`msg ${role}`); const meta=el("div","msg-meta");
   meta.append(el("span","who",role==="doctor"?"Doctor":`Patient · ${state.lang.english}`), el("span","",new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})), el("span","",`${d.timings.total.toFixed(1)} s`));
   m.append(meta);
   const b=el("div","bubble"); const tr=el("div","translation",d.translation); setDir(tr,d.target_language); b.append(tr);
   const o=el("div","original"); setDir(o,d.detected_language); const lab=el("span","original-label",`Said in ${LANG_NAME[d.detected_language]||d.detected_language}`); lab.dir="ltr"; o.append(lab); highlight(o,d.original_text,d.unclear_words||[]); b.append(o);
-  const fl=el("div","flags");
-  (d.urgent_terms||[]).forEach(u=>fl.append(flag("urgent","alert",u)));
-  if(d.detected_language!==expected) fl.append(flag("warn","globe",`Heard ${LANG_NAME[d.detected_language]||d.detected_language}, not ${LANG_NAME[expected]}`));
-  if((d.unclear_words||[]).length||d.speech_clarity==="partly_unclear") fl.append(flag("warn","alert","Some words may be misheard"));
-  if(d.noisy) fl.append(flag("warn","noise","Background noise"));
+  const fl=messageFlags(role,d);
   if(fl.childElementCount) b.append(fl);
   m.append(b);
-  const acts=el("div","msg-actions");
-  const replay=el("button","link-btn"); replay.innerHTML=`${icon("play")}Replay`; replay.onclick=()=>speakOut(d); acts.append(replay);
-  const redo=el("button","link-btn"); redo.innerHTML=`${icon("redo")}Not what I said`; redo.onclick=()=>{ note(`${role==="doctor"?"Doctor":"Patient"}: please say it again.`); $(`btn-${role}`).focus(); }; acts.append(redo);
-  m.append(acts); $("thread").append(m); scrollThread();
-  if((d.urgent_terms||[]).length){ d.urgent_terms.forEach(u=>state.urgent.add(u)); $("urgent-list").textContent=" "+[...state.urgent].join(" · "); $("urgent-banner").hidden=false; }
+  m.append(messageActions(role,d));
+  return m;
 }
 $("urgent-x").onclick=()=>$("urgent-banner").hidden=true;
 function speakOut(d){
