@@ -8,6 +8,8 @@
 | **`README.md`** | ✅ **NEW MOCK (v2)**: this guide |
 | `old_mockup/` | ❌ The OLD first mockup from Gemini Canvas. Reference only, don't edit |
 
+> **Team decision (15 Nov):** this mock is our main frontend. The AI-made original stays untouched in `docs/design/` (Git tag `ai-original-mock`). **Write down every change you make, and why, in [`docs/FRONTEND_CHANGES.md`](../docs/FRONTEND_CHANGES.md).** That's our evidence of what we added ourselves.
+
 `frontend/index.html` is the **whole frontend in one file** (HTML + CSS + JavaScript). It's the clickable prototype, already wired to our backend. Your job: **make it yours** (small design changes, wording, polish), **then switch it to the real backend** and test it with a real microphone.
 
 > Live demo of the same design (Ahmed can share it): a private claude.ai link from the team.

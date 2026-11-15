@@ -142,6 +142,12 @@ Built by Ahmed Khan with **Claude Code** (AI coding assistant), as allowed by th
 - **Connection tested end to end** (temporary copy with `USE_MOCK = false`, served by the backend): real session, Urdu → English turn **5.1 s** and English → Urdu turn **5.5 s** with spoken audio, urgent banner, summary in both languages, and the appointment deleted afterwards (turn after ending → 404). **No code changes were needed to connect.** Not tested: a real microphone (the test browser blocks it) and phones.
 - Two backend prompt fixes verified or added along the way: questions no longer raise urgent alerts, and the summary no longer adds "severe" (ERRORS_AND_FIXES #35, #36).
 
+## Sunday 15 November 2026
+
+### ~13:20 · Team decision: the new mock is our frontend
+- **Decision (team):** the NEW MOCK (v2) becomes the main frontend. Benet refines it (layout, mic button size, visual polish, a logo), and then it's connected to the backend and deployed.
+- **How we keep it honest:** the AI-generated original stays untouched in `docs/design/voicebridge_premium_mockup.html` and is bookmarked with the Git tag **`ai-original-mock`**. Every team change goes into **`docs/FRONTEND_CHANGES.md`** (what, why, who, commit), and the GitHub compare view shows the exact difference.
+
 ---
 
 ## Next
